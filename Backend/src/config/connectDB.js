@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+const logger = require("./logger");
+
 const mogodb = process.env.MONGODB_URL.replace(
     `<username>`,
     process.env.MONGODB_USERNAME
@@ -11,10 +13,10 @@ const connectDB = () => {
             useNewUrlParser: true,
         })
         .then(() => {
-            console.log("connect database successfully");
+            logger.info("Connected to database success !");
         })
         .catch((err) => {
-            console.log(err);
+            logger.error(err);
         });
 };
 
