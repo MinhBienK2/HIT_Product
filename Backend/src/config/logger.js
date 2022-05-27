@@ -13,6 +13,9 @@ const logger = winston.createLogger({
     enumerateErrorFormat,
     level: (process_env_NODEENV = "development" ? "debug" : "info"),
     format: winston.format.combine(
+        winston.format.timestamp({
+            format: 'YYYY-MM-DD HH:mm:ss'
+          }),
         (process_env_NODEENV = "development"
             ? winston.format.colorize()
             : winston.format.uncolorize()),
