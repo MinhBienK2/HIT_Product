@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 import validator from "validator";
 import bcrypt from "bcrypt";
+import ejs from "ejs";
+const path = require("path");
+const { sendMail } = require("../services/sendMail.service");
+// const dateFormat = require("dateformat");
 
 const userSchema = new mongoose.Schema(
     {
@@ -16,6 +20,7 @@ const userSchema = new mongoose.Schema(
             type: String,
             required: [true, "Email is required"],
             unique: [true, "Email already exists"],
+            sparse: true,
             trim: true,
             lowercase: true,
             validate: [validator.isEmail, "Invalid email"],
@@ -42,9 +47,6 @@ const userSchema = new mongoose.Schema(
             enum: ["user", "admin"],
             default: "user",
         },
-        changePasswordAt: {
-            type: Date,
-        },
         phoneNumber: {
             type: String,
             validate: {
@@ -54,6 +56,7 @@ const userSchema = new mongoose.Schema(
             },
             // validate: [validator.isMobilePhone, "is not a valid phone number!"],
         },
+        avatar: String,
         gender: {
             type: String,
             enum: ["male", "female"],
@@ -86,26 +89,68 @@ const userSchema = new mongoose.Schema(
         },
         majoy: String,
         friendships: [mongoose.Schema.Types.ObjectId],
+        facebookId: String,
         resetPasswordToken: String,
         resetPasswordExpire: Date,
+        changePasswordAt: Date,
+        createdAt: {
+            type: Date,
+            default: Date.now(),
+        },
+        updatedAt: {
+            type: Date,
+            default: Date.now(),
+        },
     },
     {
-        timestamps: true,
+        timestamps: false,
     }
 );
+userSchema.pre("save", async function (next) {
+    if (!this.isModified("password")) return next();
+    this.password = await bcrypt.hash(this.password, 12);
+    this.confirmPassword = undefined;
+    return this;
+});
 
-userSchema.methods.isPasswordMatch = async function (password) {
-    const user = this;
-    return bcrypt.compare(password, user.password);
-  };
+userSchema.methods.correctPassword = async function (
+    password,
+    comparePassword
+) {
+    return await bcrypt.compare(password, comparePassword);
+};
 
-userSchema.pre('save', async function (next) {
-    const user = this;
-    if (user.isModified('password')) {
-      user.password = await bcrypt.hash(user.password, 8);
+userSchema.methods.changePasswordAfter = function (JWTTimestamp) {
+    if (this.changePasswordAt) {
+        const changeTimestamp = parseInt(
+            this.changePasswordAt.getTime() / 1000,
+            10
+        );
+        return JWTTimestamp < changeTimestamp;
     }
-    next();
-  });
+    return false;
+};
+
+userSchema.methods.autoSendBirthday = async function () {
+    try {
+        const html = await ejs.renderFile(
+            path.join(__dirname, `/../views/emails/sendBirthday.ejs`),
+            {
+                name: `${this.firstName} ${this.lastName}`,
+                avatar: this.avatar,
+            }
+        );
+        if (!this.email) return;
+        sendMail({
+            from: `GARRICK`,
+            to: this.email,
+            subject: "happe birthday",
+            html,
+        });
+    } catch (err) {
+        console.log(err);
+    }
+};
 
 const User = mongoose.model("Users", userSchema);
 
