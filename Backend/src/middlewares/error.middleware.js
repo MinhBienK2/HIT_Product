@@ -1,6 +1,6 @@
 const httpStatus = require("http-status");
 
-const errorController = require("../controllers/error.controller");
+const { errorController } = require("../controllers");
 
 const handleError = (err, req, res, next) => {
     let error = { ...err };
