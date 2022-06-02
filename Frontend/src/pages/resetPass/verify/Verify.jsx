@@ -1,11 +1,10 @@
 import React from 'react';
-import logo from '../../assets/images/Logo.png';
-import onlineWord from '../../assets/images/Online world-amico 1.png';
-// import facebook from '../../assets/icons/facebook-icon.svg';
-import './ForgetPass.scss'
+import logo from '../../../assets/images/Logo.png';
+import onlineWord from '../../../assets/images/Online world-amico 1.png';
+import './Verify.scss'
 import {useNavigate} from 'react-router-dom'
 
-function ForgetPass() {
+function Verify() {
 
 
     const navigate = useNavigate();
@@ -16,10 +15,6 @@ function ForgetPass() {
 
     const handleSignup=()=>{
         navigate('/Signup')
-    }
-
-    const handleChoice=()=>{
-        navigate('/Choice')
     }
 
     return (
@@ -42,15 +37,22 @@ function ForgetPass() {
                     <div className="login__main-left">
                         <img src={onlineWord} alt="" />
                     </div>
-                    <div className="forgetPass__main-right">
-                        <div className="forgetPass__main-right-outer">
-                            <div className="forgetPass__main-right-outer-forget">Quên mật khẩu</div>
-                            <p className="forgetPass__main-right-outer-text">Vui lòng nhập tên đăng nhập hoặc Email của bạn</p>
-                            <div className="forgetPass__main-right-outer-input">
-                                <p>Tên đăng nhập</p>
-                                <input type="text" placeholder="Nhập tên đăng nhập hoặc email" />
+                    <div className="verify__main-right">
+                        <div className="verify__main-right-veri">
+                            <div className="verify__main-right-veri-text">
+                                Nhập mã bảo mật
                             </div>
-                            <button onClick={handleChoice}>Tiếp tục</button>
+                            <p>Vui lòng nhập mã của bạn:</p>
+                            <div className="verify__main-right-veri-input">
+                                <input type="text" />
+                                <input type="text" />
+                                <input type="text" />
+                                <input type="text" />
+                                <input type="text" />
+                                <input type="text" />
+                            </div>
+                            <span>Bạn chưa nhận được mã?</span><br/>
+                            <button>Tiếp tục</button>
                         </div>
                     </div>
                 </div>
@@ -59,4 +61,4 @@ function ForgetPass() {
     );
 }
 
-export default ForgetPass;
+export default Verify;

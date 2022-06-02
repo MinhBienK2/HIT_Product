@@ -11,8 +11,13 @@ function Login() {
     const navigate = useNavigate();
 
     const handleForgetPass =() =>{
-        navigate('/Register')
+        navigate('/ForgetPass')
     }
+
+    const handleSignup=()=>{
+        navigate('/Signup')
+    }
+
 
     return (
         <div className="body">
@@ -27,7 +32,7 @@ function Login() {
                     </div>
                     <div className="login__taskbar-right">
                         <button className='login__taskbar-right-btn1'>Đăng nhập</button>
-                        <button className='login__taskbar-right-btn2'>Đăng kí</button>
+                        <button className='login__taskbar-right-btn2' onClick={handleSignup}>Đăng kí</button>
                     </div>
                 </div>
                 <div className="login__main">
@@ -55,7 +60,7 @@ function Login() {
                             </button>
                             <div className="login__main-right-content-register">
                                 <p className="login__main-right-content-register-p1">Bạn đã có tài khoản chưa?</p>
-                                <p className="login__main-right-content-register-p2">Đăng kí</p>
+                                <p className="login__main-right-content-register-p2" onClick={handleSignup}>Đăng kí</p>
                             </div>
                         </div>
                     </div>
