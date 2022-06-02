@@ -1,0 +1,85 @@
+
+.choice__main{
+    &-right{
+        width: 588px;
+        height: 374px;
+        margin-right:120px ;
+        margin-top: 80px;
+        border-radius: 20px;
+        border: 1px solid rgba(0,0,0,0.1);
+        &-choices{
+            >p{
+                font-family: 'Roboto', sans-serif;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 32px;
+                line-height: 32px;
+                color: #ff9242;
+                margin-top: 40px;
+                margin-left: 178px;
+            }
+            &-text{
+                font-family: 'Roboto', sans-serif;
+                font-style: normal;
+                font-size: 18px;
+                line-height: 24px;
+                margin-left: 55px;
+                margin-top: 26px;
+            }
+            &-items{
+                margin-top: 20px;
+                margin-left: 55px;
+                &-choice{
+                    margin-top: 20px;
+                    // display: flex;
+                    // height: 20px;
+                    &-item{
+                        display: flex;
+                        p{
+                            margin-top: 3px;
+                            margin-left: 8px;
+                            margin-bottom: 0;
+                            font-family: 'Roboto', sans-serif;
+                            font-weight: 400;
+                            font-style: normal;
+                            font-size: 16px;
+                            line-height: 20px;
+                        }
+                        input[type='radio']{
+                            accent-color:#ff9242;
+                            height: 24px;
+                            width: 24px;
+                            border: 1px solid #ff9242;
+                        }
+                    }
+                    &-note{
+                        font-family: 'Roboto', sans-serif;
+                        font-style: normal;
+                        font-weight: 400;
+                        font-size: 12px;
+                        line-height: 16px;
+                        color: #43403e;
+                        margin-left: 45px;
+                        margin-top:0;
+                    }
+                }
+                }
+            button{
+                width: 136px;
+                height: 48px;
+                margin-left: 380px;
+                margin-bottom: 40px;
+                background-color: #ff8025;
+                border-radius:30px;
+                border: 1px solid #ff8025;
+                font-family: 'Roboto', sans-serif;
+                font-style: normal;
+                font-weight: 700;
+                font-size: 16px;
+                line-height: 24px;
+                color: white;
+                cursor: pointer;
+            }
+        }
+    }
+}
