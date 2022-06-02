@@ -1,11 +1,13 @@
 const app = require("./app");
 const connectDB = require("./config/connectDB");
 const logger = require("./config/logger");
+const autoSendBirthday = require("./helpers/autoSendBirthday.helper");
 
 let server;
 const port = process.env.PORT || 3000;
 
 connectDB();
+autoSendBirthday();
 
 app.listen(port, () => {
     logger.info("Server is running on port " + port);

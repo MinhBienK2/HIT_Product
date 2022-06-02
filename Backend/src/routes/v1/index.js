@@ -7,7 +7,11 @@ const { route } = require("./user.route");
 
 const defaultRoutes = [
     {
-        path: "/users",
+        path: "/",
+        route: authRoute,
+    },
+    {
+        path: "/api/v1/users",
         route: userRoute,
     },
 ];
