@@ -15,6 +15,7 @@ const mongoSanitize = require("express-mongo-sanitize");
 var xss = require("xss-clean");
 var compression = require("compression");
 var hpp = require("hpp");
+const path = require('path')
 
 const ApiError = require("./utils/ApiError");
 const handleError = require("./middlewares/error.middleware");
@@ -79,6 +80,8 @@ app.use(cookieParser());
 //bodyparser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(express.static(path.join(__dirname,'/public')))
 
 //config passport
 configPP.configPassport(app, passport);
