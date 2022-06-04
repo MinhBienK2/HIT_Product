@@ -38,7 +38,7 @@ const protect = CatchAsync(async (req, res, next) => {
 
 const restrict = (...role) =>
     CatchAsync(async (req, res, next) => {
-        console.log(role);
+        // console.log(role);
         const trict = role.includes(req.user.role);
         if (!trict)
             return next(new ApiError("User does not have permission !", 400));
