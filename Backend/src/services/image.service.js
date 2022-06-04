@@ -13,9 +13,15 @@ function fileFilter (req, file, cb) {
         cb(null, `src/public/images/${file.fieldname}`)
       },
       filename: function (req, file, cb) {
-          console.log(req.files.avatar)
-        req.body[file.fieldname] =`${file.fieldname}-${req.user.id}-${Date.now()}.jpeg`
-        cb(null,req.body[file.fieldname])
+          // console.log(req.files.avatar)
+          if(req.files.avatar || req.files.banner) {
+            req.body[file.fieldname] =`${file.fieldname}-${req.user.id}-${Date.now()}.jpeg`
+            cb(null,req.body[file.fieldname])
+          }
+          req.body.photos = [];
+          if(file.fieldname ==='photos'){
+            req.body.photos.push(`${file.fieldname}-${req.user.id}-${Date.now()}.jpeg`)
+          }
       }
   })
 
