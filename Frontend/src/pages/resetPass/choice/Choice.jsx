@@ -17,8 +17,8 @@ function ForgetPass() {
         navigate('/Signup')
     }
 
-    const handleVerify = () =>{
-        navigate('/Verify')
+    const handleNewPass = () =>{
+        navigate('/NewPass')
     }
 
     return (
@@ -69,7 +69,7 @@ function ForgetPass() {
                                     <p className="choice__main-right-choices-items-choice-note">(+84) 123456789</p><br/>
                                 </div>
                             </form>
-                            <button onClick={handleVerify}>Tiếp tục</button>
+                            <button onClick={handleNewPass}>Tiếp tục</button>
                         </div>
                     </div>
                 </div>

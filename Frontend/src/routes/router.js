@@ -3,7 +3,7 @@ import Login from "../pages/login/Login";
 import ForgetPass from "../pages/forgetPass/ForgetPass";
 import Signup from "../pages/signup/Signup";
 import Choice from "../pages/resetPass/choice/Choice";
-import Verify from "../pages/resetPass/verify/Verify";
+import NewPass from "../pages/resetPass/newPass/NewPass";
 
 const publicRoutes = [
   { path: "/", component: Login },
@@ -11,7 +11,7 @@ const publicRoutes = [
   { path: "/Home", component: Home },
   { path: "/Signup", component: Signup },
   { path: "/Choice", component: Choice },
-  { path: "/Verify", component: Verify },
+  { path: "/NewPass", component: NewPass },
 ];
 
 const privateRoutes = [];
