@@ -82,13 +82,78 @@
     &-right{
         &-outer{
             width:590px;
-            height: 636px;
+            height: 760px;
             margin-top: 80px;
             border: 1px solid rgba(0,0,0,0.1);
             // margin-left: 118px;
             margin-right: 118px;
             border-radius: 20px;
-           
+           &-signup{
+               font-family: 'Roboto', sans-serif;
+               font-style: normal;
+               font-size: 32px;
+               line-height: 32px;
+               color: #ff9242;
+               margin-top: 55px;
+               margin-left: 229px;
+           }
+           &-info{
+               margin-left: 55px;
+               margin-right: 55px;
+               margin-top: 40px;
+               &-items{
+                   margin-bottom:24px;
+                &-item{
+                    display: flex;
+                    justify-content: space-between;
+                    p{
+                        font-family: 'roboto', sans-serif;
+                        font-style: normal;
+                            font-weight: 400;
+                            font-size: 18px;
+                            line-height: 24px;
+                            color: #43403e;
+                            margin-top: 11px;
+                    }
+                    input{
+                        width: 280px;
+                        height:40px;
+                        padding-left: 30px;
+                        border-radius: 40px;
+                        background-color: #f2f2f2;
+                        border: 1px solid #f2f2f2;
+                        // margin-bottom: 24px;
+                        margin-left: 8px;
+                    }
+                    input:focus{
+                        outline: none;
+                    }
+               }
+            }
+           }
+           button{
+               width: 160px;
+               height: 48px;
+               margin-left: 215px;
+               background-color: #ff9242;
+               border: 1px solid #ff9242;
+               border-radius: 30px;
+                font-family: 'Roboto', sans-serif;
+                font-style: normal;
+                font-weight: 700;
+                font-size: 16px;
+                line-height: 24px;
+                color: white;
+                margin-top: 12px;
+                cursor: pointer;
+           }
         }
     }
+}
+
+.error{
+    margin-left: 165px;
+    margin-top: 0;
+    font-size: 12px;
+    color: red;
 }
