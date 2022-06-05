@@ -1,6 +1,7 @@
 const ApiError = require("../utils/ApiError");
 const CatchAsync = require("../utils/CatchAsync");
 const { sendMail } = require("./sendMail.service");
+const { Post } = require("../models");
 
 const getAllModel = (Model) =>
     CatchAsync(async (req, res, next) => {
@@ -16,7 +17,7 @@ const getAllModel = (Model) =>
 
 const getModel = (Model) =>
     CatchAsync(async (req, res, next) => {
-        const data = await Model.find(req.params.id);
+        const data = await Model.findById(req.params.id);
         if (!data) {
             next(new ApiError(`${Model} not found`, 404));
         }
@@ -28,7 +29,20 @@ const getModel = (Model) =>
 
 const createModel = (Model) =>
     CatchAsync(async (req, res, next) => {
-        const data = await Model.create(req.body);
+        let data;
+        if (Model === Post) {
+            const files = req.files.photos
+            const filenames = files.map(file => file.filename)
+            data = await Model.create({
+                description: req.body.description,
+                shareOf: req.body.shareOf,
+                author: req.user._id,
+                photos: filenames
+            });
+        }
+        else {
+            data = await Model.create(req.body);
+        }
         if (!data) {
             next(new ApiError(`create fail`, 404));
         }
@@ -40,7 +54,18 @@ const createModel = (Model) =>
 
 const updateModel = (Model) =>
     CatchAsync(async (req, res, next) => {
-        const data = await Model.findByIdAndUpdate(req.params.id, req.body);
+        let data;
+        if (Model == Post) {
+            const files = req.files.photos
+            const filenames = files.map(file => file.filename)
+            data = await Model.findById(req.params.id)
+            data.description = req.body.description
+            data.photos = filenames
+            await data.save()
+        }
+        else {
+            data = await Model.findByIdAndUpdate(req.params.id, req.body);
+        }
         if (!data) {
             next(new ApiError(`create fail`, 404));
         }
