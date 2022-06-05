@@ -4,8 +4,28 @@ import onlineWord from '../../assets/images/Online world-amico 1.png';
 import facebook from '../../assets/icons/facebook-icon.svg';
 import './Login.scss'
 import {useNavigate} from 'react-router-dom'
+import { useState } from 'react';
 
 function Login() {
+
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleUsername = (e) =>{
+        setUsername(e.target.value);
+    }
+
+    const handlePassword = (e) =>{
+        setPassword(e.target.value);
+    }
+
+    const handleSubmit =() =>{
+        if(username === 'thao' && password === '123'){
+            navigate('/Home')
+        }
+        else
+            alert('Sai tài khoản hoặc mật khẩu')
+    }
 
 
     const navigate = useNavigate();
@@ -45,15 +65,25 @@ function Login() {
                             <div className="login__main-right-content-signin">
                                 <div className="login__main-right-content-signin-input">
                                     <p>Tên đăng nhập</p>
-                                    <input className="login__main-right-content-signin-input-input1" type="email" placeholder=" Nhập email" />
+                                    <input 
+                                        className="login__main-right-content-signin-input-input1" 
+                                        type="email" 
+                                        placeholder=" Nhập email" 
+                                        onChange={handleUsername}
+                                    />
                                 </div>
                                 <div className="login__main-right-content-signin-input">
                                     <p>Mật khẩu</p>
-                                    <input className="login__main-right-content-signin-input-input2" type="password" placeholder=" Nhập password" />
+                                    <input 
+                                        className="login__main-right-content-signin-input-input2" 
+                                        type="password" 
+                                        placeholder=" Nhập password" 
+                                        onChange={handlePassword}
+                                    />
                                 </div>
                             </div>
                             <p className="login__main-right-content-forget" onClick={handleForgetPass}>Quên mật khẩu?</p>
-                            <button className="login__main-right-content-btn">Đăng nhập</button>
+                            <button className="login__main-right-content-btn" onClick={handleSubmit}>Đăng nhập</button>
                             <button className="login__main-right-content-facebook">
                                 Đăng nhập bằng tài khoản Facebook
                                 <img src={facebook} alt="" />
