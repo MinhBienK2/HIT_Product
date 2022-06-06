@@ -3,6 +3,7 @@ const router = express.Router();
 
 const userRoute = require("./user.route");
 const postRoute = require("./post.route");
+const commentRoute = require("./comment.route");
 const authRoute = require("./auth.route");
 const { route } = require("./user.route");
 
@@ -18,6 +19,10 @@ const defaultRoutes = [
     {
         path: "/api/v1/posts",
         route: postRoute,
+    },
+    {
+        path: "/api/v1/comments",
+        route: commentRoute,
     },
 ];
 

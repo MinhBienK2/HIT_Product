@@ -41,6 +41,7 @@ const createModel = (Model) =>
             });
         }
         else {
+            console.log(req.body);
             data = await Model.create(req.body);
         }
         if (!data) {

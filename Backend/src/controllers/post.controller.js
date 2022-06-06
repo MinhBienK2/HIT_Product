@@ -14,7 +14,7 @@ const deletePost = featureCRUDService.deleteModel(Post);
 const getPostOf = CatchAsync(async (req, res, next) => {
     const data = await Post.find({ author: req.params.id });
     if (!data) {
-        next(new ApiError(`create fail`, 404));
+        next(new ApiError('Post not found', 404));
     }
     res.status(200).json({
         status: "success",
