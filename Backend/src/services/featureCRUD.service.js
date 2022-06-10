@@ -32,7 +32,7 @@ const createModel = (Model) =>
         let data;
         if (Model === Post) {
             const files = req.files.photos
-            const filenames = files.map(file => file.filename)
+            const filenames = (files) ? files.map(file => file.filename) : ""
             data = await Model.create({
                 description: req.body.description,
                 shareOf: req.body.shareOf,
@@ -57,10 +57,12 @@ const updateModel = (Model) =>
         let data;
         if (Model == Post) {
             const files = req.files.photos
-            const filenames = files.map(file => file.filename)
+            const filenames = (files) ? files.map(file => file.filename) : ""
             data = await Model.findById(req.params.id)
             data.description = req.body.description
-            data.photos = filenames
+            if(filenames) {
+                data.photos = filenames
+            }
             await data.save()
         }
         else {
