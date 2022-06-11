@@ -1,8 +1,7 @@
 const ApiError = require("../utils/ApiError");
 const CatchAsync = require("../utils/CatchAsync");
 const { sendMail } = require("./sendMail.service");
-const { Post } = require("../models");
-const { Comment } = require("../models");
+const { Post, Comment, Reaction } = require("../models");
 
 const getAllModel = (Model) =>
     CatchAsync(async (req, res, next) => {
@@ -32,7 +31,6 @@ const createModel = (Model) =>
     CatchAsync(async (req, res, next) => {
         let data;
         if (Model === Post) {
-            console.log("run post");
             const files = req.files.photos
             const filenames = (files) ? files.map(file => file.filename) : ""
             const data = await Model.create({
@@ -55,7 +53,6 @@ const createModel = (Model) =>
             }else
                 isCreate = true;
             if (isCreate) {
-                console.log("run");
                 data = await Comment.create({
                 content: req.body.content,
                 postID: req.body.postID,
@@ -63,7 +60,20 @@ const createModel = (Model) =>
                 author: req.user._id,
             })
             }            
-        } else {
+        } else if (Model === Reaction) {
+            if (!req.body.forPost && !req.body.forCmt)
+                return next(new ApiError(`what reaction for`, 403));
+            const check = await Reaction.findOne({ author: req.user._id, forPost: req.body.forPost, forCmt: req.body.forCmt });
+            if (check)
+                return next(new ApiError(`reaction exists`, 403));
+            data = await Reaction.create({
+                author: req.user._id, 
+                forPost: req.body.forPost, 
+                forCmt: req.body.forCmt,
+                status: req.body.status
+            })
+        } 
+        else {
             data = await Model.create(req.body);  
         }
         if (!data) {
@@ -89,11 +99,16 @@ const updateModel = (Model) =>
                 data.photos = filenames
             }
             await data.save()
-        }
-        else if (Model === Comment) {
+        } else if (Model === Comment) {
             if (req.body.postID || req.body.parentCmt)
                 return next(new ApiError(`only for updating content field`, 403));
             data = await Model.findByIdAndUpdate(req.params.id, { content: req.body.content });           
+        } else if (Model === Reaction) {
+            if (req.body.forPost || req.body.forCmt)
+                return next(new ApiError(`only for updating status field`, 403));
+            data = await Model.findById(req.params.id);
+            data.status = req.body.status;
+            await data.save();
         }
         else {
             data = await Model.findByIdAndUpdate(req.params.id, req.body);
