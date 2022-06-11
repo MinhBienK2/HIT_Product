@@ -93,7 +93,7 @@ const updateModel = (Model) =>
         else if (Model === Comment) {
             if (req.body.postID || req.body.parentCmt)
                 return next(new ApiError(`only for updating content field`, 403));
-            data = await Model.findByIdAndUpdate(req.params.id, req.body);           
+            data = await Model.findByIdAndUpdate(req.params.id, { content: req.body.content });           
         }
         else {
             data = await Model.findByIdAndUpdate(req.params.id, req.body);
