@@ -1,6 +1,6 @@
 import React from 'react';
-import logo from '../../../assets/images/Logo.png';
-import onlineWord from '../../../assets/images/Online world-amico 1.png';
+import logo from '../../../assets/images/Logo.svg';
+import onlineWord from '../../../assets/images/Online world-amico 1.svg';
 import './Choice.scss'
 import {useNavigate} from 'react-router-dom'
 

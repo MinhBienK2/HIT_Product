@@ -1,0 +1,25 @@
+.widgetsRow{
+    display: flex;
+    max-height: 32px;
+    margin-bottom: 16px;
+    align-items: center;
+    margin-left: 24px;
+    p{
+        margin-left: 16px;
+        font-family: 'Roboto', sans-serif;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 12px;
+        color: #252322;
+        margin-right: 8px;
+    }
+    .MuiAvatar-root{
+        width: 32px !important;
+        height: 32px !important;
+        align-self: center;
+    }
+    img{
+        align-self: center;
+    }
+}
