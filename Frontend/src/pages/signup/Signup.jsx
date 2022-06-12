@@ -1,13 +1,38 @@
 import React from 'react';
-import logo from '../../assets/images/Logo.png';
-import onlineWord from '../../assets/images/Online world-amico 1.png';
+import logo from '../../assets/images/Logo.svg';
+import onlineWord from '../../assets/images/Online world-amico 1.svg';
 import './Signup.scss'
 import {useNavigate} from 'react-router-dom'
-// import {useState} from 'react'
 import {useFormik} from 'formik';
+import {useState} from 'react'
 import * as Yup from 'yup';
+import axios from 'axios';
 
 function Signup() {
+
+    
+
+    // const [firstName, setFirstName] = useState('')
+    // const [lastName, setLastName] = useState('')
+    // const [email, setEmail] = useState('')
+    // const [password, setPassword] = useState('')
+    // const [confirmPassword, setConfirmPassword] = useState('')
+
+    // const handleFirstName = (e) =>{
+    //     setFirstName(e.target.value);
+    // }
+    // const handleLastName = (e) =>{
+    //     setLastName(e.target.value);
+    // }
+    // const handleEmail = (e) =>{
+    //     setEmail(e.target.value);
+    // }
+    // const handlePassword = (e) =>{
+    //     setPassword(e.target.value);
+    // }
+    // const handleConfirmPassword = (e) =>{
+    //     setConfirmPassword(e.target.value);
+    // }
 
     const navigate = useNavigate();
 
@@ -49,17 +74,39 @@ function Signup() {
         }
     })
 
+    const handleSubmit = async() => {
+        try {
+            const data = await axios({
+                method: 'post',
+                url: 'http://localhost:3000/signup',
+                data: {
+                    firstName: `${formik.values.firstName}`,
+                    lastName: `${formik.values.lastName}`,
+                    email: `${formik.values.email}`,
+                    password: `${formik.values.password}`,
+                    confirmPassword: `${formik.values.confirmPassword}`
+                }
+            })
+            
+            if(data.data.status === 'success') {
+                alert('Successfully signed up')
+                // navigate('/')
+            }
+        }
+        catch (err) {
+            console.log(err)
+        }
+      }
 
-
-    // const handleLogin =() =>{
-    //     navigate('/')
-    // }
+    const handleLogin =() =>{
+        navigate('/')
+    }
 
     // console.log(formik.values)
     
 
     return (
-        <form onSubmit={formik.handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <div className="body">
                 <div className="signup">
                     <div className="signup__taskbar">
@@ -71,7 +118,7 @@ function Signup() {
                             </div>
                         </div>
                         <div className="signup__taskbar-right">
-                            <button className='signup__taskbar-right-btn1'>Đăng nhập</button>
+                            <button className='signup__taskbar-right-btn1' onClick={handleLogin}>Đăng nhập</button>
                             <button className='signup__taskbar-right-btn2'>Đăng kí</button>
                         </div>
                     </div>
@@ -93,6 +140,12 @@ function Signup() {
                                                 onChange={formik.handleChange}
                                                 value={formik.values.lastName}
                                                 />
+                                                {/* <input
+                                                    type="text"
+                                                    id='lastName'
+                                                    name='lastName'
+                                                    onChange={handleLastName}
+                                                /> */}
                                         </div>
                                     {formik.errors.lastName && formik.touched.lastName ? (
                                         <div className="error">{formik.errors.lastName}</div>
@@ -109,6 +162,12 @@ function Signup() {
                                                 onChange={formik.handleChange}
                                                 value={formik.values.firstName}
                                             />
+                                            {/* <input
+                                                    type="text"
+                                                    id='firstName'
+                                                    name='firstName'
+                                                    onChange={handleFirstName}
+                                                /> */}
                                         </div>
                                         {formik.errors.firstName && formik.touched.firstName ? (
                                             <div className="error">{formik.errors.firstName}</div>
@@ -125,6 +184,12 @@ function Signup() {
                                                 onChange={formik.handleChange}
                                                 value={formik.values.password}
                                                 />
+                                                {/* <input
+                                                    type="password"
+                                                    id='password'
+                                                    name='password'
+                                                    onChange={handlePassword}
+                                                /> */}
                                         </div>
                                         {formik.touched.password && formik.errors.password ? (
                                                 <div className='error'>{formik.errors.password}</div>
@@ -141,6 +206,12 @@ function Signup() {
                                                 onChange={formik.handleChange}
                                                 value={formik.values.confirmPassword}
                                                 />
+                                                {/* <input
+                                                    type="password"
+                                                    id='confirmPassword'
+                                                    name='confirmPassword'
+                                                    onChange={handleConfirmPassword}
+                                                /> */}
                                         </div>
                                         {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
                                                 <div className='error'>{formik.errors.confirmPassword}</div>
@@ -158,6 +229,12 @@ function Signup() {
                                                 onChange={formik.handleChange}
                                                 // placeholder="Nhập email"
                                                 />
+                                                {/* <input
+                                                    type="email"
+                                                    id='email'
+                                                    name='email'
+                                                    onChange={handleEmail}
+                                                /> */}
                                         </div>
                                         {formik.touched.email && formik.errors.email ? (
                                             <div className='error'>{formik.errors.email}</div>

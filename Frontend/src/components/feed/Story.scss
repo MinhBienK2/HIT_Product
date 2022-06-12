@@ -1,0 +1,45 @@
+.story{
+    width: 106px;
+    height: 169px;
+    margin-right: 26px;
+    &-avatar{
+        z-index: 1;
+        position: relative;
+        .MuiAvatar-root{
+            width: 105px !important;
+            height: 103.17px!important;
+            border: 2px solid rgb(238,114,24);
+            background-clip: content-box;
+            padding: 3px;
+        }
+    }
+    &-status{
+        background: linear-gradient(90deg, #28C9E1 0%, #1CD5C6 100%);
+        width: 55px;
+        height: 21px;
+        border-radius: 3px;
+        border: 2px solid #fff;
+        position: absolute;
+        z-index: 2;
+        margin-left: 25.73px;
+        margin-top: -20px;
+        p{
+            color: #fff;
+            font-family: 'Roboto', sans-serif;
+            font-style: normal;     
+            font-weight: 600;
+            font-size: 8px;
+            line-height: 10px;
+            text-align: center;
+            margin-top: 0.63px;
+        }
+    }
+    h4{
+        font-family: 'Roboto', sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 10px;
+        line-height: 15px;
+        text-align: center;
+    }
+}

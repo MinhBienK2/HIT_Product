@@ -1,0 +1,37 @@
+.group{
+    display:flex;
+    align-items: center;
+    cursor: pointer;
+    margin-left: 48px;
+    margin-bottom: 16px;
+    p{
+        font-family: 'Roboto', sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 12px;
+        color: #423f3d;
+    }
+    &-img{
+        width: 49px;
+        height: 43px;
+        // position: relative;
+        &-icon{
+            position: relative;
+            z-index: 2;
+            margin-top: 11px;
+        }
+        &-avatarGroup{
+            position: absolute;
+            width: 27px;
+            height: 27px;
+            margin-bottom: 16px;
+            z-index:1;
+            // margin-top: 0px;
+            margin-left: -10px;
+        }
+    }
+    p{
+        margin-left: 19px;
+    }
+}

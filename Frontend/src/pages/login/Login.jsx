@@ -1,12 +1,33 @@
 import React from 'react';
-import logo from '../../assets/images/Logo.png';
-import onlineWord from '../../assets/images/Online world-amico 1.png';
+import logo from '../../assets/images/Logo.svg';
+import onlineWord from '../../assets/images/Online world-amico 1.svg';
 import facebook from '../../assets/icons/facebook-icon.svg';
 import './Login.scss'
 import {useNavigate} from 'react-router-dom'
-import { useState } from 'react';
+import { useState, useEffect} from 'react';
+import axios from 'axios'
 
 function Login() {
+
+    const handleSubmit = async() => {
+        try {
+            const data = await axios({
+                method: 'post',
+                url: 'http://localhost:3000/login',
+                data: {
+                    email: `${username}`,
+                    password: `${password}`
+                }
+            })
+            
+            if(data.data.status === 'success') {
+                navigate('/home')
+            }
+        }
+        catch (err) {
+            alert('Invalid username or password')
+        }
+      }
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -19,15 +40,6 @@ function Login() {
         setPassword(e.target.value);
     }
 
-    const handleSubmit =() =>{
-        if(username === 'thao' && password === '123'){
-            navigate('/Home')
-        }
-        else
-            alert('Sai tài khoản hoặc mật khẩu')
-    }
-
-
     const navigate = useNavigate();
 
     const handleForgetPass =() =>{
@@ -38,7 +50,7 @@ function Login() {
         navigate('/Signup')
     }
 
-
+    
     return (
         <div className="body">
             <div className="login">
@@ -68,6 +80,7 @@ function Login() {
                                     <input 
                                         className="login__main-right-content-signin-input-input1" 
                                         type="email" 
+                                        name='email'
                                         placeholder=" Nhập email" 
                                         onChange={handleUsername}
                                     />
@@ -77,6 +90,7 @@ function Login() {
                                     <input 
                                         className="login__main-right-content-signin-input-input2" 
                                         type="password" 
+                                        name='password'
                                         placeholder=" Nhập password" 
                                         onChange={handlePassword}
                                     />
