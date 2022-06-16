@@ -1,0 +1,89 @@
+ .sidebar{
+     width: 366px;
+    // flex: 0.3;
+     height: 944px;
+     background-color: #fff;
+    &__top{
+        margin-top: 42px;
+        &-avatar{
+            height: 32px;
+            display:flex;
+            margin-left: 51px;
+            p{
+                margin-left: 10px;
+                justify-content:center;
+                align-items:center;
+                align-self: center;
+                font-family: 'Roboto',sans-serif;
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 16px;
+                color: #423f3d;
+            }
+        }
+        &-items{
+            margin-left: 48px;
+            margin-top: 40px;
+            &-item{
+                display: flex;
+                max-height: 33.45px;
+                margin-bottom: 25px;
+                &-info{
+                    display: flex;
+                    min-width: 84px;
+                    p{
+                        font-family: 'Roboto', sans-serif;
+                        font-style: normal;
+                        font-weight: 500;
+                        font-size: 14px;
+                        line-height: 12px;
+                        color: #423f3d;
+                        align-self: center;
+                        margin-left: 10px;
+                    }
+                }
+                &-dot{
+                    margin-left: 3px;
+                    width: 6px !important;
+                    height: 6px !important;
+                    align-self: center;
+                }
+            }
+        }
+    }
+    hr{
+        border: 1px solid rgba(0,0,0,.05);
+    }
+    &__bottom{
+        h4{
+            font-family: 'Roboto', sans-serif;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 12px;
+            color: #423f3d;
+            margin-left: 48px;
+            margin-top: 22px;
+        }
+        &-group{
+            margin-top: 45px;
+        }
+        &-more{
+            margin-left: 48px;
+            display: flex;
+            cursor: pointer;
+            p{
+                font-family: 'Roboto', sans-serif;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 12px;
+                color: #423f3d;
+                margin-right: 6px;
+            }
+            img{
+                align-items: center;
+            }
+        }
+    }
+ }

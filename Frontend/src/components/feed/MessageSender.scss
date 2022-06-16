@@ -1,0 +1,75 @@
+.messageSender{
+    height: 176px;
+    margin-top: 24px;
+    background-color: #fff;
+    border-radius: 10px;
+    &-top{
+        display: flex;
+        margin-left: 24px;
+        margin-right: 24px;
+        padding-top: 35px;
+        .MuiAvatar-root{
+            width: 48px !important;
+            height: 48px !important;
+            margin-right: 18px;
+        }
+        input{
+            width: 100%;
+            padding-left: 24px;
+            border: none;
+            background: #f2f2f2;
+            border-radius: 25px;
+            font-family: 'Roboto', sans-serif;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 15px;
+            color: #6d7274;
+        }
+        input:focus{
+            outline: none;
+        }
+    }
+    &-bottom{
+        display: flex;
+        margin-left: 67px;
+        margin-right: 29px;
+        justify-content:space-between;
+        &-options{
+            display: flex;
+            margin-top: 29px;
+            justify-content:space-between;
+            width:448px;
+            &-option{
+                justify-content:space-between;
+                display:flex;
+                min-width: 107px;
+                margin-top: -4px;
+                p{
+                    font-family: 'Roboto', sans-serif;
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 14px;
+                    line-height: 15px;
+                    color: #6d7274;
+                    margin-left: 4px;
+                }
+            }
+        }
+        button{
+            width:96px;
+            height: 36px;
+            background: #ff7f24;
+            border-radius: 30px;
+            font-family: 'Roboto', sans-serif;
+            font-style: normal;
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 16px;
+            color: #fff;
+            border:none;
+            margin-top: 25px;
+            cursor: pointer;
+        }
+    }
+}

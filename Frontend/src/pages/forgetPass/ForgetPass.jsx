@@ -1,14 +1,42 @@
 import React from 'react';
-import logo from '../../assets/images/Logo.png';
-import onlineWord from '../../assets/images/Online world-amico 1.png';
+import logo from '../../assets/images/Logo.svg';
+import onlineWord from '../../assets/images/Online world-amico 1.svg';
 // import facebook from '../../assets/icons/facebook-icon.svg';
 import './ForgetPass.scss'
 import {useNavigate} from 'react-router-dom'
+import {useState} from 'react'
+import axios from 'axios'
 
 function ForgetPass() {
 
+    const handleSubmit = async() => {
+        try {
+            const data = await axios({
+                method: 'post',
+                url: 'http://localhost:3000/forgot-password',
+                data:{
+                    email: `${useremail}`,
+                }
+                
+            })
+            // console.log(data);
+            if(data.data.status === 'success') {
+                navigate('/CheckEmail')
+            }
+        }
+        catch (err) {
+            alert('Invalid username or password')
+        }
+      }
+
 
     const navigate = useNavigate();
+
+    const [useremail, setUseremail] = useState('');
+      
+    const handleUseremail = (e) =>{
+        setUseremail(e.target.value);
+    }
 
     const handleLogin =() =>{
         navigate('/')
@@ -48,9 +76,13 @@ function ForgetPass() {
                             <p className="forgetPass__main-right-outer-text">Vui lòng nhập tên đăng nhập hoặc Email của bạn</p>
                             <div className="forgetPass__main-right-outer-input">
                                 <p>Tên đăng nhập</p>
-                                <input type="text" placeholder="Nhập tên đăng nhập hoặc email" />
+                                <input 
+                                    placeholder="Nhập email" 
+                                    type="email" 
+                                    name='email'
+                                    onChange={handleUseremail}/>
                             </div>
-                            <button onClick={handleChoice}>Tiếp tục</button>
+                            <button onClick={handleSubmit}>Tiếp tục</button>
                         </div>
                     </div>
                 </div>
