@@ -27,7 +27,7 @@ const protect = CatchAsync(async (req, res, next) => {
     if (freshUser.changePasswordAfter(decoded.iat)) {
         return next(
             new ApiError(
-                "User recently changed password,Please login again",
+                "User recently changed password, Please login again",
                 401
             )
         );
@@ -41,7 +41,7 @@ const restrict = (...role) =>
         // console.log(role);
         const trict = role.includes(req.user.role);
         if (!trict)
-            return next(new ApiError("User does not have permission !", 400));
+            return next(new ApiError('User does not have permission!', 400));
         next();
     });
 
