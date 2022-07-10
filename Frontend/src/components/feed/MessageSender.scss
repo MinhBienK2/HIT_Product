@@ -29,6 +29,22 @@
         input:focus{
             outline: none;
         }
+        &-postImage{
+            margin-left: 5px;
+            cursor: pointer;
+            img{
+                max-height: 35px;
+                max-width: 110px;
+                object-fit: contain;
+            }
+            p{
+                margin: 0;
+                font-size: 8px;
+                text-align: center;
+                line-height: 10px;
+                color: #6d7274;
+            }
+        }
     }
     &-bottom{
         display: flex;
@@ -45,6 +61,7 @@
                 display:flex;
                 min-width: 107px;
                 margin-top: -4px;
+                cursor: pointer;
                 p{
                     font-family: 'Roboto', sans-serif;
                     font-style: normal;

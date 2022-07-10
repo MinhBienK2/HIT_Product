@@ -7,6 +7,7 @@ import commentIcon from '../../assets/icons/ant-design_comment-outlined.svg'
 import share from '../../assets/icons/bx_share.svg'
 import send from '../../assets/icons/fluent_send-28-filled.svg'
 import './Post.scss';
+import axios from 'axios'
 
 function Post({ profilePic, image, username, message, tym, comment }) {
     return (
@@ -51,6 +52,19 @@ function Post({ profilePic, image, username, message, tym, comment }) {
                 <Avatar src={profilePic}/>
                 <input type="text" placeholder="Thêm bình luận..."/>
                 <img src={send} alt=""/>
+            </div>
+            <div className="post-comment">
+                <Avatar src=''/>
+                <div className="post-comment-content">
+                    <div className="post-comment-content_top">
+                        <p>Nong nha nha nha nha </p>
+                    </div>
+                    <div className="post-comment-content_bottom">
+                        <p>Thích</p>
+                        <p>Trả Lời</p>
+                        <p>Gỡ</p>
+                    </div>
+                </div>
             </div>
         </div>
     );

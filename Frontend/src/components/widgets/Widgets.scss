@@ -1,7 +1,19 @@
+.widgets::-webkit-scrollbar{
+    width: 10px;
+}
+.widgets::-webkit-scrollbar-track{
+    background: rgba(255,255,255,0);
+}
+.widgets::-webkit-scrollbar-thumb{
+    background-color: rgba(255,255,255,0);
+    border-radius: 20px;
+}
 .widgets{
     width: 366px;
-    background-color: #fff;
+    height: 650px;
+    // background-color: #fff;
     padding-top: 4px;
+    overflow-y: auto;
     &-top{
         display: flex;
         justify-content: space-between;

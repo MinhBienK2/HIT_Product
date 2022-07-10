@@ -5,6 +5,11 @@
     border-radius: 10px;
     padding-left: 24px;
     padding-right: 24px;
+    padding-bottom: 10px;
+    .MuiAvatar-root{
+        width: 32px !important;
+        height: 32px !important;
+    }
     img{
         cursor: pointer;
     }
@@ -100,8 +105,10 @@
         display: flex;
         margin-top: 20px;
         margin-bottom: 28px;
+
         input{
             width: 100%;
+            height: 32px;
             margin-left: 16px;
             margin-right: 24px;
             border-radius: 20px;
@@ -117,6 +124,47 @@
         }
         input:focus{
             outline: none;
+        }
+    }
+    &-comment{
+        display: flex;
+        &-content{
+            margin-left: 16px;
+            margin-top: -15px;
+            
+            &_top{
+                background: #f2f2f2;
+                border-radius: 20px;
+                min-height: 32px;
+                width: 100%;
+                p{
+                    padding: 8px 24px;
+                    font-family: 'Roboto', sans-serif;
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 14px;
+                    line-height: 16px;
+                    color: #252322;
+                    word-break: break-word;
+                }
+            }
+            &_bottom{
+                margin-top: -7px;
+                display: flex;
+                max-width: 121px;
+                justify-content: space-between;
+                p{
+                    font-family: 'Roboto', sans-serif;
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 12px;
+                    line-height: 12px;
+                    color: #6d7274;
+                    margin-top: 2px;
+                    margin-left: 8px;
+                    cursor: pointer;
+                }
+            }
         }
     }
 }

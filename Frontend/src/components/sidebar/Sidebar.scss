@@ -1,8 +1,18 @@
+.sidebar::-webkit-scrollbar{
+    width: 10px;
+}
+.sidebar::-webkit-scrollbar-track{
+    background: rgba(255,255,255,0);
+}
+.sidebar::-webkit-scrollbar-thumb{
+    background-color: rgba(255,255,255,0);
+    border-radius: 20px;
+}
  .sidebar{
      width: 366px;
     // flex: 0.3;
-     height: 944px;
-     background-color: #fff;
+     height: 660px;
+     overflow-y: auto;
     &__top{
         margin-top: 42px;
         &-avatar{

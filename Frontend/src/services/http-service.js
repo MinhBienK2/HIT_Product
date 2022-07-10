@@ -21,7 +21,7 @@ class HttpService {
   async request(method, uri, options = { headers: {}, params: {}, body: {} }) {
     return await axios.request({
       method: method,
-      baseURL: "https://demo-sale.herokuapp.com/api/v1/",
+      baseURL: "http://localhost:3000/api/v1/",
       url: uri,
       headers: this.generateHttpHeaders(options.headers),
       params: options.params,
@@ -32,7 +32,7 @@ class HttpService {
   generateHttpHeaders(headerInfo) {
     const headers = {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${storageService.get("access_token")}`,
+      Authorization: `Bearer ${storageService.get("accessToken")}`,
     };
 
     if (headerInfo) {

@@ -1,0 +1,63 @@
+.sidebarMessRow{
+    margin-left: 47px;
+    display: flex;
+    margin-top: 28px;
+    margin-right: 38px;
+    height: 32px;
+    .MuiAvatar-root{
+        height: 32px;
+        width: 32px;
+    }
+    &-center{
+        display: flex;
+        justify-content: space-between;
+        min-width: 250px;
+        position: relative;
+        &-left{
+            margin-left: 16px;
+            &-nickName{
+                display: flex;
+                p{
+                    margin-top: 0;
+                    font-family: 'Roboto', sans-serif;
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 16px;
+                    line-height: 12px;
+                    color: #6d7274;
+                }
+                img{
+                    margin-top: -12px;
+                    margin-left: 8px;
+                }
+            }
+            span{
+                position: absolute;
+                margin-top: -8px;
+                font-family: 'Roboto', sans-serif;
+                font-style: normal;
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 12px;
+                color: #6d7274;
+            }
+        }
+        &-right{
+            position: relative;
+            img{
+                position: absolute;
+                margin-top: 0;
+            }
+            p{
+                position: absolute;
+                font-family: 'Roboto', sans-serif;
+                font-style: normal;
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 12px;
+                color: #6d7274;
+                margin-top: 20px;
+            }
+        }
+    }
+    }

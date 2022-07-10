@@ -1,0 +1,91 @@
+
+.widgetsMess::-webkit-scrollbar{
+    width: 10px;
+}
+.widgetsMess::-webkit-scrollbar-track{
+    background: #fff;
+}
+.widgetsMess::-webkit-scrollbar-thumb{
+    background-color: #f2f2f2;
+    border-radius: 20px;
+}
+.widgetsMess{
+    flex:1;
+    background: #fff;
+    height: 660px;
+    margin-left: 1px;
+    overflow:auto;
+    &-info{
+        margin-top: 55px;
+        margin-left: 133px;
+        &-avatar{
+            position: relative;
+            .MuiAvatar-root{
+                height:80px;
+                width: 80px;
+                border: 2px solid #f2f2f2;
+                background-clip: content-box;
+                padding: 5px;
+            }
+            img{
+                position: absolute;
+                margin-left: 71px;
+                margin-top: -18px;
+            }
+        }
+        p{
+            font-family: 'Roboto', sans-serif;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 16px;
+            color: #000;
+        }
+    }
+    &-choose1{
+        margin-left: 31px;
+        margin-right: 48px;
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        text-align: center;
+        img{
+            background-color: #f2f2f2;
+            border-radius: 99px;
+            margin: 0 auto;
+        }
+        p{
+            font-family: 'roboto', sans-serif;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 16px;
+            color: #000;
+            margin-top: 11px;
+        }
+    }
+    &-choose2{
+        margin-top: 12px;
+        &-images{
+            display: flex;
+            margin-left: 32px;
+            margin-bottom: 20px;
+            margin-top: 10px;
+            margin-right: 54px;
+            justify-content: space-between;
+            &-img{
+                position: relative;
+                .bottom{
+                    z-index: 1;
+                }
+                .top{
+                    position: absolute;
+                    z-index: 2;
+                    margin-top: 14px;
+                    margin-left: -52px;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}

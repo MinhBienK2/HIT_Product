@@ -1,0 +1,24 @@
+.MessReceiver{
+    display: flex;
+    margin-left: 24px;
+    max-width: 48%;
+    margin-right: 50%;
+    .MuiAvatar-root{
+        height: 32px;
+        width: 32px;
+    }
+    p{
+        flex-direction: row;
+        align-items: center;
+        font-family: 'roboto', sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 16px;
+        color: #fff;
+        background: linear-gradient(270deg, #FEB682 0%, #F37418 100%);
+        border-radius: 0px 20px 20px 20px;
+        padding: 8px 13px 8px 16px;
+        margin-left: 8px;
+    }
+}
