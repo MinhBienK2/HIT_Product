@@ -4,8 +4,8 @@
     display: flex;
     border-radius: 10px;
     &-add{   
+        position: relative;
         &-avatar{
-            position: relative;
             width: 115px !important;
             height: 112px!important;
             margin-right: 15px;

@@ -2,9 +2,9 @@
     width: 106px;
     height: 169px;
     margin-right: 26px;
+    position: relative;
     &-avatar{
         z-index: 1;
-        position: relative;
         .MuiAvatar-root{
             width: 105px !important;
             height: 103.17px!important;

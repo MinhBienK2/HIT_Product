@@ -1,0 +1,26 @@
+.messSender{
+    display: flex;
+    margin-right: 24px;
+    // margin-top: 20px;
+    justify-content: flex-end ;
+    max-width: 48%;
+    margin-left: 50%;
+    .MuiAvatar-root{
+        height: 32px;
+        width: 32px;
+    }
+    p{
+        flex-direction: row;
+        align-items: center;
+        font-family: 'roboto', sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 16px;
+        color: #252322;
+        background: #f2f2f2;
+        border-radius: 20px 0px 20px 20px;
+        padding: 8px 13px 8px 16px;
+        margin-right: 8px;
+    }
+}

@@ -1,0 +1,89 @@
+.sidebarMess{
+    background-color: #fff;
+    flex:1;
+    height: 660px;
+    // min-height: 90vh;
+    &__title{
+        display: flex;
+        margin-top: 40px;
+        margin-left: 47px;
+        &-left{
+            display: flex;
+            &-avatar{
+                display: flex;
+                align-items: center;
+                .MuiAvatar-root{
+                    position: relative;
+                    z-index: 1;
+                    height: 32px;
+                    width: 32px;
+                }
+                img{
+                    position: absolute;
+                    z-index: 2;
+                    margin-top: 14px;
+                    margin-left: 24px;
+                }
+            }
+            p{
+                font-family: 'roboto', sans-serif;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 16px;
+                color: #4f4f4f;
+                margin-left: 10px;
+            }
+        }
+        &-right{
+            margin-left: 70px;
+            img{
+                margin-top: 7px;
+                margin-right: 31px;
+            }
+        }
+    }
+    &-input{
+        display: flex;
+        position: relative;
+        margin-left: 47px;
+        
+        img{
+            width: 24.73px;
+            height: 24px;
+            position: absolute;
+            margin-top: 24px;
+            margin-left: 14.5px;
+        }
+        input{
+            width: 210px;
+            height: 32px;
+            border-radius: 24px;
+            background-color: #f2f2f2;
+            border: 1px solid #f2f2f2;
+            margin-top: 16px;
+            padding-left: 56px;
+            font-family: 'Roboto', sans-serif;
+            font-style: normal;
+            font-size: 14px;
+            line-height: 12px;
+        }
+        input:focus{
+            outline: none;
+        }
+    }
+    &-content{
+        overflow-y: auto;
+        height: 78%;
+    }
+    &-content::-webkit-scrollbar{
+        width: 10px;
+    }
+    &-content::-webkit-scrollbar-track{
+        background: #fff;
+    }
+    &-content::-webkit-scrollbar-thumb{
+        background-color: #f2f2f2;
+        border-radius: 20px;
+    }
+}

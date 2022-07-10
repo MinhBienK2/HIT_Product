@@ -4,8 +4,12 @@ import MessageSender from './MessageSender'
 import img1 from '../../assets/images/ava5.jpg'
 import Post from './Post'
 import './Feed.scss'
+import axios from 'axios'
 
 function Feed() {
+
+ 
+
   return (
     <div className="feed">
         <StoryReel/>
