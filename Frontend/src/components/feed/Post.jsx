@@ -10,7 +10,6 @@ import './Post.scss';
 import axios from 'axios'
 
 function Post({ profilePic, image, username, message, tym, comment }) {
-
     return (
         <div className="post">
             <div className="post-top">

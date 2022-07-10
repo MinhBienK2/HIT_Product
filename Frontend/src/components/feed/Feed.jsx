@@ -7,9 +7,6 @@ import './Feed.scss'
 import axios from 'axios'
 
 function Feed() {
-
- 
-
   return (
     <div className="feed">
         <StoryReel/>

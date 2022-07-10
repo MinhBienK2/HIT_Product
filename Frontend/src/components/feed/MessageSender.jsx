@@ -5,14 +5,17 @@ import picture from '../../assets/icons/fontisto_picture.svg'
 import emoji from '../../assets/icons/fluent_emoji-24-regular.svg'
 import {Avatar} from "@mui/material"
 import axios from 'axios'
-
+import postService from '../../services/post/post.service';
 function MessageSender() {
 
     const [input, setInput] = useState('')
+    const [file, setFile] = useState()
     const inputRef = useRef(null)
     const filepickerRef = useRef(null)
     const [imageToPost, setImageToPost] = useState(null)
 
+    var formData = new FormData();
+    
     const handleSubmit = async(e) => {
 
         e.preventDefault()
@@ -20,18 +23,17 @@ function MessageSender() {
         if(!inputRef.current.value) return;
 
         try {
-            const data = await axios({
-                method: 'post',
-                url: 'http://localhost:3000/api/v1/posts',
-                data: {
-                    description: inputRef.current.value,
-                    image: imageToPost
-                }
+            formData.append('description', inputRef.current.value);
+            formData.append('photos', file)
+
+            postService.createPost(formData).then(data => {
+                console.log(data);
             })
+            console.log(file)
             
-            if(data.data.status === 'success') {
-                console.log(input)
-            }
+            // if(data.data.status === 'success') {
+            //     console.log(input)
+            // }
         }
         catch (err) {
             alert('Error')
@@ -43,6 +45,7 @@ function MessageSender() {
         const reader= new FileReader();
         if (e.target.files[0]) {
             reader.readAsDataURL(e.target.files[0])
+            setFile(e.target.files[0])
         }
         reader.onload = (readerEvent) => {
             setImageToPost(readerEvent.target.result)
@@ -94,6 +97,7 @@ function MessageSender() {
                         <input 
                             ref={filepickerRef} 
                             onChange={addImageToPost} 
+                            multiple="true"
                             type="file" 
                             hidden 
                         />

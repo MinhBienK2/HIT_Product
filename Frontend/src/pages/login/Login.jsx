@@ -6,6 +6,7 @@ import './Login.scss'
 import {useNavigate} from 'react-router-dom'
 import { useState, useEffect} from 'react';
 import axios from 'axios'
+import storageService from '../../services/storage.service';
 
 function Login() {
 
@@ -21,6 +22,10 @@ function Login() {
             })
             
             if(data.data.status === 'success') {
+                storageService.set("accessToken", data.data.token)
+                storageService.setObject("userInfo", data.data.data)
+                storageService.set("loggedIn", true)
+
                 navigate('/home')
             }
         }
