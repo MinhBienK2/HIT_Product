@@ -11,9 +11,6 @@ const messageRoute = require("./message.route");
 const notificationRoute = require("./notification.route");
 const storyRoute = require("./story.route");
 const storyViewerRoute = require("./storyViewer.route");
-const postRoute = require("./post.route");
-const commentRoute = require("./comment.route");
-const reactionRoute = require("./reaction.route");
 
 const defaultRoutes = [
    {
