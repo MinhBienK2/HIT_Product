@@ -1,4 +1,6 @@
 import React from 'react'
+import { useSelector, useDispatch } from "react-redux";
+
 import {Avatar} from '@mui/material'
 import './WidgetsMess.scss'
 import Choose2Row from './Choose2Row'
@@ -23,6 +25,7 @@ import img4 from '../../../assets/images/Rectangle 56.svg'
 import arrow from '../../../assets/icons/akar-icons_arrow-left.svg'
 
 function WidgetsMess() {
+  const message = useSelector((state) => state.message);
   return (
     <div className='widgetsMess'>
       <div className="widgetsMess-info">
@@ -30,7 +33,7 @@ function WidgetsMess() {
           <Avatar/>
           <img src={dot} alt="" height="12" width="12"/>
         </div>
-        <p>Thao Nguyen</p>
+        <p>{message.nameMessage}</p>
       </div>
       <div className="widgetsMess-choose1">
         <div className="widgetsMess-choose1-item">

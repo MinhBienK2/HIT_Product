@@ -4,7 +4,7 @@ const router = express.Router();
 const { postController } = require("../../controllers");
 
 const { protect, restrict } = require("../../middlewares/auth.middleware");
-const {upload} = require('../../services')
+const upload = require("../../config/multer");
 
 //CRUD
 router.use(protect);
