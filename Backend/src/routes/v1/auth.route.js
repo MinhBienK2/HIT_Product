@@ -10,19 +10,20 @@ router.post("/login", authController.login);
 
 //login with facebook
 router.get(
-    "/auth/facebook",
-    passport.authenticate("facebook", {
-        // authType: "reauthenticate",
-        scope: ["user_friends", "user_gender", "email"],
-    })
+   "/auth/facebook",
+   passport.authenticate("facebook", {
+      // authType: "reauthenticate",
+      // scope: ["user_friends", "user_gender", "email"],
+      scope: ["user_gender", "email"],
+   })
 );
 
 router.get(
-    "/auth/facebook/callback",
-    passport.authenticate("facebook", { failureRedirect: "/login" }),
-    function (req, res) {
-        res.redirect("/");
-    }
+   "/auth/facebook/callback",
+   passport.authenticate("facebook", { failureRedirect: "/login" }),
+   function (req, res) {
+      res.redirect("/");
+   }
 );
 
 router.get("/logout", authController.logout);
