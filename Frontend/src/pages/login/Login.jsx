@@ -18,6 +18,8 @@ function Login() {
 
    const navigate = useNavigate();
 
+  
+
    const handleSend = () => {
       Axios({
          method: "POST",
@@ -35,13 +37,21 @@ function Login() {
                   JSON.stringify({
                      id: data.data._id,
                      name: data.data.name,
+                     avatar : data.data.avatar,
+                     firstName : data.data.firstName,
+                     lastName : data.data.lastName,
+                     role : data.data.role,
+                     email : data.data.email
                   })
                );
-               navigate("/friends");
+               navigate("/");
+               localStorage.setItem('isLogin', true)
+               window.location.reload()
             }
          })
          .catch((err) => {
             console.log(err);
+            alert(err.response.data.message)
          });
    };
 
@@ -53,6 +63,14 @@ function Login() {
       window.location =
          " https://d95c-171-229-219-60.ap.ngrok.io/auth/facebook";
    };
+
+   const handleSignup = () => {
+      navigate("/Signup");
+   }
+
+   const handleLogin = () => {
+      navigate('/Login')
+   }
 
    return (
       <div className="body">
@@ -66,10 +84,10 @@ function Login() {
                   </div>
                </div>
                <div className="login__taskbar-right">
-                  <button className="login__taskbar-right-btn1">
+                  <button className="login__taskbar-right-btn1" onClick={handleLogin}> 
                      Đăng nhập
                   </button>
-                  <button className="login__taskbar-right-btn2">Đăng kí</button>
+                  <button className="login__taskbar-right-btn2" onClick={handleSignup}>Đăng kí</button>
                </div>
             </div>
             <div className="login__main">
@@ -128,11 +146,11 @@ function Login() {
                         Đăng nhập bằng tài khoản Facebook
                         <img src={facebook} alt="" />
                      </button>
-                     <div className="login__main-right-content-register">
+                     <div className="login__main-right-content-register" >
                         <p className="login__main-right-content-register-p1">
                            Bạn đã có tài khoản chưa?
                         </p>
-                        <p className="login__main-right-content-register-p2">
+                        <p className="login__main-right-content-register-p2" onClick={handleSignup}>
                            Đăng kí
                         </p>
                      </div>

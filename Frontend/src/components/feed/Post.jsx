@@ -7,11 +7,10 @@ import commentIcon from '../../assets/icons/ant-design_comment-outlined.svg'
 import share from '../../assets/icons/bx_share.svg'
 import send from '../../assets/icons/fluent_send-28-filled.svg'
 import './Post.scss';
-import axios from 'axios'
 
-function Post({ profilePic, image, username, message, tym, comment }) {
+function Post({ profilePic, image, username, message, tym, comment,key }) {
     return (
-        <div className="post">
+        <div className="post" key={key}>
             <div className="post-top">
                 <div className="post-top-info">
                     <Avatar src={profilePic}/>
@@ -23,7 +22,13 @@ function Post({ profilePic, image, username, message, tym, comment }) {
                 <p>{message}</p>
             </div>
             <div className="post-image">
-                <img src={image} alt=""/>
+                {
+                    image.map((ele,index) => {
+                        return <>
+                            <img key={index} src={ele} alt=""/>
+                        </>
+                    })
+                }
             </div>
             <div className="post-reaction">
                 <div className="post-reaction-tym">

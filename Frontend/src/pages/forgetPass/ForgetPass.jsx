@@ -39,7 +39,7 @@ function ForgetPass() {
     }
 
     const handleLogin =() =>{
-        navigate('/')
+        navigate('/login')
     }
 
     const handleSignup=()=>{

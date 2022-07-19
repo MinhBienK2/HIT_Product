@@ -31,8 +31,12 @@ const app = express();
 app.use(
    helmet({
       // contentSecurityPolicy: false,
+      // crossOriginResourcePolicy: false,
    })
 );
+
+// cors link image
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" })); 
 
 // limit request from same API;
 const limiter = rateLimit({
@@ -83,6 +87,7 @@ app.use(
       // allowedHeaders: ["origin", "content-type", "accept"], // phai co
       // methods: ["post"],
       // origin: true,
+      // crossOriginResourcePolicy: 'same-origin'
    })
 );
 //setup cookie

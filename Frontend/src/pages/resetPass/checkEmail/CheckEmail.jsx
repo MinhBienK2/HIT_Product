@@ -14,6 +14,9 @@ function CheckEmail() {
         navigate('/Signup')
     }
 
+    const handleLogin =() =>{
+        navigate('/Login')
+    }
     
     return (
         <div className="body">
@@ -27,7 +30,7 @@ function CheckEmail() {
                         </div>
                     </div>
                     <div className="login__taskbar-right">
-                        <button className='login__taskbar-right-btn1'>Đăng nhập</button>
+                        <button className='login__taskbar-right-btn1' onClick={handleLogin}>Đăng nhập</button>
                         <button className='login__taskbar-right-btn2' onClick={handleSignup}>Đăng kí</button>
                     </div>
                 </div>

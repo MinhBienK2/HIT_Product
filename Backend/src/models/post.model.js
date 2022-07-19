@@ -14,6 +14,14 @@ const postSchema = new Schema({
    timestamps: true,
 });
 
+postSchema.pre(/^find/,function(next){
+   this.populate({
+      path : "author",
+      select: ["name", "avatar"],
+   })
+   next()
+})
+
 const Post = mongoose.model("Posts", postSchema)
 
 module.exports = Post

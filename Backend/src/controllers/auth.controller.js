@@ -9,6 +9,18 @@ const jwt = require("jsonwebtoken");
 const ejs = require("ejs");
 const path = require("path");
 
+const checkLogin = CatchAsync(async (req,res,next) => {
+   if(!req.cookies.jwt){
+      res.status(200).json({
+         status : 'fail'
+      })
+   }else {
+      res.status(200).json({
+         status : 'success'
+      })
+   }
+})
+
 const signup = CatchAsync(async (req, res, next) => {
    const user = await User.create(req.body);
    if (!user) return next(new ApiError("signup not success", 401));
@@ -114,6 +126,7 @@ const confirmPassword = CatchAsync(async (req, res, next) => {
 });
 
 module.exports = {
+   checkLogin,
    signup,
    login,
    logout,

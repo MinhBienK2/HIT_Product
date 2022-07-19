@@ -6,7 +6,7 @@ import {useNavigate} from 'react-router-dom'
 import {useFormik} from 'formik';
 import {useState} from 'react'
 import * as Yup from 'yup';
-import axios from 'axios';
+import Axios from '../../services/axios.service'
 
 function Signup() {
 
@@ -70,32 +70,30 @@ function Signup() {
                       ),
         }),
         onSubmit: () => {
-            navigate('/')
+            navigate('/Login')
         }
     })
 
     const handleSubmit = async() => {
-        try {
-            const data = await axios({
+            Axios({
                 method: 'post',
                 url: 'http://localhost:3000/signup',
+                withCredentials: true,
                 data: {
                     firstName: `${formik.values.firstName}`,
                     lastName: `${formik.values.lastName}`,
                     email: `${formik.values.email}`,
                     password: `${formik.values.password}`,
-                    confirmPassword: `${formik.values.confirmPassword}`
+                    confirmPassword: `${formik.values.confirmPassword}`,
+                    phoneNumber : `${formik.values.phoneNumber}`
                 }
+            }).then(data => {
+                alert(data.status)
+                if(data.status === 'success')
+                     navigate('/login')
+            }).catch(err => {
+                alert(err.response.data.message)
             })
-            
-            if(data.data.status === 'success') {
-                alert('Successfully signed up')
-                // navigate('/')
-            }
-        }
-        catch (err) {
-            console.log(err)
-        }
       }
 
     const handleLogin =() =>{

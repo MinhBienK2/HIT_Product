@@ -5,3 +5,4 @@ module.exports.friendshipService = require("./friendship.service");
 module.exports.notificationService = require("./notification.service");
 module.exports.storyService = require("./story.service");
 module.exports.storyViewerService = require("./storyViewer.service");
+module.exports.postService = require("./post.service");

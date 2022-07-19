@@ -11,6 +11,8 @@ import Avatar from '@mui/material/Avatar';
 import setting from '../../assets/icons/ep_setting.svg'
 
 function Header() {
+  const user = JSON.parse(localStorage.getItem('user'))
+
   return (
     <div className='header'>
       <div className="header__left">
@@ -35,7 +37,7 @@ function Header() {
         </div>
       </div>
       <div className="header__right">
-        <Avatar alt=''  sx={{ width: 32, height: 32 }}/>
+        <Avatar crossorigin="anonymous" src={user.avatar} alt=''  sx={{ width: 32, height: 32 }}/>
         <img src={notify} alt="" />
         <img src={setting} alt="" />
       </div>
