@@ -11,13 +11,22 @@ router.use(protect);
 
 router
     .route("/")
-    .get(restrict("admin"), postController.getAllPosts)
-    .post(restrict("user","admin"), upload.uploadImage, postController.createPost);
+    // .get(restrict("admin"), postController.getAllPosts)
+    .get(restrict("user", "admin"), postController.getAllPostRelatedWithUser)
+    .post(
+        restrict("user", "admin"),
+        upload.uploadImage,
+        postController.createPost
+    );
 
 router
     .route("/:id")
-    .get(restrict("user","admin"), postController.getPost)
-    .patch(restrict("user","admin"), upload.uploadImage, postController.updatePost)
-    .delete(restrict("user","admin"), postController.deletePost);
+    .get(restrict("user", "admin"), postController.getPost)
+    .patch(
+        restrict("user", "admin"),
+        upload.uploadImage,
+        postController.updatePost
+    )
+    .delete(restrict("user", "admin"), postController.deletePost);
 
 module.exports = router;

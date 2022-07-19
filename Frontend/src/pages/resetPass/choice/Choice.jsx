@@ -10,7 +10,7 @@ function ForgetPass() {
     const navigate = useNavigate();
 
     const handleLogin =() =>{
-        navigate('/')
+        navigate('/Login')
     }
 
     const handleSignup=()=>{

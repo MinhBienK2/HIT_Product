@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Header from '../../components/header/Header'
 import Sidebar from '../../components/sidebar/Sidebar'
 import Feed from '../../components/feed/Feed'

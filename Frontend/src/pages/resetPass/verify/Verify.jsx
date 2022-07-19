@@ -10,7 +10,7 @@ function Verify() {
     const navigate = useNavigate();
 
     const handleLogin =() =>{
-        navigate('/')
+        navigate('/login')
     }
 
     const handleSignup=()=>{

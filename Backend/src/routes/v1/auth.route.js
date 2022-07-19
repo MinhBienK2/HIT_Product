@@ -4,6 +4,8 @@ const passport = require("passport");
 
 const { authController } = require("../../controllers");
 
+router.get('/check-login',authController.checkLogin)
+
 router.post("/signup", authController.signup);
 //login core
 router.post("/login", authController.login);
