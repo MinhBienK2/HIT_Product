@@ -7,8 +7,11 @@ import commentIcon from '../../assets/icons/ant-design_comment-outlined.svg'
 import share from '../../assets/icons/bx_share.svg'
 import send from '../../assets/icons/fluent_send-28-filled.svg'
 import './Post.scss';
+import { Player, Hls } from '@vime/react';
 
-function Post({ profilePic, image, username, message, tym, comment,key }) {
+function Post({ profilePic, images,videos ,username, message, tym, comment,key }) {
+    const user = JSON.parse(localStorage.getItem('user'))
+
     return (
         <div className="post" key={key}>
             <div className="post-top">
@@ -23,10 +26,21 @@ function Post({ profilePic, image, username, message, tym, comment,key }) {
             </div>
             <div className="post-image">
                 {
-                    image.map((ele,index) => {
+                    images.map((ele,index) => {
                         return <>
                             <img key={index} src={ele} alt=""/>
                         </>
+                    })
+                }
+                {
+                     videos.map((ele,index) => {
+                        return (
+                            <Player controls key={index}>
+                              <Hls version="latest" >
+                                <source data-src={ele} type="application/x-mpegURL" />
+                              </Hls>
+                            </Player>
+                          );
                     })
                 }
             </div>
@@ -54,7 +68,7 @@ function Post({ profilePic, image, username, message, tym, comment,key }) {
                 </div>
             </div>
             <div className="post-sendComment">
-                <Avatar src={profilePic}/>
+                <Avatar src={user.avatar}/>
                 <input type="text" placeholder="Thêm bình luận..."/>
                 <img src={send} alt=""/>
             </div>

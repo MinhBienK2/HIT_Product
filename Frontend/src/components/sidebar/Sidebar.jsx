@@ -15,12 +15,14 @@ import NextPage from './NextPage'
 import './Sidebar.scss'
 
 function SideBar() {
+  const user = JSON.parse(localStorage.getItem('user'))
+
   return (
     <div className='sidebar'>
       <div className="sidebar__top">
         <div className="sidebar__top-avatar">
-          <Avatar alt=''  sx={{ width: 32, height: 32 }}/>
-          <p>Thao Nguyen</p>
+          <Avatar src={user.avatar} alt=''  x={{ width: 32, height: 32 }}/>
+          <p>{user.name}</p>
         </div>
 
         <div className='sidebar__top-items'>

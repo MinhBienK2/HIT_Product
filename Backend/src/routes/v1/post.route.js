@@ -15,7 +15,7 @@ router
     .get(restrict("user", "admin"), postController.getAllPostRelatedWithUser)
     .post(
         restrict("user", "admin"),
-        upload.uploadImage,
+        upload.uploadPost,
         postController.createPost
     );
 
@@ -24,7 +24,8 @@ router
     .get(restrict("user", "admin"), postController.getPost)
     .patch(
         restrict("user", "admin"),
-        upload.uploadImage,
+        // upload.uploadImage,
+        upload.uploadVideo,
         postController.updatePost
     )
     .delete(restrict("user", "admin"), postController.deletePost);

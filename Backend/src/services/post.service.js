@@ -3,6 +3,8 @@ const ApiError = require("../utils/ApiError");
 const CatchAsync = require("../utils/CatchAsync");
 const paginate = require("../utils/paginate.util");
 const { Post, Friendship } = require("../models");
+const { streamVideo } = require("../config/ffmpeg");
+const fsService = require('../services/fs.service')
 
 const getAllPostRelatedWithUser = CatchAsync(async (req, res, next) => {
     const friend = await Friendship.findOne({
@@ -60,12 +62,23 @@ const createPost = CatchAsync(async (req, res, next) => {
     console.log(req.body.photos)
     let data;
     const files = req.files.photos;
-    const filenames = files ? files.map((file) => `http://localhost:3000/images/${file.fieldname}/${file.filename}`) : "";
+    const filenames = files ? files.map((file) => `http://localhost:3000/images/${file.fieldname}/${file.filename}`) : [];
+    const fileVideos = req.files.videos;
+    const filenameVideos = fileVideos ? fileVideos.map(file => `http://localhost:3000/videos/posts/${file.filename.split('.')[0]}/${file.filename}`) : [];
+   if (fileVideos) {
+        streamVideo(fileVideos);
+        setTimeout(() => {
+            fileVideos.forEach(ele => {
+                fsService.deleteFile(ele.filename)
+            })
+        },10000)
+   }
     data = await Post.create({
         description: req.body.description,
         shareOf: req.body.shareOf,
         author: req.user._id,
         photos: filenames,
+        videos : filenameVideos
     });
     if (!data) {
         next(new ApiError(`create fail`, 404));

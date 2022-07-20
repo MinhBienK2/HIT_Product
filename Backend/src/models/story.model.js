@@ -20,6 +20,14 @@ const storySchema = new mongoose.Schema({
    },
 });
 
+storySchema.pre(/^find/,function(next) {
+   this.populate({
+      path : 'userId',
+      select : ['name','avatar']
+   })
+   next()
+})
+
 const Story = mongoose.model("Stories", storySchema);
 
 module.exports = Story;

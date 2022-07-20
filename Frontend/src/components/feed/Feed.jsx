@@ -71,7 +71,8 @@ function Feed() {
                 profilePic = {ele.author.avatar}
                 username={ele.author.name}
                 message={ele.description}
-                image={ele.photos}
+                images={ele.photos}
+                videos={ele.videos}
                 tym='50'
                 comment='5'
               />
