@@ -23,6 +23,17 @@ function fileFilterVideo(req, file, cb) {
     }
 }
 
+function fileFilterPost(req,file,cb) {
+    if (file.mimetype.startsWith("video") || file.mimetype.startsWith("image")) {
+        cb(null, true);
+    } else {
+        cb(
+            new ApiError("Not an video or image! Please upload only video or image.", 400),
+            false
+        );
+    }
+}
+
 function fileFilterStory(req, file, cb) {
     try {
         if (
@@ -81,17 +92,43 @@ const storageImage = multer.diskStorage({
 
 const storageVideo = multer.diskStorage({
     filename: function (req, file, cb) {
-        req.body.videos = [];
-        const name = `${file.fieldname}-${req.user.id}-${Date.now()}.m3u8`;
-        const name2 = `${file.fieldname}-${req.user.id}-${Date.now()}`;
+        // req.body.videos = [];
+        // const name = `${file.fieldname}-${req.user.id}-${Date.now()}.m3u8`;
+        // const name2 = `${file.fieldname}-${req.user.id}-${Date.now()}`;
         if (file.fieldname === "videos") {
-            req.body.videos.push(
-                `http://localhost:3000/videos/${file.fieldname}/${name2}/${name}`
-            );
+            const name = `${file.fieldname}-${req.user.id}-${Date.now()}.m3u8`;
+            // req.body.videos.push(
+            //     `http://localhost:3000/videos/${file.fieldname}/${name2}/${name}`
+            // );
             cb(null, name);
         }
     },
 });
+
+const storagePost = multer.diskStorage({
+    destination: function (req, file, cb) {
+        if (
+            file.fieldname === "photos"
+        ) {
+            cb(null, `src/public/images/${file.fieldname}`);
+        }
+        if(file.fieldname ==="videos") {
+            cb(null,'src/public/videos');
+        }
+    },
+    filename: function (req, file, cb) {
+        if (req.files.photos) {
+            const nameImage = `${file.fieldname}-${
+                req.user.id
+            }-${Date.now()}.jpeg`;
+            cb(null, nameImage);
+        }
+        if (file.fieldname === "videos") {
+            const name = `${file.fieldname}-${req.user.id}-${Date.now()}.m3u8`;
+            cb(null, name);
+        }
+    },
+})
 
 const storageStory = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -149,6 +186,20 @@ const uploadVideo = multer({
     },
 ]);
 
+const uploadPost = multer({
+    storage: storagePost,
+    fileFilter: fileFilterPost,
+}).fields([
+    {
+        name: "photos",
+        maxCount: 20,
+    },
+    {
+        name: "videos",
+        maxCount: 5,
+    },
+]);
+
 const uploadStory = multer({
     storage: storageStory,
     fileFilter: fileFilterStory,
@@ -158,4 +209,5 @@ module.exports = {
     uploadImage,
     uploadVideo,
     uploadStory,
+    uploadPost
 };

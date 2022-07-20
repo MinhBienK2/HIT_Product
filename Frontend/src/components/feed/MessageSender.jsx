@@ -7,6 +7,7 @@ import {Avatar} from "@mui/material"
 import axios from 'axios'
 import postService from '../../services/post/post.service';
 function MessageSender() {
+    const user = JSON.parse(localStorage.getItem('user'))
 
     const [input, setInput] = useState('')
     const [file, setFile] = useState()
@@ -66,7 +67,7 @@ function MessageSender() {
     return (
         <div className="messageSender">
             <div className="messageSender-top">
-                <Avatar/>
+                <Avatar src={user.avatar}/>
                 <input 
                     input={input}
                     onChange={(e)=> setInput(e.target.value)}
