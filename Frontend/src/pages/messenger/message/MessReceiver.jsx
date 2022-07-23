@@ -4,7 +4,7 @@ import './MessReceiver.scss'
 
 function MessReceiver({avar, content}) {
   return (
-    <div className="MessReceiver">
+    <div className="messReceiver">
         {avar ? <img src={avar} alt="" /> : <Avatar/> }
         <p>{content}</p>
     </div>

@@ -2,6 +2,7 @@
     background-color: #fff;
     flex:1;
     height: 660px;
+    // padding-right: 36px;
     // min-height: 90vh;
     &__title{
         display: flex;
@@ -33,13 +34,15 @@
                 line-height: 16px;
                 color: #4f4f4f;
                 margin-left: 10px;
+                align-self: center;
             }
         }
         &-right{
-            margin-left: 70px;
+            margin-left: 15%;
+            // margin-right: 20%;
             img{
                 margin-top: 7px;
-                margin-right: 31px;
+                margin-right: 20px;
             }
         }
     }

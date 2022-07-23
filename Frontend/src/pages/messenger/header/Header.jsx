@@ -1,5 +1,7 @@
 import React from 'react'
 import './Header.scss'
+import {useNavigate} from 'react-router-dom'
+
 import search from '../../../assets/icons/akar-icons_search.svg'
 import home from '../../../assets/icons/Home.svg'
 import watch from '../../../assets/icons/Group 1.svg'
@@ -11,6 +13,9 @@ import Avatar from '@mui/material/Avatar';
 import setting from '../../../assets/icons/ep_setting.svg'
 
 function Header() {
+
+  const navigate = useNavigate()
+
   return (
     <div className='header'>
       <div className="header__left">
@@ -22,16 +27,28 @@ function Header() {
       </div>
       <div className="header__center">
         <div className="header__center-option-home">
-          <img src={home} alt="home" />
+          <img 
+            src={home} 
+            alt="home" 
+            onClick={() => navigate('/')}
+          />
         </div>
         <div className="header__center-option">
-          <img src={watch} alt="home" />
+          <img 
+            src={watch} 
+            alt="home" 
+            onClick={()=>navigate('/Watch')}
+          />
         </div>
         <div className="header__center-option">
           <img src={group} alt="home" />
         </div>
         <div className="header__center-option">
-          <img src={mess} alt="home" />
+          <img 
+            src={mess} 
+            alt="home" 
+            onClick={()=>navigate('/Messenger')}
+            />
         </div>
       </div>
       <div className="header__right">

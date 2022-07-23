@@ -44,6 +44,7 @@ function Login() {
                      email : data.data.email
                   })
                );
+               localStorage.setItem("accessToken", data.token);
                navigate("/");
                localStorage.setItem('isLogin', true)
                window.location.reload()

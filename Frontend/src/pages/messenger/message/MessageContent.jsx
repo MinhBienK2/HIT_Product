@@ -4,7 +4,7 @@ import moment from 'moment'
 
 import {fetchChatViewInMessage} from '../../../store/reducers/chat'
 import { chatJoin } from "../../../utils/webSocket";
-
+import './MessageContent.scss'
 
 const MessageContent = () => {
     const dispatch = useDispatch();
@@ -22,7 +22,7 @@ const MessageContent = () => {
                     <div key={index}>
                        {/* <p>{ele.name} -</p> */}
                        <div className="messSender">
-                           <p>{moment(ele.createdAtcontent).fromNow()}</p>
+                           <span>{moment(ele.createdAtcontent).fromNow()}</span>
                            <p>{ele.content}</p>
                        </div>
                     </div>
@@ -30,8 +30,8 @@ const MessageContent = () => {
                }else {
                     return (
                         <div key={index}>
-                        <div className="messReceiver">
-                        <p>{moment(ele.createdAtcontent).fromNow()}</p>
+                        <div className="MessReceiver">
+                        <span>{moment(ele.createdAtcontent).fromNow()}</span>
                             <p>{ele.content}</p>
                         </div>
                         </div>

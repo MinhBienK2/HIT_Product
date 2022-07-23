@@ -1,5 +1,5 @@
 .post{
-    min-height: 622px;
+    min-height: 400px;
     background: #fff;
     margin-top: 24px;
     border-radius: 10px;
@@ -30,6 +30,7 @@
                 font-size: 16px;
                 line-height: 16px;
                 color: #252322;
+                align-self: center;
             }
             .MuiAvatar-root{
                 align-self: center;
@@ -50,14 +51,15 @@
     &-image{
         img{
             width: 100%;
-            // margin-top: 16px;
+            margin-top: 16px;
             border-radius: 10px;
         }
     }
     &-reaction{
         display: flex;
         justify-content: space-between;
-        margin-top: 10px;
+        margin-top: 16px;
+        margin-bottom: 9px;
         &-tym{
             display: flex;
             img{
@@ -77,6 +79,7 @@
             }
         }
         &-comment{
+            align-self: center;
             p{
                 font-family: 'Roboto', sans-serif;
                 font-style: normal;
@@ -84,6 +87,7 @@
                 font-size: 14px;
                 line-height: 12px;
                 color: #6d7274;
+                // align-self: center;
             }
         }
     }
@@ -93,11 +97,14 @@
         border-bottom: 1px solid rgba(109,115,115,0.2);
         justify-content: space-between;
         color: gray;
+        // height: 48px;
         cursor: pointer;
+        padding: 12px 0;
         &-option{
             display: flex;
             p{
                 margin-left: 8px;
+                align-self: center;
             }
         }
     }
@@ -130,7 +137,7 @@
         display: flex;
         &-content{
             margin-left: 16px;
-            margin-top: -15px;
+            // margin-top: -15px;
             
             &_top{
                 background: #f2f2f2;
@@ -149,7 +156,7 @@
                 }
             }
             &_bottom{
-                margin-top: -7px;
+                // margin-top: -7px;
                 display: flex;
                 max-width: 121px;
                 justify-content: space-between;
