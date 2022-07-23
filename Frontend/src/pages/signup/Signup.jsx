@@ -10,29 +10,6 @@ import axios from 'axios';
 
 function Signup() {
 
-    
-
-    // const [firstName, setFirstName] = useState('')
-    // const [lastName, setLastName] = useState('')
-    // const [email, setEmail] = useState('')
-    // const [password, setPassword] = useState('')
-    // const [confirmPassword, setConfirmPassword] = useState('')
-
-    // const handleFirstName = (e) =>{
-    //     setFirstName(e.target.value);
-    // }
-    // const handleLastName = (e) =>{
-    //     setLastName(e.target.value);
-    // }
-    // const handleEmail = (e) =>{
-    //     setEmail(e.target.value);
-    // }
-    // const handlePassword = (e) =>{
-    //     setPassword(e.target.value);
-    // }
-    // const handleConfirmPassword = (e) =>{
-    //     setConfirmPassword(e.target.value);
-    // }
 
     const navigate = useNavigate();
 
@@ -76,45 +53,6 @@ function Signup() {
 
     const handleSubmit = async(e) => {
         e.preventDefault();
-        // let config = {
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //         'Access-Control-Allow-Origin': '*',
-        //     }
-        // }
-        // axios.post('http://localhost:3000/signup', {
-        //     firstName: `${formik.values.firstName}`,
-        //     lastName: `${formik.values.lastName}`,
-        //     email: `${formik.values.email}`,
-        //     password: `${formik.values.password}`,
-        //     confirmPassword: `${formik.values.confirmPassword}`,
-        //     phoneNumber : `${formik.values.phoneNumber}`
-        // }, config)
-        // .then((res) => {
-        //     alert(res.status)
-        //     if(res.status === 'success')
-        //     navigate('/login')
-        // })
-        // .catch((err) => {
-        //     alert(err.response.data.message)
-        // });
-
-        // axios({
-        //     method: 'post',
-        //     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        //     url: 'http://localhost:3000/signup',
-        //     data: {
-        //         firstName: `${formik.values.firstName}`,
-        //         lastName: `${formik.values.lastName}`,
-        //         email: `${formik.values.email}`,
-        //         password: `${formik.values.password}`,
-        //         confirmPassword: `${formik.values.confirmPassword}`,
-        //         phoneNumber : `${formik.values.phoneNumber}`
-        //     }
-        //   }).then(function (response) {
-        //     console.log(response.data);
-        //   });
-        
         
         axios({
                 method: 'post',
@@ -132,34 +70,17 @@ function Signup() {
                 alert(data.status)
                 if(data.status === 'success')
                      navigate('/login')
+                    console.alert("Sign up successfully")
+
             }).catch(err => {
                 console.log(err)
                 // alert(err.response.data.message)
             })
      } 
-            // axios({
-            //     method: 'post',
-            //     url: 'http://localhost:3000/signup',
-            //     withCredentials: true,
-            //     data: {
-            //         firstName: `${formik.values.firstName}`,
-            //         lastName: `${formik.values.lastName}`,
-            //         email: `${formik.values.email}`,
-            //         password: `${formik.values.password}`,
-            //         confirmPassword: `${formik.values.confirmPassword}`,
-            //         phoneNumber : `${formik.values.phoneNumber}`
-            //     }
-            // }).then(data => {
-            //     alert(data.status)
-            //     if(data.status === 'success')
-            //          navigate('/login')
-            // }).catch(err => {
-            //     console.log(err)
-            //     // alert(err.response.data.message)
-            // })
 
     const handleLogin =() =>{
-        navigate('/')
+        navigate('/login')
+        console.alert("Sign up successfully")
     }
 
     // console.log(formik.values)
@@ -178,7 +99,7 @@ function Signup() {
                             </div>
                         </div>
                         <div className="signup__taskbar-right">
-                            <button className='signup__taskbar-right-btn1' onClick={handleLogin}>Đăng nhập</button>
+                            <button className='signup__taskbar-right-btn1' >Đăng nhập</button>
                             <button className='signup__taskbar-right-btn2'>Đăng kí</button>
                         </div>
                     </div>
@@ -200,12 +121,6 @@ function Signup() {
                                                 onChange={formik.handleChange}
                                                 value={formik.values.lastName}
                                                 />
-                                                {/* <input
-                                                    type="text"
-                                                    id='lastName'
-                                                    name='lastName'
-                                                    onChange={handleLastName}
-                                                /> */}
                                         </div>
                                     {formik.errors.lastName && formik.touched.lastName ? (
                                         <div className="error">{formik.errors.lastName}</div>
@@ -222,12 +137,6 @@ function Signup() {
                                                 onChange={formik.handleChange}
                                                 value={formik.values.firstName}
                                             />
-                                            {/* <input
-                                                    type="text"
-                                                    id='firstName'
-                                                    name='firstName'
-                                                    onChange={handleFirstName}
-                                                /> */}
                                         </div>
                                         {formik.errors.firstName && formik.touched.firstName ? (
                                             <div className="error">{formik.errors.firstName}</div>
@@ -244,12 +153,6 @@ function Signup() {
                                                 onChange={formik.handleChange}
                                                 value={formik.values.password}
                                                 />
-                                                {/* <input
-                                                    type="password"
-                                                    id='password'
-                                                    name='password'
-                                                    onChange={handlePassword}
-                                                /> */}
                                         </div>
                                         {formik.touched.password && formik.errors.password ? (
                                                 <div className='error'>{formik.errors.password}</div>
@@ -266,12 +169,6 @@ function Signup() {
                                                 onChange={formik.handleChange}
                                                 value={formik.values.confirmPassword}
                                                 />
-                                                {/* <input
-                                                    type="password"
-                                                    id='confirmPassword'
-                                                    name='confirmPassword'
-                                                    onChange={handleConfirmPassword}
-                                                /> */}
                                         </div>
                                         {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
                                                 <div className='error'>{formik.errors.confirmPassword}</div>
@@ -289,12 +186,6 @@ function Signup() {
                                                 onChange={formik.handleChange}
                                                 // placeholder="Nhập email"
                                                 />
-                                                {/* <input
-                                                    type="email"
-                                                    id='email'
-                                                    name='email'
-                                                    onChange={handleEmail}
-                                                /> */}
                                         </div>
                                         {formik.touched.email && formik.errors.email ? (
                                             <div className='error'>{formik.errors.email}</div>
@@ -318,7 +209,7 @@ function Signup() {
                                     </div>
 
                                 </div>
-                                <button type='submit'>Đăng kí</button>
+                                <button onClick={handleLogin} type='submit'>Đăng kí</button>
                             </div>
                         </div>
                     </div>

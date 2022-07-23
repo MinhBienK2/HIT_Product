@@ -13,8 +13,12 @@ import more from '../../assets/icons/ep_d-arrow-right.svg'
 import Group from './Group'
 import NextPage from './NextPage'
 import './Sidebar.scss'
+import {useNavigate} from 'react-router-dom'
 
 function SideBar() {
+
+  const navigate = useNavigate()
+
   const user = JSON.parse(localStorage.getItem('user'))
 
   return (
@@ -22,7 +26,7 @@ function SideBar() {
       <div className="sidebar__top">
         <div className="sidebar__top-avatar">
           <Avatar src={user.avatar} alt=''  x={{ width: 32, height: 32 }}/>
-          <p>{user.name}</p>
+          <p onClick={()=> navigate('/Profile')}>{user.name}</p>
         </div>
 
         <div className='sidebar__top-items'>
