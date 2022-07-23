@@ -6,7 +6,7 @@ import {useNavigate} from 'react-router-dom'
 import {useFormik} from 'formik';
 import {useState} from 'react'
 import * as Yup from 'yup';
-import Axios from '../../services/axios.service'
+import axios from 'axios';
 
 function Signup() {
 
@@ -70,12 +70,53 @@ function Signup() {
                       ),
         }),
         onSubmit: () => {
-            navigate('/Login')
+            navigate('/login')
         }
     })
 
-    const handleSubmit = async() => {
-            Axios({
+    const handleSubmit = async(e) => {
+        e.preventDefault();
+        // let config = {
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //         'Access-Control-Allow-Origin': '*',
+        //     }
+        // }
+        // axios.post('http://localhost:3000/signup', {
+        //     firstName: `${formik.values.firstName}`,
+        //     lastName: `${formik.values.lastName}`,
+        //     email: `${formik.values.email}`,
+        //     password: `${formik.values.password}`,
+        //     confirmPassword: `${formik.values.confirmPassword}`,
+        //     phoneNumber : `${formik.values.phoneNumber}`
+        // }, config)
+        // .then((res) => {
+        //     alert(res.status)
+        //     if(res.status === 'success')
+        //     navigate('/login')
+        // })
+        // .catch((err) => {
+        //     alert(err.response.data.message)
+        // });
+
+        // axios({
+        //     method: 'post',
+        //     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        //     url: 'http://localhost:3000/signup',
+        //     data: {
+        //         firstName: `${formik.values.firstName}`,
+        //         lastName: `${formik.values.lastName}`,
+        //         email: `${formik.values.email}`,
+        //         password: `${formik.values.password}`,
+        //         confirmPassword: `${formik.values.confirmPassword}`,
+        //         phoneNumber : `${formik.values.phoneNumber}`
+        //     }
+        //   }).then(function (response) {
+        //     console.log(response.data);
+        //   });
+        
+        
+        axios({
                 method: 'post',
                 url: 'http://localhost:3000/signup',
                 withCredentials: true,
@@ -92,9 +133,30 @@ function Signup() {
                 if(data.status === 'success')
                      navigate('/login')
             }).catch(err => {
-                alert(err.response.data.message)
+                console.log(err)
+                // alert(err.response.data.message)
             })
-      }
+     } 
+            // axios({
+            //     method: 'post',
+            //     url: 'http://localhost:3000/signup',
+            //     withCredentials: true,
+            //     data: {
+            //         firstName: `${formik.values.firstName}`,
+            //         lastName: `${formik.values.lastName}`,
+            //         email: `${formik.values.email}`,
+            //         password: `${formik.values.password}`,
+            //         confirmPassword: `${formik.values.confirmPassword}`,
+            //         phoneNumber : `${formik.values.phoneNumber}`
+            //     }
+            // }).then(data => {
+            //     alert(data.status)
+            //     if(data.status === 'success')
+            //          navigate('/login')
+            // }).catch(err => {
+            //     console.log(err)
+            //     // alert(err.response.data.message)
+            // })
 
     const handleLogin =() =>{
         navigate('/')

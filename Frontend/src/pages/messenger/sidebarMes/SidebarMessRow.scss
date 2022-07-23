@@ -33,7 +33,7 @@
             }
             span{
                 position: absolute;
-                margin-top: -8px;
+                margin-top: 4%;
                 font-family: 'Roboto', sans-serif;
                 font-style: normal;
                 font-weight: 400;
@@ -43,7 +43,8 @@
             }
         }
         &-right{
-            position: relative;
+        margin-right: 36px;
+        position: relative;
             img{
                 position: absolute;
                 margin-top: 0;
@@ -53,10 +54,11 @@
                 font-family: 'Roboto', sans-serif;
                 font-style: normal;
                 font-weight: 400;
-                font-size: 12px;
+                font-size: 10px;
                 line-height: 12px;
                 color: #6d7274;
-                margin-top: 20px;
+                // margin-top: 20px;
+                
             }
         }
     }

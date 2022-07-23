@@ -22,10 +22,11 @@
     &-left{
         display: flex; 
         img{
-            width: 64px;
-            height: 64px;
+            // width: 64px;
+            // height: 64px;
             padding-left: 47px;
             padding-top: 8px;
+            padding-bottom: 8px;
         }
         &-text{
             display: flex;

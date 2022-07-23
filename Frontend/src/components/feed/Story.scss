@@ -1,14 +1,15 @@
 .story{
-    width: 106px;
+    width: 125px;
     height: 169px;
     margin-right: 26px;
     position: relative;
     &-avatar{
         z-index: 1;
+        overflow: hidden;
         .MuiAvatar-root{
             width: 105px !important;
             height: 103.17px!important;
-            border: 2px solid rgb(238,114,24);
+            border: 2px solid rgb(238,114,24) !important;
             background-clip: content-box;
             padding: 3px;
         }
@@ -37,9 +38,11 @@
     h4{
         font-family: 'Roboto', sans-serif;
         font-style: normal;
-        font-weight: 400;
+        font-weight: 500;
         font-size: 10px;
         line-height: 15px;
         text-align: center;
+        margin-top: 12px;
+        color: #6d7274;
     }
 }

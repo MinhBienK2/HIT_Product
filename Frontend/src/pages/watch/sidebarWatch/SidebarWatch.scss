@@ -1,0 +1,160 @@
+.SidebarWatch::-webkit-scrollbar{
+    width: 10px;
+}
+.SidebarWatch::-webkit-scrollbar-track{
+    background: rgba(255,255,255,0);
+}
+.SidebarWatch::-webkit-scrollbar-thumb{
+    background-color: rgba(255,255,255,0);
+    border-radius: 20px;
+}
+ .SidebarWatch{
+     width: 366px;
+    // flex: 0.3;
+     height: 660px;
+     overflow-y: auto;
+    &__top{
+        margin-top: 20px;
+        margin-left: 48px;
+        &-content{
+            display:flex;
+            justify-content: space-between;
+            h3{
+                font-family: 'Roboto', sans-serif;
+                font-style: normal;
+                font-weight: 700;
+                font-size: 36px;
+                line-height: 36px;
+            }
+        }
+        &-input{
+            display: flex;
+            position: relative; 
+            margin-top: 28px;           
+            img{
+                width: 24px;
+                height: 24px;
+                position: absolute;
+                margin-top: 8px;
+                margin-left: 20px;
+            }
+            input{
+                width: 270px;
+                height: 32px;
+                border-radius: 24px;
+                background-color: #f2f2f2;
+                border: 1px solid #f2f2f2;
+                padding-left: 56px;
+                font-family: 'Roboto', sans-serif;
+                font-style: normal;
+                font-size: 14px;
+                line-height: 12px;
+            }
+            input:focus{
+                outline: none;
+            }
+        }
+        &-menu{
+            margin-top: 28px;
+            &-items{
+                display: flex;
+                margin-top: 24px;
+                max-height: 32px;
+                p{
+                    margin-left: 8px;
+                    align-self: center;
+                    font-family: 'Roboto', sans-serif;
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 16px;
+                    line-height: 16px;
+                    color: #000;
+                }
+            }
+            &-bottom{
+                display: flex;
+                justify-content: space-between;
+                margin-top: 24px;
+                max-height: 32px;
+                &-left{
+                    display: flex;
+                    p{
+                        align-self: center;
+                        margin-left: 8px;
+                        font-family: 'Roboto', sans-serif;
+                        font-style: normal;
+                        font-weight: 500;
+                        font-size: 16px;
+                        line-height: 16px;
+                        color: #000;
+                    }
+                }
+                &-right{
+                    display: flex;
+                    p{
+                        font-family: 'Roboto', sans-serif;
+                        font-style: normal;
+                        font-weight: 400;
+                        font-size: 12px;
+                        line-height: 12px;
+                        color: #6d7274;
+                        margin-right: 3px;
+                        align-self: center;
+                    }
+                    img{
+                        align-self: center;
+                    }
+                }
+            }
+        }
+    }
+    hr{
+        border: 1px solid rgba(0,0,0,.05);
+    }
+    &__bottom{
+        &-content{
+            display: flex;
+            justify-content: space-between;
+            h4{
+                font-family: 'Roboto', sans-serif;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 32px;
+                color: #252322;
+                margin-left: 48px;
+                margin-top: 22px;
+                align-self: center;
+            }
+            p{
+                align-self: center;
+                font-family: 'Roboto', sans-serif;
+                font-style: normal;
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 16px;
+                color: #6d7274;
+            }
+        }
+        &-group{
+            // margin-top: 45px;
+        }
+        &-more{
+            margin-left: 48px;
+            display: flex;
+            cursor: pointer;
+            p{
+                font-family: 'Roboto', sans-serif;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 12px;
+                color: #423f3d;
+                margin-right: 6px;
+            }
+            img{
+                align-items: center;
+            }
+        }
+    }
+ }
