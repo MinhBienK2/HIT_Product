@@ -25,6 +25,9 @@ img{max-width:100%;}
 	background: url(../images/bg2.png) repeat;
  	font-family: 'Roboto', sans-serif;
 } */
+
+
+
 .header h1 {
 	text-align: center;
 	color: #fff;
@@ -35,7 +38,7 @@ img{max-width:100%;}
 	color: #E06969;
 }
 .login-form {
-	background: rgb(138, 138, 138);
+	background: rgb(66, 66, 66);
 	min-height: 415px;
 	width: 20%;
 	margin: 4% auto;
@@ -150,15 +153,15 @@ li.top-close p {
 	font-size: 1em;
 	font-weight: 400;
 }
-.copy-right p a {
-	font-size: 1em;
-	color:#e06969;
-	-webkit-transition: all 0.3s ease-out;
-	-moz-transition: all 0.3s ease-out;
-	-ms-transition: all 0.3s ease-out;
-	-o-transition: all 0.3s ease-out;
-	transition: all 0.3s ease-out;
-}
+// .copy-right p a {
+// 	font-size: 1em;
+// 	color:#e06969;
+// 	-webkit-transition: all 0.3s ease-out;
+// 	-moz-transition: all 0.3s ease-out;
+// 	-ms-transition: all 0.3s ease-out;
+// 	-o-transition: all 0.3s ease-out;
+// 	transition: all 0.3s ease-out;
+// }
 .copy-right p a:hover {
 	color:#fff;
 }
@@ -273,6 +276,16 @@ li.top-close p {
 
 #border-image {
 	border-radius: 50%
+}
+
+.notification-Call-Video{
+	background-color: rgb(51,51,51,0.4);
+	height:100vh;
+	padding-top:100px;
+	position:absolute;
+	top : 0;
+	left:0;
+	z-index: 2;
 }
 
 /*-----End-responsive-design------*/

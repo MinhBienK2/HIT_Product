@@ -24,20 +24,23 @@ const io = new Server(server, {
     },
 });
 
-let roomdef;
+let listUserIdConnect = []
 io.on("connection", (socket) => {
     socket.emit("connection", null);
     console.log("new user connected: ", socket.id);
 
     socket.on("disconnect", () => {
         console.log("Disconnected - " + socket.id);
+        socket.emit('disjoinRoomMyId','huy')
     });
+
+    socket.on("joinRoomByMyId",userId => {
+        socket.join(userId)
+    })
 
     socket.on("chatJoin", async (room, userId) => {
         try {
-            console.log("room", room, "userId", userId);
             if (userId) {
-                console.log("hello");
                 const notification = await Notification.findOne({
                     messageId: room,
                     friendId: userId,
@@ -46,7 +49,7 @@ io.on("connection", (socket) => {
                 notification.statusRead = true;
                 notification.countMessageSended = 0;
                 await notification.save();
-                io.broadcast.to(room).emit("updateNotificationReaded", {
+                socket.broadcast.to(room).emit("updateNotificationRead", {
                     statusRead: true,
                     countMessageSended: 0,
                 });
@@ -65,16 +68,30 @@ io.on("connection", (socket) => {
         }
     });
 
-    socket.on("chatView", (data) => {
+    socket.on("chatView", (data) => { 
         socket.join(data.room);
         io.in(data.room).emit("chatViewed", data);
         // io.to(data.room).emit("chatViewed", data);
+        socket.leave(data.room);
     });
 
     socket.on("notificationView", (data) => {
         socket.join(data.room);
         socket.broadcast.to(data.room).emit("notificationViewed", data);
     });
+
+    socket.on('callVideo',(data) => {
+        socket.join(data.friendId)
+        socket.broadcast.to(data.friendId).emit("videoCalled",{
+            ...data,
+            isVideoCall : true
+        })
+    })
+
+    socket.on('sendPeerIdToFriend',data => {
+        socket.broadcast.to(data.room).emit('sendPeerIdToReceiver',data.peerId)
+    })
+
 });
 
 server.listen(port, () => {

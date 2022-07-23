@@ -11,6 +11,7 @@ import {setMessageId,
     formatArrayFriendId} from "../../../store/reducers/chat"
 import {chatJoin} from "../../../utils/webSocket"
 import {getNameWithClick} from '../../../store/reducers/message.js'
+import {setupCalled} from '../../../store/reducers/callVideo'
 
 function SidebarMessRow({src, nickName, time, messenger, notify,key,messageId,members}) {
     
@@ -19,11 +20,12 @@ function SidebarMessRow({src, nickName, time, messenger, notify,key,messageId,me
     const dispatch = useDispatch();
 
     const handleClick = (messageId, members) => {
-        dispatch(setMessageId(messageId));
+        dispatch(setMessageId(messageId)); 
         dispatch(formatArrayFriendId());
         members.forEach((ele) => {
            dispatch(getNameWithClick(ele.memberId.name))
             dispatch(addElementToArrayFriendId(ele.memberId._id));
+            dispatch(setupCalled(ele.memberId._id))
         });
         const user = localStorage.getItem("user");
         chatJoin(messageId, JSON.parse(user).id);

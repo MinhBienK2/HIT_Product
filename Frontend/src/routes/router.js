@@ -6,6 +6,7 @@ import ListFriend from "../pages/chatbox/ListFriend";
 import Video from "../pages/video/Video";
 import Messenger from "../pages/messenger/Messenger";
 import NotificationCallVideo from "../components/notificationCallVideo/NotificationCallVideo";
+import CallVideo from '../pages/CallVideo/CallVideo.jsx'
 
 const publicRoutes = [
    { path: "/", component: Home },
@@ -16,7 +17,8 @@ const publicRoutes = [
    { path: "/friends", component: ListFriend },
    { path: "/videos", component: Video },
   { path: "/Messenger", component: Messenger },
-  {path:"/notification-call-video",component:NotificationCallVideo}
+  {path:"/notification-call-video",component:NotificationCallVideo},
+  {path: "/call-video/:room/:friendId",component : CallVideo}
 ];
 
 const privateRoutes = [];
