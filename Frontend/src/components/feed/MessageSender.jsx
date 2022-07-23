@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import './MessageSender.scss';
 import live from '../../assets/icons/bxs_video-plus.svg'
 import picture from '../../assets/icons/fontisto_picture.svg'
@@ -6,49 +6,19 @@ import emoji from '../../assets/icons/fluent_emoji-24-regular.svg'
 import {Avatar} from "@mui/material"
 import axios from 'axios'
 import postService from '../../services/post/post.service';
+import iconSmile from '../../assets/icons/bi_emoji-smile.svg'
+import rainbow from '../../assets/icons/Frame 155.svg'
+import pic from '../../assets/icons/Frame 156.svg'
+import userTag from '../../assets/icons/fa6-solid_user-tag.svg'
+import tagFace from '../../assets/icons/ic_round-tag-faces.svg'
+import location from '../../assets/icons/Frame 157.svg'
+import video from '../../assets/icons/Frame 161.svg'
+import storageService from '../../services/storage.service';
 
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
 function HandleShowPost(props) {
-    const user = JSON.parse(localStorage.getItem('user'))
-
-    return(
-        <Modal
-            {...props}
-            size='lg'
-            aria-labelledby="contained-modal-title-vcenter"
-            centered
-        >
-            <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title-vcenter">
-                    Tạo bài viết
-                </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                <div className="ms-top">
-                    <div className="ms-top-left">
-                        <Avatar src={user.avatar}/>
-                    </div>
-                    <div className="ms-top-right">
-                        <p>{user.name}</p>
-                    </div>
-                </div>
-                <div className="ms-content">
-                    <input type="text" />
-                </div>
-
-                <div className="ms-bottom">
-                    
-                </div>
-
-            </Modal.Body>
-        </Modal>
-    )
-}
-
-function MessageSender() {
-    const user = JSON.parse(localStorage.getItem('user'))
 
     const [input, setInput] = useState('')
     const [file, setFile] = useState()
@@ -57,30 +27,21 @@ function MessageSender() {
     const [imageToPost, setImageToPost] = useState(null)
 
     var formData = new FormData();
-    
+
     const handleSubmit = async(e) => {
 
         e.preventDefault()
-
-        if(!inputRef.current.value) return;
-
+        console.log(localStorage.getItem("accessToken"));
         try {
             formData.append('description', inputRef.current.value);
             formData.append('photos', file)
-
             postService.createPost(formData).then(data => {
-                console.log(data);
+                props.onHide()
             })
-            console.log(file)
-            
-            // if(data.data.status === 'success') {
-            //     console.log(input)
-            // }
-        }
-        catch (err) {
+        } catch (err) {
             alert('Error')
         }
-        inputRef.current.value = ''
+        // inputRef.current.value = ''
       }
 
       const addImageToPost =(e) =>{
@@ -98,14 +59,88 @@ function MessageSender() {
         setImageToPost(null)
       }
 
-    // const handleSubmit =(e)=> {
-    //     e.preventDefault()
-        
-    //     console.log(input)
-    //     setInput("")
-    // }
+    const user = JSON.parse(localStorage.getItem('user'))
+    let classNameButtonSubmit = "btn-submit ";
+    if(input.length > 0) {
+        classNameButtonSubmit += "btn-submit-active"
+    }
 
-    const [postShow, setPostShow] = useState(true)
+    const handleChangeInput = (e) => {
+        setInput(e.target.value)
+    }
+
+    return(
+        <Modal
+            {...props}
+            size='lg'
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+        >
+            <Modal.Header closeButton  className="ms-title">
+                <Modal.Title id="contained-modal-title-vcenter" className="ms-title-p">
+                    TẠO BÀI VIẾT
+                </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <div className="ms-top">
+                    <div className="ms-top-left">
+                        <Avatar src={user.avatar}/>
+                    </div>
+                    <div className="ms-top-right">
+                        <p>{user.name}</p>
+                    </div>
+                </div>
+                <div className="ms-content">
+                    <input 
+                        input={input}
+                        type="text" 
+                        placeholder={`${user.name} ơi, bạn đang nghĩ gì thế?`} 
+                        onChange={(e) => handleChangeInput(e)} 
+                        ref={inputRef} 
+                    />
+                    {imageToPost && (
+                    <div onClick={removeImage} className="messageSender-top-postImage">
+                        <img src={imageToPost} alt="" />
+                        <p>Remove</p>
+                    </div>
+                )}
+                    <div className="ms-content-img">
+                        <img src={iconSmile} alt="" />
+                    </div>
+                </div>
+
+                <div className="ms-bottom">
+                    <div className="ms-bottom-left">
+                        <img src={rainbow} alt="" />
+                    </div>
+                    <div className="ms-bottom-right">
+                        <div className="ms-bottom-right-first" onClick={()=>filepickerRef.current.click()} >
+                            <img src={pic} alt=""/>
+                            <input 
+                            ref={filepickerRef} 
+                            onChange={addImageToPost} 
+                            multiple="true"
+                            type="file" 
+                            hidden 
+                        />
+                        </div>
+                        <img src={userTag} alt="" height='24' width='30'/>
+                        <img src={tagFace} alt="" height='24' width='24'/>
+                        <img src={location} alt="" height='24' width='16'/>
+                        <img src={video} alt="" height='18' width='24.68'/>
+                    </div>
+                </div>
+                <button onClick={handleSubmit} id="btn-submit-id" className={classNameButtonSubmit}>Đăng</button>
+
+            </Modal.Body>
+        </Modal>
+    )
+}
+
+function MessageSender() {
+    const user = JSON.parse(localStorage.getItem('user'))
+
+    const [postShow, setPostShow] = useState(false)
 
     const handleShowModal = () => {
         setPostShow(true);
@@ -116,11 +151,8 @@ function MessageSender() {
             <div className="messageSender-top">
                 <Avatar src={user.avatar}/>
                 <input 
-                    // input={input}
-                    // onChange={(e)=> setInput(e.target.value)}
                     type="text" 
                     placeholder="Bạn đang nghĩ gì?"
-                    // ref={inputRef}
                     onClick={handleShowModal}
                     variant="primary"
                 />
@@ -130,12 +162,7 @@ function MessageSender() {
                     onHide={()=>setPostShow(false)}
                 />
 
-                {imageToPost && (
-                    <div onClick={removeImage} className="messageSender-top-postImage">
-                        <img src={imageToPost} alt="" />
-                        <p>Remove</p>
-                    </div>
-                )}
+                
             </div>
 
             <div className="messageSender-bottom">
@@ -145,25 +172,19 @@ function MessageSender() {
                         <p>Phát trực tiếp</p>
                     </div>
                     <div 
-                        onClick={()=>filepickerRef.current.click()} 
+                        
                         className="messageSender-bottom-options-option"
                     >
                         <img src={picture} alt="" height='32.25' width='24'/>
                         <p>Ảnh/Video</p>
-                        <input 
-                            ref={filepickerRef} 
-                            onChange={addImageToPost} 
-                            multiple="true"
-                            type="file" 
-                            hidden 
-                        />
+                        
                     </div>
                     <div className="messageSender-bottom-options-option">
                         <img src={emoji} alt="" height='32' width='32'/>
                         <p>Cảm xúc/Hoạt động</p>
                     </div>
                 </div>
-                <button onClick={handleSubmit}>Đăng bài</button>
+                <button >Đăng bài</button>
             </div>
         </div>
     );

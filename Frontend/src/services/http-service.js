@@ -32,7 +32,7 @@ class HttpService {
   generateHttpHeaders(headerInfo) {
     const headers = {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${storageService.get("accessToken")}`,
+      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
     };
 
     if (headerInfo) {

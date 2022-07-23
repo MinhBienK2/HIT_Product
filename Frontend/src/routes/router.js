@@ -10,17 +10,17 @@ import NotificationCallVideo from "../components/notificationCallVideo/Notificat
 import Watch from "../pages/watch/Watch";
 
 const publicRoutes = [
-  { path: "/", component: Profile },
-  // { path: "/", component: Home },
-  // { path: "/NewPass", component: NewPass },
-  // { path: "/CheckEmail", component: CheckEmail },
-  // { path: "/messages", component: Chatbox },
+  { path: "/", component: Home },
+  { path: "/NewPass", component: NewPass },
+  { path: "/CheckEmail", component: CheckEmail },
+  { path: "/messages", component: Chatbox },
+  { path: "/profile", component: Profile },
   // // { path: "/messages/:friendId", component: chat },
-  // { path: "/friends", component: ListFriend },
-  // { path: "/videos", component: Video
-  // { path: "/Messenger", component: Messenger },
-  // { path: "/Watch", component: Watch },
-  // { path: "/notification-call-video", component: NotificationCallVideo },
+  { path: "/friends", component: ListFriend },
+  { path: "/videos", component: Video },
+  { path: "/Messenger", component: Messenger },
+  { path: "/Watch", component: Watch },
+  { path: "/notification-call-video", component: NotificationCallVideo },
 ];
 
 const privateRoutes = [];
