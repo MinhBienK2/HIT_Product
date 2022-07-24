@@ -36,8 +36,6 @@ function Feed() {
   },[])
 
   const scrollCallApi = () => {
-    console.log(tagFeed.current.scrollTop);
-    console.log(tagFeed.current.scrollHeight);
     if(tagFeed.current.scrollTop === tagFeed.current.scrollHeight - 660 || tagFeed.current.scrollTop === tagFeed.current.scrollHeight - 660.5){
         let cancel
         Axios({

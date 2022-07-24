@@ -1,0 +1,50 @@
+.main {
+    width: 1400px;
+    margin: 0 auto;
+    height: 75vh;
+}
+
+.user-streams {
+    display: flex;
+    grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+    gap: 1em;
+    height: 100%;
+    border : #333 1px solid;
+    position:relative;
+    margin-top:20px;
+}
+
+.user-me-streams{
+    position :absolute;
+    width:200px;
+    height:200px;
+    bottom : 0;
+    right:0;
+    border : rgb(255, 0, 0) 1px solid;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    column-gap: 1em;
+    width: 100%;
+    height: 100px;
+}
+.control-icon {
+    display: block;
+    padding: 15px;
+    background-color: #1f1f1f8e;
+    height: 30px;
+    width: 30px;
+    border-radius: 10px;
+}
+
+@media screen and (max-width:1400px) {
+    main {
+        width: 90%;
+        margin: 0 auto;
+    }
+}
