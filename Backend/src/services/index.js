@@ -6,3 +6,4 @@ module.exports.notificationService = require("./notification.service");
 module.exports.storyService = require("./story.service");
 module.exports.storyViewerService = require("./storyViewer.service");
 module.exports.postService = require("./post.service");
+module.exports.watchService = require("./watch.service");

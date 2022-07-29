@@ -9,3 +9,4 @@ module.exports.storyViewerController = require("./storyViewer.controller");
 module.exports.postController = require("./post.controller");
 module.exports.commentController = require("./comment.controller");
 module.exports.reactionController = require("./reaction.controller");
+module.exports.watchController = require("./watch.controller");
