@@ -10,18 +10,21 @@ router.use(protect);
 router
     .route("/")
     .get(restrict("admin"), reactionController.getAllReactions)
-    .post(restrict("user","admin"), reactionController.createReaction);
+    .post(restrict("user", "admin"), reactionController.createReaction);
 
 router
     .route("/:id")
-    .get(restrict("user","admin"), reactionController.getReaction)
-    .patch(restrict("user","admin"), reactionController.updateReaction)
-    .delete(restrict("user","admin"), reactionController.deleteReaction);
+    .get(restrict("user", "admin"), reactionController.getReaction)
+    .patch(restrict("user", "admin"), reactionController.updateReaction)
+    .delete(restrict("user", "admin"), reactionController.deleteReaction);
 
-router.route("/of-cmt/:id")
-    .get(restrict("user","admin"), reactionController.getReactionOfCmt)
+router
+    .route("/of-cmt/:id")
+    .get(restrict("user", "admin"), reactionController.getReactionOfCmt);
 
-router.route("/of-post/:id")
-    .get(restrict("user","admin"), reactionController.getReactionOfPost)
+router
+    .route("/of-post/:id")
+    .get(restrict("user", "admin"), reactionController.getReactionOfPost)
+    .delete(restrict("user", "admin"), reactionController.deleteReactionAxios);
 
 module.exports = router;
