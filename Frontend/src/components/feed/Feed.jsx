@@ -29,8 +29,8 @@ function Feed() {
             .then((data) => {
                 if (data.status === "success") {
                     data.listPosts.forEach((ele) => {
-                        // console.log(ele);
                         if (ele) {
+                            console.log(ele._id);
                             Axios({
                                 method: "GET",
                                 url: `http://localhost:3000/api/v1/reactions/of-post/${ele._id}`,
@@ -38,10 +38,25 @@ function Feed() {
                             })
                                 .then((data) => {
                                     ele.numberReactions = data.reactionLength;
-                                    dispatch(AddListPosts(ele));
+                                    Axios({
+                                        method: "GET",
+                                        url: `http://localhost:3000/api/v1/reactions/check/${ele._id}`,
+                                        withCredentials: true,
+                                    })
+                                        .then((data) => {
+                                            if (data) {
+                                                ele.isCheckExistLike = true;
+                                                dispatch(AddListPosts(ele));
+                                            }
+                                        })
+                                        .catch((err) => {
+                                            if (err) {
+                                                ele.isCheckExistLike = false;
+                                                dispatch(AddListPosts(ele));
+                                            }
+                                        });
                                 })
                                 .catch((err) => {
-                                    // alert(err);
                                     console.log(err);
                                 });
                         }
@@ -97,6 +112,8 @@ function Feed() {
                                 videos={ele.videos}
                                 tym={ele.numberReactions}
                                 comment="5"
+                                isCheckLike={ele.isCheckExistLike}
+                                ele={ele}
                             />
                         );
                     })}

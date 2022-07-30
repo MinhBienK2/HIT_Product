@@ -34,7 +34,7 @@ const getReactionOfCmt = CatchAsync(async (req, res, next) => {
     });
 });
 
-const deleteReactionAxios = CatchAsync(async (req, res, next) => {
+const deleteReactionExists = CatchAsync(async (req, res, next) => {
     const reaction = await Reaction.findOneAndDelete({
         forPost: req.params.id,
         author: req.user.id,
@@ -48,6 +48,23 @@ const deleteReactionAxios = CatchAsync(async (req, res, next) => {
     });
 });
 
+const isCheckLike = CatchAsync(async (req, res, next) => {
+    const reaction = await Reaction.findOne({
+        forPost: req.params.postId,
+        author: req.user.id,
+    });
+    if (!reaction) {
+        // return next(new ApiError("Reaction not found !", 404));
+        return res.status(404).json({
+            status: "fail",
+        });
+    }
+    res.status(200).json({
+        status: "success",
+        reaction,
+    });
+});
+
 module.exports = {
     getAllReactions,
     getReaction,
@@ -56,5 +73,6 @@ module.exports = {
     createReaction,
     updateReaction,
     deleteReaction,
-    deleteReactionAxios,
+    deleteReactionExists,
+    isCheckLike,
 };

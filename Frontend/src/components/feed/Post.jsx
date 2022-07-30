@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Avatar } from "@mui/material";
 import dot3 from "../../assets/icons/Group 33.svg";
 import tymIcon from "../../assets/icons/clarity_heart-solid.svg";
@@ -8,6 +8,7 @@ import share from "../../assets/icons/bx_share.svg";
 import send from "../../assets/icons/fluent_send-28-filled.svg";
 import "./Post.scss";
 import { Player, Hls } from "@vime/react";
+import Axios from "../../services/axios.service";
 
 function Post({
     profilePic,
@@ -18,8 +19,57 @@ function Post({
     tym,
     comment,
     key,
+    isCheckLike,
+    ele,
 }) {
     const user = JSON.parse(localStorage.getItem("user"));
+    const [checklike, setCheckLike] = useState();
+    const [effectLike, setEffectLike] = useState();
+    useEffect(() => {
+        setCheckLike(tym);
+        setEffectLike(isCheckLike);
+    }, []);
+
+    function handleClickLink(e) {
+        e.preventDefault();
+        console.log(effectLike);
+        setEffectLike(!effectLike);
+        if (effectLike) {
+            Axios({
+                method: "DELETE",
+                url: `http://localhost:3000/api/v1/reactions/of-post/${ele._id}`,
+                withCredentials: true,
+            })
+                .then((data) => {
+                    if (data.status === "success") {
+                        setCheckLike((current) => current - 1);
+                        setEffectLike(!effectLike);
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        } else {
+            Axios({
+                method: "POST",
+                url: `http://localhost:3000/api/v1/reactions`,
+                withCredentials: true,
+                data: {
+                    forPost: ele._id,
+                },
+            })
+                .then((data) => {
+                    if (data.status === "success") {
+                        setCheckLike((current) => current + 1);
+                        setEffectLike(!effectLike);
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+        // console.log(isCheckLike);
+    }
 
     return (
         <div className="post" key={key}>
@@ -57,16 +107,24 @@ function Post({
             <div className="post-reaction">
                 <div className="post-reaction-tym">
                     <img src={tymIcon} alt="" />
-                    <p>{tym}</p>
+                    <p>{checklike}</p>
                 </div>
                 <div className="post-reaction-comment">
                     <p>{comment} Bình luận</p>
                 </div>
             </div>
             <div className="post-options">
-                <div className="post-options-option">
-                    <img src={like} alt="" />
-                    <p>Thích</p>
+                <div className="post-options-option" onClick={handleClickLink}>
+                    {effectLike ? (
+                        <img className="isCheckLikeImg" src={like} alt="" />
+                    ) : (
+                        <img src={like} alt="" />
+                    )}
+                    {effectLike ? (
+                        <p className="isCheckLikeP">Thích</p>
+                    ) : (
+                        <p>Thích</p>
+                    )}
                 </div>
                 <div className="post-options-option">
                     <img src={commentIcon} alt="" />

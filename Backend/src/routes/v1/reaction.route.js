@@ -24,7 +24,11 @@ router
 
 router
     .route("/of-post/:id")
-    .get(restrict("user", "admin"), reactionController.getReactionOfPost)
-    .delete(restrict("user", "admin"), reactionController.deleteReactionAxios);
+    .get(restrict("user", "admin"), reactionController.getReactionOfPost) //get all status of user
+    .delete(restrict("user", "admin"), reactionController.deleteReactionExists);
+
+router
+    .route("/check/:postId")
+    .get(restrict("user"), reactionController.isCheckLike);
 
 module.exports = router;

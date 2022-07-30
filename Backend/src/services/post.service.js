@@ -4,7 +4,7 @@ const CatchAsync = require("../utils/CatchAsync");
 const paginate = require("../utils/paginate.util");
 const { Post, Friendship } = require("../models");
 const { streamVideo } = require("../config/ffmpeg");
-const fsService = require('../services/fs.service')
+const fsService = require("../services/fs.service");
 
 const getAllPostRelatedWithUser = CatchAsync(async (req, res, next) => {
     const friend = await Friendship.findOne({
@@ -34,11 +34,11 @@ const getAllPostRelatedWithUser = CatchAsync(async (req, res, next) => {
         else if (a.createdAt < b.createdAt) return 1;
         else return 0;
     });
-    
-    const limit = req.query.limit * 1 || 20;
-      const page = req.query.page * 1 || 1;
-      const skip = (page - 1) * limit;
-      const filterPosts =allPosts.slice(skip,limit+skip)
+
+    const limit = req.query.limit * 1 || 8;
+    const page = req.query.page * 1 || 1;
+    const skip = (page - 1) * limit;
+    const filterPosts = allPosts.slice(skip, limit + skip);
 
     res.status(200).json({
         status: "success",
@@ -59,26 +59,38 @@ const getPostOf = CatchAsync(async (req, res, next) => {
 });
 
 const createPost = CatchAsync(async (req, res, next) => {
-    console.log(req.body.photos)
+    console.log(req.body.photos);
     let data;
     const files = req.files.photos;
-    const filenames = files ? files.map((file) => `http://localhost:3000/images/${file.fieldname}/${file.filename}`) : [];
+    const filenames = files
+        ? files.map(
+              (file) =>
+                  `http://localhost:3000/images/${file.fieldname}/${file.filename}`
+          )
+        : [];
     const fileVideos = req.files.videos;
-    const filenameVideos = fileVideos ? fileVideos.map(file => `http://localhost:3000/videos/posts/${file.filename.split('.')[0]}/${file.filename}`) : [];
-   if (fileVideos) {
+    const filenameVideos = fileVideos
+        ? fileVideos.map(
+              (file) =>
+                  `http://localhost:3000/videos/posts/${
+                      file.filename.split(".")[0]
+                  }/${file.filename}`
+          )
+        : [];
+    if (fileVideos) {
         streamVideo(fileVideos);
         setTimeout(() => {
-            fileVideos.forEach(ele => {
-                fsService.deleteFile(ele.filename)
-            })
-        },10000)
-   }
+            fileVideos.forEach((ele) => {
+                fsService.deleteFile(ele.filename);
+            });
+        }, 10000);
+    }
     data = await Post.create({
         description: req.body.description,
         shareOf: req.body.shareOf,
         author: req.user._id,
         photos: filenames,
-        videos : filenameVideos
+        videos: filenameVideos,
     });
     if (!data) {
         next(new ApiError(`create fail`, 404));
