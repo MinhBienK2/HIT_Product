@@ -11,6 +11,8 @@ const messageRoute = require("./message.route");
 const notificationRoute = require("./notification.route");
 const storyRoute = require("./story.route");
 const storyViewerRoute = require("./storyViewer.route");
+const callVideoRoute = require("./callVideo.route");
+const watchRoute = require("./watch.route");
 
 const defaultRoutes = [
    {
@@ -53,6 +55,14 @@ const defaultRoutes = [
        path: "/api/v1/reactions",
        route: reactionRoute,
    },
+   {
+       path: "/api/v1/call-video",
+       route: callVideoRoute,
+   },
+   {
+      path: "/api/v1/watch",
+      route: watchRoute,
+  },
 ];
 
 defaultRoutes.forEach((route) => {

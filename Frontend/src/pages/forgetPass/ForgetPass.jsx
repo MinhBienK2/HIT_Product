@@ -17,7 +17,6 @@ function ForgetPass() {
                 data:{
                     email: `${useremail}`,
                 }
-                
             })
             // console.log(data);
             if(data.data.status === 'success') {

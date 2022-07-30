@@ -12,11 +12,13 @@ const deleteReaction = featureCRUDService.deleteModel(Reaction);
 
 const getReactionOfPost = CatchAsync(async (req, res, next) => {
     const data = await Reaction.find({ forPost: req.params.id });
-    if (!data) {
-        next(new ApiError('Reation not found', 404));
-    }
+    // if (data.length === 0) {
+    //     console.log("hello");
+    //     return next(new ApiError("Reation not found", 404));
+    // }
     res.status(200).json({
         status: "success",
+        reactionLength: data.length,
         data,
     });
 });
@@ -24,7 +26,7 @@ const getReactionOfPost = CatchAsync(async (req, res, next) => {
 const getReactionOfCmt = CatchAsync(async (req, res, next) => {
     const data = await Reaction.find({ forCmt: req.params.id });
     if (!data) {
-        next(new ApiError('Reation not found', 404));
+        next(new ApiError("Reation not found", 404));
     }
     res.status(200).json({
         status: "success",
@@ -32,12 +34,27 @@ const getReactionOfCmt = CatchAsync(async (req, res, next) => {
     });
 });
 
-module.exports = { 
+const deleteReactionAxios = CatchAsync(async (req, res, next) => {
+    const reaction = await Reaction.findOneAndDelete({
+        forPost: req.params.id,
+        author: req.user.id,
+    });
+    console.log(reaction);
+    if (!reaction) {
+        return next(new ApiError("Reation not found ", 404));
+    }
+    res.status(200).json({
+        status: "success",
+    });
+});
+
+module.exports = {
     getAllReactions,
     getReaction,
     getReactionOfPost,
     getReactionOfCmt,
     createReaction,
     updateReaction,
-    deleteReaction 
+    deleteReaction,
+    deleteReactionAxios,
 };

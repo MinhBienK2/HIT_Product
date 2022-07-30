@@ -1,12 +1,16 @@
 import React from 'react'
 import { useSelector, useDispatch } from "react-redux";
+import Axios from '../../../services/axios.service'
+import {setupUuid,setupRoomIsFriendId} from '../../../store/reducers/callVideo'
+import { Link,Navigate,useNavigate} from 'react-router-dom';
+import {callVideo} from '../../../utils/webSocket'
 
 import {Avatar} from '@mui/material'
 import './WidgetsMess.scss'
 import Choose2Row from './Choose2Row'
 import dot from '../../../assets/icons/Ellipse 6.svg'
 import call from '../../../assets/icons/Group 61.svg'
-import callVideo from '../../../assets/icons/Group 66.svg'
+import callVideo1 from '../../../assets/icons/Group 66.svg'
 import user from '../../../assets/icons/Group 68.svg'
 import notify from '../../../assets/icons/Group 70.svg'
 import editName from '../../../assets/icons/icon-park-outline_edit-name.svg'
@@ -24,8 +28,34 @@ import img3 from '../../../assets/images/Rectangle 58.svg'
 import img4 from '../../../assets/images/Rectangle 56.svg'
 import arrow from '../../../assets/icons/akar-icons_arrow-left.svg'
 
+
 function WidgetsMess() {
   const message = useSelector((state) => state.message);
+  const chat = useSelector((state) => state.chat);
+  const callVideo2 = useSelector(state => state.callVideo)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const clickCallVideo = () => {
+    Axios({
+      method : "GET",
+      url : 'http://localhost:3000/api/v1/call-video',
+      withCredentials: true,
+    }).then(data => {
+      dispatch(setupUuid(data.uuid))
+      callVideo({
+        room : data.uuid,
+        messageId : chat.messageId,
+        friendId : callVideo2.calledId
+    })
+      dispatch(setupRoomIsFriendId(callVideo2.calledId))
+      navigate(`/call-video/${data.uuid}/${callVideo2.calledId}`)
+      
+    }).catch(err => {
+      console.log(err);
+    })
+  }
+
   return (
     <div className='widgetsMess'>
       <div className="widgetsMess-info">
@@ -36,12 +66,12 @@ function WidgetsMess() {
         <p>{message.nameMessage}</p>
       </div>
       <div className="widgetsMess-choose1">
-        <div className="widgetsMess-choose1-item">
+        <div className="widgetsMess-choose1-item" onClick={clickCallVideo}>
           <img src={call} alt="" />
           <p>Gọi thoại</p>
         </div>
-        <div className="widgetsMess-choose1-item">
-          <img src={callVideo} alt="" />
+        <div className="widgetsMess-choose1-item" onClick={clickCallVideo}>
+          <img src={callVideo1} alt="" />
           <p>Gọi video</p>
         </div>
         <div className="widgetsMess-choose1-item">

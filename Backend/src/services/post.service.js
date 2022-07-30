@@ -30,8 +30,8 @@ const getAllPostRelatedWithUser = CatchAsync(async (req, res, next) => {
     });
     //  console.log(allPosts);
     allPosts.sort((a, b) => {
-        if (a.createdAt > b.createdAt) return 1;
-        else if (a.createdAt < b.createdAt) return -1;
+        if (a.createdAt > b.createdAt) return -1;
+        else if (a.createdAt < b.createdAt) return 1;
         else return 0;
     });
     

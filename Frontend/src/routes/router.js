@@ -8,6 +8,7 @@ import Video from "../pages/video/Video";
 import Messenger from "../pages/messenger/Messenger";
 import NotificationCallVideo from "../components/notificationCallVideo/NotificationCallVideo";
 import Watch from "../pages/watch/Watch";
+import CallVideo from '../pages/CallVideo/CallVideo.jsx'
 
 const publicRoutes = [
   { path: "/", component: Home },
@@ -21,6 +22,7 @@ const publicRoutes = [
   { path: "/Messenger", component: Messenger },
   { path: "/Watch", component: Watch },
   { path: "/notification-call-video", component: NotificationCallVideo },
+  {path: "/call-video/:room/:friendId",component : CallVideo}
 ];
 
 const privateRoutes = [];

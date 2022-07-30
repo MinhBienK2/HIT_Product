@@ -5,8 +5,12 @@ import Sidebar from '../../components/sidebar/Sidebar'
 import Feed from '../../components/feed/Feed'
 import Widgets from '../../components/widgets/Widgets'
 import './home.scss'
+import NotificationCallVideo from "../../components/notificationCallVideo/NotificationCallVideo";
+
 
 const Home = () => {
+  const callVideo = useSelector(state => state.callVideo)
+
   return (
     <div class='home'>
       <Header />
@@ -15,6 +19,9 @@ const Home = () => {
         <Feed/>
         <Widgets/>
       </div>
+      {
+        callVideo.isVideoCall && <NotificationCallVideo />
+      }
     </div>
   )
 }
