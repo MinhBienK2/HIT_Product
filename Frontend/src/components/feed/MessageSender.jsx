@@ -17,6 +17,7 @@ import storageService from "../../services/storage.service";
 
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import Photogrid from "react-facebook-photo-grid";
 
 function HandleShowPost(props) {
     const [input, setInput] = useState("");
@@ -84,6 +85,10 @@ function HandleShowPost(props) {
         setImageToPost(null);
     };
 
+    const removeVideo = () => {
+        setVideoToPost(null);
+    };
+
     const user = JSON.parse(localStorage.getItem("user"));
     let classNameButtonSubmit = "btn-submit ";
     if (input.length > 0) {
@@ -133,7 +138,7 @@ function HandleShowPost(props) {
                                     onClick={removeImage}
                                     className="messageSender-top-postImage"
                                 >
-                                    <img src={ele} alt="" />
+                                    <img src={ele} alt="" style={{width:'100%'}}/>
                                     <p>Remove</p>
                                 </div>
                             );
@@ -142,10 +147,10 @@ function HandleShowPost(props) {
                         videoToPost.map((ele) => {
                             return (
                                 <div
-                                    onClick={removeImage}
+                                    onClick={removeVideo}
                                     className="messageSender-top-postImage"
                                 >
-                                    <video controls>
+                                    <video controls style={{width:'100%'}}>
                                         <source src={ele} type="video/mp4" />
                                     </video>
                                     <p>Remove</p>

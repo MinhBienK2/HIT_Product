@@ -95,7 +95,7 @@ function Header() {
                 <Avatar crossorigin="anonymous" src={user.avatar} alt=''  sx={{ width: 32, height: 32 }}/>
                 <p>{user.name}</p>
               </div>
-              <span>Đi tới trang cá nhân <img src={arrow}/> </span>
+              <span onClick={() => navigate('/Profile')}>Đi tới trang cá nhân <img src={arrow}/> </span>
             </div>
               
             <div className="header__right_dropdownMenu-menu_items">

@@ -9,6 +9,7 @@ import send from "../../assets/icons/fluent_send-28-filled.svg";
 import "./Post.scss";
 import { Player, Hls } from "@vime/react";
 import Axios from "../../services/axios.service";
+import Photogrid from "react-facebook-photo-grid";
 
 function Post({
     profilePic,
@@ -71,6 +72,9 @@ function Post({
         // console.log(isCheckLike);
     }
 
+    // console.log(videos);
+    console.log(images)
+    
     return (
         <div className="post" key={key}>
             <div className="post-top">
@@ -91,6 +95,14 @@ function Post({
                         </>
                     );
                 })}
+
+                {/* {images && <Photogrid
+                    images={images} 
+                    maxWidth={400} 
+                ></Photogrid>} */}
+
+                
+
                 {videos.map((ele, index) => {
                     return (
                         <Player controls key={index}>

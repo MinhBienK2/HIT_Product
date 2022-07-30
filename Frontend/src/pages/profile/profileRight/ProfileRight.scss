@@ -1,6 +1,19 @@
+.profileRight::-webkit-scrollbar{
+    width: 10px;
+}
+.profileRight::-webkit-scrollbar-track{
+    background: rgba(255,255,255,0);
+}
+.profileRight::-webkit-scrollbar-thumb{
+    background-color: rgba(255,255,255,0);
+    border-radius: 20px;
+}
+
 .profileRight{
     // width: 366px;
+    overflow-y: auto;
     flex:1;
+    height: 1440px;
     margin-top: 24px;
     background-color: #fff;
     border-radius: 10px;
