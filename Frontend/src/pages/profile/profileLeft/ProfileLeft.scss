@@ -1,6 +1,19 @@
+.profileLeft::-webkit-scrollbar{
+    width: 10px;
+}
+.profileLeft::-webkit-scrollbar-track{
+    background: rgba(255,255,255,0);
+}
+.profileLeft::-webkit-scrollbar-thumb{
+    background-color: rgba(255,255,255,0);
+    border-radius: 20px;
+}
+
 .profileLeft{
     // width: 366px;
     flex: 1;
+    overflow-y: auto;
+    height: 1440px;
     margin-top: 24px;
     font-family: 'roboto', sans-serif;
     font-weight: normal;
@@ -121,6 +134,7 @@
                 img{
                     height: 88px;
                     width: 88px;
+                    border-radius: 10px;
                 }
                 p{
                     font-weight: 400;

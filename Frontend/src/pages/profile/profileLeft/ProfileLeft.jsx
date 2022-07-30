@@ -6,6 +6,7 @@ import ins from '../../../assets/icons/ins.svg'
 import link from '../../../assets/icons/link.svg'
 import more from '../../../assets/icons/ic_baseline-place (1).svg'
 import edit from '../../../assets/icons/fa_pencil-square.svg'
+import { Avatar } from "@mui/material";
 
 import img1 from '../../../assets/images/Rectangle 55.svg'
 import img2 from '../../../assets/images/Rectangle 56.svg'

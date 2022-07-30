@@ -1,6 +1,19 @@
+.profileCenter::-webkit-scrollbar{
+    width: 10px;
+}
+.profileCenter::-webkit-scrollbar-track{
+    background: rgba(255,255,255,0);
+}
+.profileCenter::-webkit-scrollbar-thumb{
+    background-color: rgba(255,255,255,0);
+    border-radius: 20px;
+}
+
 .profileCenter{
     // width: 660px;
     flex: 1.93;
     margin-left: 24px;
+    overflow-y: auto;
     margin-right: 24px;
+    height: 1440px;
 }
