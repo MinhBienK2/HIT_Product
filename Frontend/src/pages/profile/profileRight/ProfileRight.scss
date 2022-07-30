@@ -1,0 +1,86 @@
+.profileRight{
+    // width: 366px;
+    flex:1;
+    margin-top: 24px;
+    background-color: #fff;
+    border-radius: 10px;
+    font-family: 'roboto', sans-serif;
+    font-style: normal;
+    &_addfr{
+        margin-left: 24px;
+        // margin-bottom: 16px;
+        border-bottom: 1px solid #f2f2f2;
+        h3{
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 16px;
+            color: #432f3d;
+            margin-top: 32px;
+            margin-bottom: 24px;
+        }
+        &-content{
+            margin-bottom: 32px;
+            &-items{
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                border-radius: 10px;
+                margin-bottom: 16px;
+                height: 80px;
+                &-top{
+                    display: flex;
+                    padding-top: 8px;
+                    margin-left: 16px;
+                    &-left{
+                        margin-right: 24px;
+                        align-self: center;
+                        .MuiAvatar-root{
+                            width: 36px !important;
+                            height: 36px !important;
+                        }
+                    }
+                    &-right{
+                        align-items: center;
+                        p{
+                            font-weight: 500;
+                            font-size: 16px;
+                            line-height: 16px;
+                            color: #000;
+                            align-self: center;
+                        }
+                        span{
+                            font-weight: 400;
+                            font-size: 10px;
+                            line-height: 12px;
+                            color: #6d7274;    
+                        }
+                    }
+                }
+                &-bottom{
+                    margin-top: 4px;
+                    button{
+                        border-radius: 32px;
+                        border: none;
+                        width: 80px;
+                        height: 24px;
+                        font-weight: 500;
+                        font-size: 12px;
+                        line-height: 12px;
+                        cursor: pointer;
+                    }
+                    &-accept{
+                        margin-left: 132px;
+                        background-color: #ff7f24;
+                        color: #fff;
+                    }
+                    &-refuse{
+                        background-color: #bcbcbc;
+                        color: #fff;
+                        margin-left: 9px;
+                    }
+                }
+            }
+        }
+    }
+    &_friend{
+        margin-top: 30px;
+    }
+}
