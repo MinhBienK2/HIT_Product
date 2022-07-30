@@ -51,13 +51,20 @@ function Header() {
       <div className="header__left">
         <img src={logo} alt="logo" />
         <div className="header__left-input">
-          <img src={search} alt="search"/>
+          <img 
+            src={search} 
+            alt="search"
+          />
           <input type="text" placeholder="Tìm kiếm" />
         </div>
       </div>
       <div className="header__center">
         <div className="header__center-option">
-          <img src={home} alt="home" />
+          <img 
+            src={home} 
+            alt="home" 
+            onClick ={() => navigate('/')}
+          />
         </div>
         <div className="header__center-option">
           <img 
