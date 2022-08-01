@@ -1,10 +1,5 @@
-if (process.env.NODE_ENV === "development") {
-  const dotenv = require("dotenv");
-  dotenv.config();
-}
-
-import express from "express";
-import bodyParser from "body-parser";
+const express = require("express");
+const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 var session = require("express-session");
 const passport = require("passport");
@@ -19,6 +14,9 @@ const path = require("path");
 const http = require("http");
 const { Server } = require("socket.io");
 
+const dotenv = require("dotenv");
+dotenv.config();
+
 const ApiError = require("./utils/ApiError");
 const handleError = require("./middlewares/error.middleware");
 const morgan = require("./config/morgan");
@@ -29,10 +27,10 @@ const app = express();
 
 // This disables the `contentSecurityPolicy` middleware but keeps the rest.
 app.use(
-  helmet({
-    // contentSecurityPolicy: false,
-    // crossOriginResourcePolicy: false,
-  })
+    helmet({
+        // contentSecurityPolicy: false,
+        // crossOriginResourcePolicy: false,
+    })
 );
 
 // cors link image
@@ -65,30 +63,30 @@ app.use(morgan.errorHandle);
 //auto send birday with mail
 app.set("trust proxy", 1); // trust first proxy
 app.use(
-  session({
-    secret: process.env.SESSION_SECRET_IN,
-    resave: true,
-    saveUninitialized: true,
-    // cookie: {
-    //     expires: new Date(
-    //         Date.now() +
-    //             process.env.SESSION_EXPIRES_IN * 24 * 60 * 60 * 1000
-    //     ),
-    //     secure: true,
-    // },
-  })
+    session({
+        secret: process.env.SESSION_SECRET_IN,
+        resave: true,
+        saveUninitialized: true,
+        // cookie: {
+        //     expires: new Date(
+        //         Date.now() +
+        //             process.env.SESSION_EXPIRES_IN * 24 * 60 * 60 * 1000
+        //     ),
+        //     secure: true,
+        // },
+    })
 );
 
 // pass cors
 app.use(
-  cors({
-    origin: "http://localhost:3001", // khong duoc de *
-    credentials: true, // phai co de set-cookies
-    // allowedHeaders: ["origin", "content-type", "accept"], // phai co
-    // methods: ["post"],
-    // origin: true,
-    // crossOriginResourcePolicy: 'same-origin'
-  })
+    cors({
+        origin: "http://localhost:3001", // khong duoc de *
+        credentials: true, // phai co de set-cookies
+        // allowedHeaders: ["origin", "content-type", "accept"], // phai co
+        // methods: ["post"],
+        // origin: true,
+        // crossOriginResourcePolicy: 'same-origin'
+    })
 );
 //setup cookie
 app.use(cookieParser());
@@ -107,9 +105,9 @@ configPP.configFacebookStrategy(passport);
 app.use("/", routes);
 
 app.get("/", (req, res) => {
-  res.json({
-    data: req.user,
-  });
+    res.json({
+        data: req.user,
+    });
 });
 
 //test upload video
@@ -118,19 +116,21 @@ const { streamStory } = require("./config/ffmpeg");
 const fs = require("fs");
 
 app.post("/upload-videos", upload.uploadStory, (req, res, next) => {
-  // console.log(req.files.videos);
-  // if (req.files.videos.mimetype.startsWith("video"))
-  //    streamVideo(req.files.videos);
-  console.log(req.file);
-  if (req.file.mimetype.startsWith("video")) streamStory(req.file);
-  res.json({
-    hello: "hello",
-  });
+    // console.log(req.files.videos);
+    // if (req.files.videos.mimetype.startsWith("video"))
+    //    streamVideo(req.files.videos);
+    console.log(req.file);
+    if (req.file.mimetype.startsWith("video")) streamStory(req.file);
+    res.json({
+        hello: "hello",
+    });
 });
 
 // handle not foud
 app.all("*", (req, res, next) => {
-  next(new ApiError(`Can not find ${req.originalUrl} on this server ! `, 404));
+    next(
+        new ApiError(`Can not find ${req.originalUrl} on this server ! `, 404)
+    );
 });
 //handle error
 app.use(handleError);

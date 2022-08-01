@@ -12,18 +12,19 @@ import CallVideo from "../pages/CallVideo/CallVideo.jsx";
 import test from "../pages/test/test";
 
 const publicRoutes = [
-  { path: "/", component: Home },
-  { path: "/NewPass", component: NewPass },
-  { path: "/CheckEmail", component: CheckEmail },
-  { path: "/messages", component: Chatbox },
-  { path: "/profile", component: Profile },
-  // // { path: "/messages/:friendId", component: chat },
-  { path: "/friends", component: ListFriend },
-  { path: "/videos", component: Video },
-  { path: "/Messenger", component: Messenger },
-  { path: "/Watch", component: Watch },
-  { path: "/notification-call-video", component: NotificationCallVideo },
-  { path: "/call-video/:room/:friendId", component: CallVideo },
+    { path: "/", component: Home },
+    { path: "/NewPass", component: NewPass },
+    { path: "/CheckEmail", component: CheckEmail },
+    { path: "/messages", component: Chatbox },
+    { path: "/profile", component: Profile },
+    // // { path: "/messages/:friendId", component: chat },
+    { path: "/friends", component: ListFriend },
+    { path: "/videos", component: Video },
+    { path: "/Messenger", component: Messenger },
+    { path: "/Watch", component: Watch },
+    { path: "/notification-call-video", component: NotificationCallVideo },
+    { path: "/call-video/:room/:friendId", component: CallVideo },
+    { path: "/test", component: test },
 ];
 
 const privateRoutes = [];

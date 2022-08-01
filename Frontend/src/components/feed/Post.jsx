@@ -34,7 +34,8 @@ function Post({
     function handleClickLink(e) {
         e.preventDefault();
         console.log(effectLike);
-        setEffectLike(!effectLike);
+        try {
+            setEffectLike(!effectLike);
         if (effectLike) {
             Axios({
                 method: "DELETE",
@@ -68,6 +69,9 @@ function Post({
                 .catch((err) => {
                     console.log(err);
                 });
+        }
+        } catch (error) {
+            console.log(error)
         }
         // console.log(isCheckLike);
     }
