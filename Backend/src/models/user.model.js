@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
-import validator from "validator";
-import bcrypt from "bcrypt";
-import ejs from "ejs";
+const validator = require("validator");
+const bcrypt = require("bcrypt");
+const ejs = require("ejs");
 const path = require("path");
 const { sendMail } = require("../services/sendMail.service");
 // const dateFormat = require("dateformat");
