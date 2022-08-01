@@ -33,17 +33,21 @@ function SidebarMessRow({
     useEffect(() => {}, []);
 
     const handleClick = (messageId, members) => {
-        dispatch(setMessageId(messageId));
-        dispatch(formatArrayFriendId());
-        members.forEach((ele) => {
-            dispatch(getNameWithClick(ele.memberId.name));
-            dispatch(addElementToArrayFriendId(ele.memberId._id));
-            dispatch(setupCalled(ele.memberId._id));
-        });
-        const user = localStorage.getItem("user");
-        chatJoin(messageId, JSON.parse(user).id);
-        const userId = localStorage.getItem("user");
-        dispatch(addElementToArrayFriendId(JSON.parse(userId).id));
+        try {
+            dispatch(setMessageId(messageId));
+            dispatch(formatArrayFriendId());
+            members.forEach((ele) => {
+                dispatch(getNameWithClick(ele.memberId.name));
+                dispatch(addElementToArrayFriendId(ele.memberId._id));
+                dispatch(setupCalled(ele.memberId._id));
+            });
+            const user = localStorage.getItem("user");
+            chatJoin(messageId, JSON.parse(user).id);
+            const userId = localStorage.getItem("user");
+            dispatch(addElementToArrayFriendId(JSON.parse(userId).id));
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (
