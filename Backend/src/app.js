@@ -110,22 +110,6 @@ app.get("/", (req, res) => {
     });
 });
 
-//test upload video
-const upload = require("./config/multer");
-const { streamStory } = require("./config/ffmpeg");
-const fs = require("fs");
-
-app.post("/upload-videos", upload.uploadStory, (req, res, next) => {
-    // console.log(req.files.videos);
-    // if (req.files.videos.mimetype.startsWith("video"))
-    //    streamVideo(req.files.videos);
-    console.log(req.file);
-    if (req.file.mimetype.startsWith("video")) streamStory(req.file);
-    res.json({
-        hello: "hello",
-    });
-});
-
 // handle not foud
 app.all("*", (req, res, next) => {
     next(

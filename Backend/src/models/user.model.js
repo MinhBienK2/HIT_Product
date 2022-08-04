@@ -70,6 +70,10 @@ const userSchema = new mongoose.Schema(
             type: String,
             default: "default.jpng",
         },
+        banner: {
+            type: String,
+            default: "",
+        },
         birthday: {
             type: Date,
         },

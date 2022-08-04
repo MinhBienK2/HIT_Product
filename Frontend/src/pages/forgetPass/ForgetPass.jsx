@@ -1,53 +1,47 @@
-import React from 'react';
-import logo from '../../assets/images/Logo.svg';
-import onlineWord from '../../assets/images/Online world-amico 1.svg';
+import React from "react";
+import logo from "../../assets/images/Logo.svg";
+import onlineWord from "../../assets/images/Online world-amico 1.svg";
 // import facebook from '../../assets/icons/facebook-icon.svg';
-import './ForgetPass.scss'
-import {useNavigate} from 'react-router-dom'
-import {useState} from 'react'
-import axios from 'axios'
+import "./ForgetPass.scss";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
 
 function ForgetPass() {
-
-    const handleSubmit = async() => {
+    const handleSubmit = async () => {
         try {
             const data = await axios({
-                method: 'post',
-                url: 'http://localhost:3000/forgot-password',
-                data:{
+                method: "post",
+                url: "http://localhost:3000/forgot-password",
+                data: {
                     email: `${useremail}`,
-                }
-            })
-            // console.log(data);
-            if(data.data.status === 'success') {
-                navigate('/CheckEmail')
-            }
+                },
+            });
+            navigate("/CheckEmail");
+        } catch (err) {
+            console.log(err);
         }
-        catch (err) {
-            alert('Invalid username or password')
-        }
-      }
-
+    };
 
     const navigate = useNavigate();
 
-    const [useremail, setUseremail] = useState('');
-      
-    const handleUseremail = (e) =>{
+    const [useremail, setUseremail] = useState("");
+
+    const handleUseremail = (e) => {
         setUseremail(e.target.value);
-    }
+    };
 
-    const handleLogin =() =>{
-        navigate('/login')
-    }
+    const handleLogin = () => {
+        navigate("/login");
+    };
 
-    const handleSignup=()=>{
-        navigate('/Signup')
-    }
+    const handleSignup = () => {
+        navigate("/Signup");
+    };
 
-    const handleChoice=()=>{
-        navigate('/Choice')
-    }
+    const handleChoice = () => {
+        navigate("/Choice");
+    };
 
     return (
         <div className="body">
@@ -57,12 +51,24 @@ function ForgetPass() {
                         <img src={logo} alt="" />
                         <div className="login__taskbar-left-text">
                             <p className="text1">GAR</p>
-                            <p className="login__taskbar-left-text-text2">RICK</p>
+                            <p className="login__taskbar-left-text-text2">
+                                RICK
+                            </p>
                         </div>
                     </div>
                     <div className="login__taskbar-right">
-                        <button className='login__taskbar-right-btn1' onClick={handleLogin}>Đăng nhập</button>
-                        <button className='login__taskbar-right-btn2' onClick={handleSignup}>Đăng kí</button>
+                        <button
+                            className="login__taskbar-right-btn1"
+                            onClick={handleLogin}
+                        >
+                            Đăng nhập
+                        </button>
+                        <button
+                            className="login__taskbar-right-btn2"
+                            onClick={handleSignup}
+                        >
+                            Đăng kí
+                        </button>
                     </div>
                 </div>
                 <div className="login__main">
@@ -71,15 +77,20 @@ function ForgetPass() {
                     </div>
                     <div className="forgetPass__main-right">
                         <div className="forgetPass__main-right-outer">
-                            <div className="forgetPass__main-right-outer-forget">Quên mật khẩu</div>
-                            <p className="forgetPass__main-right-outer-text">Vui lòng nhập tên đăng nhập hoặc Email của bạn</p>
+                            <div className="forgetPass__main-right-outer-forget">
+                                Quên mật khẩu
+                            </div>
+                            <p className="forgetPass__main-right-outer-text">
+                                Vui lòng nhập tên đăng nhập hoặc Email của bạn
+                            </p>
                             <div className="forgetPass__main-right-outer-input">
                                 <p>Tên đăng nhập</p>
-                                <input 
-                                    placeholder="Nhập email" 
-                                    type="email" 
-                                    name='email'
-                                    onChange={handleUseremail}/>
+                                <input
+                                    placeholder="Nhập email"
+                                    type="email"
+                                    name="email"
+                                    onChange={handleUseremail}
+                                />
                             </div>
                             <button onClick={handleSubmit}>Tiếp tục</button>
                         </div>

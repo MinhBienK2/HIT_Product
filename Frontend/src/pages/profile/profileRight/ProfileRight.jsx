@@ -1,51 +1,129 @@
-import React from 'react'
-import './ProfileRight.scss'
-import Avatar from '@mui/material/Avatar';
-import Widgets from '../../../components/widgets/Widgets'
+import React, { useState, useEffect } from "react";
+import "./ProfileRight.scss";
+import Avatar from "@mui/material/Avatar";
+import Widgets from "../../../components/widgets/Widgets";
+import axios from "axios";
+import Axios from "../../../services/axios.service";
 
 function ProfileRight() {
-  return (
-    <div className="profileRight">
-      <div className="profileRight_addfr">
-        <h3>Lời mời kết bạn</h3>
-        <div className="profileRight_addfr-content">
-          <div className="profileRight_addfr-content-items">
-            <div className="profileRight_addfr-content-items-top">
-              <div className="profileRight_addfr-content-items-top-left">
-                <Avatar/>
-              </div>
-              <div className="profileRight_addfr-content-items-top-right">
-                <p>Mai Lan</p>
-                <span>8 bạn chung</span>
-              </div>
+    const [confirmFriend, setConfirmFriend] = useState([]);
+    useEffect(() => {
+        Axios({
+            method: "GET",
+            url: `http://localhost:3000/api/v1/friends/list-friend-confirm`,
+            withCredentials: true,
+        })
+            .then((data) => {
+                console.log(data);
+                if (
+                    data.status === "success" &&
+                    data.lisConfirmFriend.length !== 0
+                ) {
+                    data.lisConfirmFriend.forEach((ele) => {
+                        console.log(ele);
+                        setConfirmFriend((current) => [...current, ele]);
+                    });
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, []);
+
+    async function handleAccess(ele, friendId) {
+        try {
+            const data = await Axios({
+                method: "PATCH",
+                url: `http://localhost:3000/api/v1/friends/${friendId}`,
+                withCredentials: true,
+            });
+            if (data.status === "success") {
+                setConfirmFriend((current) => {
+                    return current.filter((ele2) => {
+                        return ele2 !== ele;
+                    });
+                });
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async function handleAbort(ele, friendId) {
+        try {
+            const data = await Axios({
+                method: "DELETE",
+                url: `http://localhost:3000/api/v1/friends/${friendId}`,
+                withCredentials: true,
+            });
+            if (data.status === "success") {
+                setConfirmFriend((current) => {
+                    return current.filter((ele2) => {
+                        return ele2 !== ele;
+                    });
+                });
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    console.log(confirmFriend);
+    return (
+        <div className="profileRight">
+            <div className="profileRight_addfr">
+                <h3>Lời mời kết bạn</h3>
+                <div className="profileRight_addfr-content">
+                    {confirmFriend &&
+                        confirmFriend.map((ele) => {
+                            return (
+                                <div
+                                    className="profileRight_addfr-content-items"
+                                    key={ele.id}
+                                >
+                                    <div className="profileRight_addfr-content-items-top">
+                                        <div className="profileRight_addfr-content-items-top-left">
+                                            <Avatar src={ele.friendId.avatar} />
+                                        </div>
+                                        <div className="profileRight_addfr-content-items-top-right">
+                                            <p>{ele.friendId.name}</p>
+                                            {/* <span>8 bạn chung</span> */}
+                                        </div>
+                                    </div>
+                                    <div className="profileRight_addfr-content-items-bottom">
+                                        <button
+                                            className="profileRight_addfr-content-items-bottom-accept"
+                                            onClick={() => {
+                                                handleAccess(
+                                                    ele,
+                                                    ele.friendId.id
+                                                );
+                                            }}
+                                        >
+                                            Chấp nhận
+                                        </button>
+                                        <button
+                                            className="profileRight_addfr-content-items-bottom-refuse"
+                                            onClick={() => {
+                                                handleAbort(
+                                                    ele,
+                                                    ele.friendId.id
+                                                );
+                                            }}
+                                        >
+                                            Từ chối
+                                        </button>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                </div>
             </div>
-            <div  className="profileRight_addfr-content-items-bottom">
-              <button  className="profileRight_addfr-content-items-bottom-accept">Chấp nhận</button>
-              <button className="profileRight_addfr-content-items-bottom-refuse">Từ chối</button>
+            <div className="profileRight_friend">
+                <Widgets />
             </div>
-          </div>
-          <div className="profileRight_addfr-content-items">
-            <div className="profileRight_addfr-content-items-top">
-              <div className="profileRight_addfr-content-items-top-left">
-                <Avatar/>
-              </div>
-              <div className="profileRight_addfr-content-items-top-right">
-                <p>Dollar</p>
-                <span>8 bạn chung</span>
-              </div>
-            </div>
-            <div  className="profileRight_addfr-content-items-bottom">
-              <button  className="profileRight_addfr-content-items-bottom-accept">Chấp nhận</button>
-              <button className="profileRight_addfr-content-items-bottom-refuse">Từ chối</button>
-            </div>
-          </div>
         </div>
-      </div>
-      <div className="profileRight_friend">
-        <Widgets/>
-      </div>
-    </div>
-  )
+    );
 }
 
-export default ProfileRight
+export default ProfileRight;

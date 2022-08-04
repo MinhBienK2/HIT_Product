@@ -138,7 +138,11 @@ function HandleShowPost(props) {
                                     onClick={removeImage}
                                     className="messageSender-top-postImage"
                                 >
-                                    <img src={ele} alt="" style={{width:'100%'}}/>
+                                    <img
+                                        src={ele}
+                                        alt=""
+                                        style={{ width: "100%" }}
+                                    />
                                     <p>Remove</p>
                                 </div>
                             );
@@ -150,7 +154,7 @@ function HandleShowPost(props) {
                                     onClick={removeVideo}
                                     className="messageSender-top-postImage"
                                 >
-                                    <video controls style={{width:'100%'}}>
+                                    <video controls style={{ width: "100%" }}>
                                         <source src={ele} type="video/mp4" />
                                     </video>
                                     <p>Remove</p>

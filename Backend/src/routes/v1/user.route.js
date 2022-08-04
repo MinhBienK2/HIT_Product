@@ -10,18 +10,24 @@ const upload = require("../../config/multer");
 router.use(protect);
 
 router
-   .route("/")
-   .get(restrict("admin"), userController.getAllUsers)
-   .post(restrict("admin"), userController.createUser);
+    .route("/")
+    .get(restrict("admin"), userController.getAllUsers)
+    .post(restrict("admin"), userController.createUser);
 
 router
-   .route("/:id")
-   .get(restrict("user", "admin"), userController.getUser)
-   .patch(
-      restrict("user", "admin"),
-      upload.uploadImage,
-      userController.updateUser
-   )
-   .delete(restrict("admin"), userController.deleteUser);
+    .route("/list-user-make-friend")
+    .get(userController.getListUserMakeFriend);
+
+router.route("/reset-user-local").get(userController.updateUserFromLocal);
+
+router
+    .route("/:id")
+    .get(restrict("user", "admin"), userController.getUser)
+    .patch(
+        restrict("user", "admin"),
+        upload.uploadImage,
+        userController.updateUser
+    )
+    .delete(restrict("admin"), userController.deleteUser);
 
 module.exports = router;
