@@ -5,91 +5,102 @@ const paginate = require("../utils/paginate.util");
 const { User, Friendship, Message } = require("../models");
 
 const getAllFriendshipOfUser = CatchAsync(async (req, res, next) => {
-   // const data = await Friendship.find();
-   let datas;
-   datas = new paginate(
-      Friendship.findOne({
-         userId: req.user.id,
-      }),
-      req.query
-   );
-   // paginate
-   datas.search().filter().sort().select().pagination().populate();
-   const data = await datas.query;
-   //respone
-   if (!data) {
-      next(new ApiError(`${Friendship} not found`, 404));
-   }
-   res.status(200).json({
-      status: "success",
-      listFriend: data[0].friends,
-   });
+    const listFriend = await Friendship.find({
+        userId: req.user.id,
+        status: "isFriend",
+    });
+    res.status(200).json({
+        status: "success",
+        listFriend: listFriend,
+    });
 });
 
-const addAFriendForUser = CatchAsync(async (req, res, next) => {
-   let data;
-   // update when add friend
-   const check = await Friendship.find(
-      {
-         userId: req.user.id,
-      },
-      {
-         friends: {
-            $elemMatch: {
-               friendId: req.params.friendId,
-            },
-         },
-      }
-   );
-   // console.log(check[0].friends.length !== 0);
-   if (check[0].friends.length !== 0) {
-      return next(new ApiError("userId has exists !"));
-   }
-   data = await Friendship.update(
-      {
-         userId: req.user.id,
-      },
-      {
-         $push: {
-            friends: {
-               friendId: req.params.friendId,
-            },
-         },
-      }
-   );
-   //respone
-   if (!data) {
-      next(new ApiError(`create fail`, 404));
-   }
-   res.status(200).json({
-      status: "success",
-      data,
-   });
+const getAllListConfirmFriendRequest = CatchAsync(async (req, res, next) => {
+    const listFriend = await Friendship.find({
+        userId: req.user.id,
+        status: "confirm",
+    });
+    res.status(200).json({
+        status: "success",
+        lisConfirmFriend: listFriend,
+    });
 });
 
-const deleteAOrManyFriendshipOfUser = CatchAsync(async (req, res, next) => {
-   let data;
-   data = await Friendship.update(
-      { userId: req.user.id },
-      {
-         $pull: {
-            friends: {
-               friendId: req.params.friendId,
-            },
-         },
-      }
-   );
-   // return
-   if (!data) {
-      next(new ApiError(`delete ${Friendship} fail`, 404));
-   }
-   res.status(200).json({
-      status: "success",
-   });
+const createFriendship = CatchAsync(async (req, res, next) => {
+    const checkExistsOrNotExists = await Friendship.findOne({
+        userId: req.user.id,
+        friendId: req.params.friendId,
+    });
+    const checkExistsOrNotExists2 = await Friendship.findOne({
+        userId: req.params.friendId,
+        friendId: req.user.id,
+    });
+    if (checkExistsOrNotExists || checkExistsOrNotExists2) {
+        return next(new ApiError("has Exists friend ! ", 400));
+    }
+    const friendship = await Friendship.create({
+        userId: req.user.id,
+        friendId: req.params.friendId,
+    });
+    const friendship2 = await Friendship.create({
+        userId: req.params.friendId,
+        friendId: req.user.id,
+    });
+    if (!friendship || !friendship2) {
+        return next(new ApiError("create friendship error !", 400));
+    }
+    res.status(201).json({
+        status: "success",
+        message: "Send new friend request success !",
+    });
+});
+
+const confirmNewFriendRequest = CatchAsync(async (req, res, next) => {
+    const updateFriendship = await Friendship.findOneAndUpdate(
+        {
+            userId: req.user.id,
+            friendId: req.params.friendId,
+        },
+        {
+            status: "isFriend",
+            createdAt: Date.now(),
+        }
+    );
+    const updateFriendship2 = await Friendship.findOneAndUpdate(
+        {
+            userId: req.params.friendId,
+            friendId: req.user.id,
+        },
+        {
+            status: "isFriend",
+            createdAt: Date.now(),
+        }
+    );
+    res.status(200).json({
+        status: "success",
+        message: "update success !",
+    });
+});
+
+const deleteFriend = CatchAsync(async (req, res, next) => {
+    const deleteFriendOfUser = await Friendship.findOneAndDelete({
+        friendId: req.params.friendId,
+        userId: req.user.id,
+    });
+    const deleteFriendOfUser2 = await Friendship.findOneAndDelete({
+        friendId: req.user.id,
+        userId: req.params.friendId,
+    });
+    res.status(200).json({
+        status: "success",
+        message: "delete success",
+    });
 });
 
 module.exports = {
-   getAllFriendshipOfUser,
-   addAFriendForUser,
-   deleteAOrManyFriendshipOfUser,
+    getAllFriendshipOfUser,
+    getAllListConfirmFriendRequest,
+    createFriendship,
+    confirmNewFriendRequest,
+    deleteFriend,
 };

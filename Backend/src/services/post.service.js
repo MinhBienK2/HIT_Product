@@ -7,27 +7,60 @@ const { streamVideo } = require("../config/ffmpeg");
 const fsService = require("../services/fs.service");
 
 const getAllPostRelatedWithUser = CatchAsync(async (req, res, next) => {
-    const friend = await Friendship.findOne({
-        userId: req.user.id,
-    });
-    if (!friend) {
-        next(new ApiError(`${friend} not found`, 404));
-    }
-    const allPost = await Promise.all(
-        friend.friends
-            .map(async (ele) => {
-                return await Post.find({ author: ele.friendId });
-            })
-            .map(async (ele) => {
-                return await ele;
-            })
-    );
     let allPosts = [];
-    allPost.forEach((ele) => {
-        ele.forEach((eles) => {
-            allPosts.push(eles);
-        });
+    let arrayListUserId = [];
+    const friend = await Friendship.find({
+        status: "isFriend",
     });
+    if (friend) {
+        const allPost = await Promise.all(
+            friend
+                .map(async (ele) => {
+                    if (!arrayListUserId.includes(ele.userId.id)) {
+                        arrayListUserId.push(ele.userId.id);
+                        return await Post.find({
+                            author: ele.userId.id,
+                        });
+                    }
+                })
+                .map(async (ele2) => {
+                    console.log(ele2);
+                    return await ele2;
+                })
+        );
+        allPost.forEach((ele) => {
+            console.log(ele);
+            if (ele) {
+                ele.forEach((ele2) => {
+                    allPosts.push(ele2);
+                });
+            }
+        });
+    }
+
+    // if (friend) {
+    //     const allPost = await Promise.all(
+    //         friend.friends
+    //             .map(async (ele) => {
+    //                 return await Post.find({ author: ele.friendId });
+    //             })
+    //             .map(async (ele) => {
+    //                 return await ele;
+    //             })
+    //     );
+    //     allPost.forEach((ele) => {
+    //         ele.forEach((eles) => {
+    //             allPosts.push(eles);
+    //         });
+    //     });
+    // }
+
+    if (allPosts.length === 0) {
+        return res.status(404).json({
+            status: "success",
+            message: "not posst",
+        });
+    }
     //  console.log(allPosts);
     allPosts.sort((a, b) => {
         if (a.createdAt > b.createdAt) return -1;

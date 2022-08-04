@@ -36,49 +36,44 @@ function Post({
         console.log(effectLike);
         try {
             setEffectLike(!effectLike);
-        if (effectLike) {
-            Axios({
-                method: "DELETE",
-                url: `http://localhost:3000/api/v1/reactions/of-post/${ele._id}`,
-                withCredentials: true,
-            })
-                .then((data) => {
-                    if (data.status === "success") {
-                        setCheckLike((current) => current - 1);
-                        setEffectLike(!effectLike);
-                    }
+            if (effectLike) {
+                Axios({
+                    method: "DELETE",
+                    url: `http://localhost:3000/api/v1/reactions/of-post/${ele._id}`,
+                    withCredentials: true,
                 })
-                .catch((err) => {
-                    console.log(err);
-                });
-        } else {
-            Axios({
-                method: "POST",
-                url: `http://localhost:3000/api/v1/reactions`,
-                withCredentials: true,
-                data: {
-                    forPost: ele._id,
-                },
-            })
-                .then((data) => {
-                    if (data.status === "success") {
-                        setCheckLike((current) => current + 1);
-                        setEffectLike(!effectLike);
-                    }
+                    .then((data) => {
+                        if (data.status === "success") {
+                            setCheckLike((current) => current - 1);
+                            setEffectLike(!effectLike);
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            } else {
+                Axios({
+                    method: "POST",
+                    url: `http://localhost:3000/api/v1/reactions`,
+                    withCredentials: true,
+                    data: {
+                        forPost: ele._id,
+                    },
                 })
-                .catch((err) => {
-                    console.log(err);
-                });
-        }
+                    .then((data) => {
+                        if (data.status === "success") {
+                            setCheckLike((current) => current + 1);
+                            setEffectLike(!effectLike);
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            }
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
-        // console.log(isCheckLike);
     }
-
-    // console.log(videos);
-    console.log(images)
-    
     return (
         <div className="post" key={key}>
             <div className="post-top">
@@ -104,8 +99,6 @@ function Post({
                     images={images} 
                     maxWidth={400} 
                 ></Photogrid>} */}
-
-                
 
                 {videos.map((ele, index) => {
                     return (
