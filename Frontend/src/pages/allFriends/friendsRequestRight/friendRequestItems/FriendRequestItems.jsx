@@ -8,7 +8,7 @@ function FriendRequestItems() {
   return (
     <div className="friendsRequestItems">
         <img src={img1} alt="" />
-        <h3>Nguyen Chi</h3>
+        <h2>Nguyen Chi</h2>
         <div className="friendsRequestItems_bbc">
             <div className="friendsRequestItems_bbc-left">
                 <img className="friendsRequestItems_bbc-left-img1" src={img2} alt="" />
@@ -18,8 +18,8 @@ function FriendRequestItems() {
                 <p>50 bạn bè chung</p>
             </div>
         </div>
-        <button className="friendsRequestItems-btn1">Chấp nhận</button>
-        <button className="friendsRequestItems-btn2">Từ chối</button>
+        {/* <button className="friendsRequestItems-btn1">Chấp nhận</button> */}
+        {/* <button className="friendsRequestItems-btn2">Từ chối</button> */}
     </div>
   )
 }

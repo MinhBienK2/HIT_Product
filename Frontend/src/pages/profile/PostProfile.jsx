@@ -82,7 +82,7 @@ function PostProfile({
         }
     }
 
-    const [show, setShow] = useState(false);
+    const [show, setShow] = useState(true);
     const post = useSelector((state) => state.post);
     const check = useRef()
 
@@ -102,19 +102,19 @@ function PostProfile({
         console.log(show)
     }
 
-    const config = {
-        method: 'delete',
-        url: '{{URL}}/api/v1/post/',
-        headers: { }
+    const handleDelete = () => {
+        Axios({
+            method: 'delete',
+            url: 'http://localhost:3001/api/v1/post/',
+            headers: { }
+        })
+        .then(function (response) {
+          console.log(JSON.stringify(response.data));
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
       };
-      
-      Axios(config)
-      .then(function (response) {
-        console.log(JSON.stringify(response.data));
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
 
     return (
         <div className="post" key={key}>
@@ -139,7 +139,7 @@ function PostProfile({
                             <img src={report} alt=""/>
                             <p>Báo cáo</p>
                         </div>
-                        <div className="post-top-dropdownMenu-menu-item">
+                        <div className="post-top-dropdownMenu-menu-item" onClick={handleDelete}>
                             <img src={report} alt=""/>
                             <p>Xóa</p>
                         </div>

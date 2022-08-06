@@ -17,18 +17,20 @@
         border-top-left-radius: 20px;
         border-top-right-radius: 20px;
     }
-    h3{
-        margin-top: 12px;
-        margin-left: 16px;
-        font-weight: 500;
-        font-size: 16px;
-        line-height: 16px;
+    h2{
+        margin-top: 20px;
+        // margin-left: 16px;
+        font-weight: 700;
+        font-size: 23px;
+        line-height: 23px;
         color: #000000;
+        text-align: center;
     }
     &_bbc{
         display: flex;
         margin-left: 16px;
-        margin-top: 8px;
+        margin-top: 15px;
+        margin-left: 55px;
         &-left{
             &-img1{
                 z-index:1;
