@@ -9,6 +9,7 @@ import postReducer from "./reducers/post";
 import callVideo from "./reducers/callVideo";
 import socket from "./reducers/socket";
 import watch from "./reducers/watch";
+import profileOther from "./reducers/profileOther";
 
 export default configureStore({
     reducer: {
@@ -20,6 +21,7 @@ export default configureStore({
         callVideo: callVideo,
         sockets: socket,
         watch: watch,
+        profileOther: profileOther,
     },
     middleware: [...getDefaultMiddleware()],
 });

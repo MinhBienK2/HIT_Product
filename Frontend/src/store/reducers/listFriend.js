@@ -33,6 +33,7 @@ export const fetchListFriend = () => async (dispatch, getState) => {
         url: "http://localhost:3000/api/v1/friends", // dung localhost
     })
         .then((data) => {
+            console.log(data);
             const arr = [];
             data.listFriend.forEach((ele) => {
                 arr.push(ele);

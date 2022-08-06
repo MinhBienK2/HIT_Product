@@ -9,6 +9,8 @@ import {
     formatArrayFriendId,
 } from "./chat";
 
+import { addProfileCheckRenderView } from "../reducers/profileOther";
+
 import { setupCalled } from "./callVideo";
 import { chatJoin } from "../../utils/webSocket";
 
@@ -42,23 +44,64 @@ export const renderListMessage = () => (dispatch, getState) => {
         withCredentials: true,
     })
         .then((data) => {
-            console.log(data.listMessage[0]);
-            dispatch(resetListMessage([]));
-            data.listMessage.forEach((message) => {
-                dispatch(addListMessage(message));
-            });
-            // render message
-            dispatch(setMessageId(data.listMessage[0].messageId));
-            dispatch(formatArrayFriendId());
-            data.listMessage[0].members.forEach((ele) => {
-                dispatch(getNameWithClick(ele.memberId.name));
-                dispatch(addElementToArrayFriendId(ele.memberId._id));
-                dispatch(setupCalled(ele.memberId._id));
-            });
-            const user = localStorage.getItem("user");
-            chatJoin(data.listMessage[0].messageId, JSON.parse(user).id);
-            const userId = localStorage.getItem("user");
-            dispatch(addElementToArrayFriendId(JSON.parse(userId).id));
+            let checkprofile = false;
+
+            if (getState().profileOther.checkRenderView) {
+                data.listMessage.every(function (ele) {
+                    if (
+                        ele.members[0].memberId.id ===
+                        getState().profileOther.userId
+                    ) {
+                        checkprofile = true;
+                        return false;
+                    } else return true;
+                });
+                if (checkprofile) {
+                    // console.log(data.listMessage[0]);
+                    dispatch(resetListMessage([]));
+                    data.listMessage.forEach((message) => {
+                        dispatch(addListMessage(message));
+                    });
+                    // render message
+                    dispatch(setMessageId(data.listMessage[0].messageId));
+                    dispatch(formatArrayFriendId());
+                    data.listMessage[0].members.forEach((ele) => {
+                        dispatch(getNameWithClick(ele.memberId.name));
+                        dispatch(addElementToArrayFriendId(ele.memberId._id));
+                        dispatch(setupCalled(ele.memberId._id));
+                    });
+                    const user = localStorage.getItem("user");
+                    chatJoin(
+                        data.listMessage[0].messageId,
+                        JSON.parse(user).id
+                    );
+                    const userId = localStorage.getItem("user");
+                    dispatch(addElementToArrayFriendId(JSON.parse(userId).id));
+                    dispatch(addProfileCheckRenderView(false));
+                } else {
+                    dispatch(resetListMessage([]));
+                    data.listMessage.forEach((message) => {
+                        dispatch(addListMessage(message));
+                    });
+                }
+            } else {
+                dispatch(resetListMessage([]));
+                data.listMessage.forEach((message) => {
+                    dispatch(addListMessage(message));
+                });
+                // render message
+                dispatch(setMessageId(data.listMessage[0].messageId));
+                dispatch(formatArrayFriendId());
+                data.listMessage[0].members.forEach((ele) => {
+                    dispatch(getNameWithClick(ele.memberId.name));
+                    dispatch(addElementToArrayFriendId(ele.memberId._id));
+                    dispatch(setupCalled(ele.memberId._id));
+                });
+                const user = localStorage.getItem("user");
+                chatJoin(data.listMessage[0].messageId, JSON.parse(user).id);
+                const userId = localStorage.getItem("user");
+                dispatch(addElementToArrayFriendId(JSON.parse(userId).id));
+            }
         })
         .catch((err) => {
             console.log(err);

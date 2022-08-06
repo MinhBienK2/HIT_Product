@@ -9,6 +9,7 @@ const getAllFriendshipOfUser = CatchAsync(async (req, res, next) => {
         userId: req.user.id,
         status: "isFriend",
     });
+    console.log(listFriend);
     res.status(200).json({
         status: "success",
         listFriend: listFriend,
@@ -17,7 +18,8 @@ const getAllFriendshipOfUser = CatchAsync(async (req, res, next) => {
 
 const getAllListConfirmFriendRequest = CatchAsync(async (req, res, next) => {
     const listFriend = await Friendship.find({
-        userId: req.user.id,
+        // userId: req.user.id,
+        friendId: req.user.id,
         status: "confirm",
     });
     res.status(200).json({
@@ -31,22 +33,15 @@ const createFriendship = CatchAsync(async (req, res, next) => {
         userId: req.user.id,
         friendId: req.params.friendId,
     });
-    const checkExistsOrNotExists2 = await Friendship.findOne({
-        userId: req.params.friendId,
-        friendId: req.user.id,
-    });
-    if (checkExistsOrNotExists || checkExistsOrNotExists2) {
+    if (checkExistsOrNotExists) {
         return next(new ApiError("has Exists friend ! ", 400));
     }
     const friendship = await Friendship.create({
         userId: req.user.id,
         friendId: req.params.friendId,
+        status: "confirm",
     });
-    const friendship2 = await Friendship.create({
-        userId: req.params.friendId,
-        friendId: req.user.id,
-    });
-    if (!friendship || !friendship2) {
+    if (!friendship) {
         return next(new ApiError("create friendship error !", 400));
     }
     res.status(201).json({
@@ -58,24 +53,19 @@ const createFriendship = CatchAsync(async (req, res, next) => {
 const confirmNewFriendRequest = CatchAsync(async (req, res, next) => {
     const updateFriendship = await Friendship.findOneAndUpdate(
         {
-            userId: req.user.id,
-            friendId: req.params.friendId,
-        },
-        {
-            status: "isFriend",
-            createdAt: Date.now(),
-        }
-    );
-    const updateFriendship2 = await Friendship.findOneAndUpdate(
-        {
-            userId: req.params.friendId,
             friendId: req.user.id,
+            userId: req.params.friendId,
         },
         {
             status: "isFriend",
             createdAt: Date.now(),
         }
     );
+    const friendship = await Friendship.create({
+        userId: req.user.id,
+        friendId: req.params.friendId,
+        status: "isFriend",
+    });
     res.status(200).json({
         status: "success",
         message: "update success !",

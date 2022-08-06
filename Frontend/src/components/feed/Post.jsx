@@ -14,9 +14,16 @@ import heartRed from "../../assets/icons/heartRed.svg";
 import commentIcon from "../../assets/icons/ant-design_comment-outlined.svg";
 import share from "../../assets/icons/bx_share.svg";
 import send from "../../assets/icons/fluent_send-28-filled.svg";
-import save from '../../assets/icons/heroicons-outline_save.svg'
-import notificationOff from '../../assets/icons/mi_notification-off.svg'
-import report from "../../assets/icons/ri_user-unfollow-line.svg"
+import save from "../../assets/icons/heroicons-outline_save.svg";
+import notificationOff from "../../assets/icons/mi_notification-off.svg";
+import report from "../../assets/icons/ri_user-unfollow-line.svg";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
+
+import {
+    addProfileName,
+    addProfileAvatar,
+    addProfileUserId,
+} from "../../store/reducers/profileOther";
 
 function Post({
     profilePic,
@@ -26,13 +33,16 @@ function Post({
     message,
     tym,
     comment,
-    key,
+    keyId,
     isCheckLike,
     ele,
 }) {
     const user = JSON.parse(localStorage.getItem("user"));
     const [checklike, setCheckLike] = useState();
     const [effectLike, setEffectLike] = useState();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
     useEffect(() => {
         setCheckLike(tym);
         setEffectLike(isCheckLike);
@@ -40,7 +50,7 @@ function Post({
 
     function handleClickLink(e) {
         e.preventDefault();
-        console.log('effecLike: ',effectLike);
+        console.log("effecLike: ", effectLike);
         try {
             setEffectLike(!effectLike);
             if (effectLike) {
@@ -81,53 +91,54 @@ function Post({
             console.log(error);
         }
     }
-
     const [show, setShow] = useState(false);
     const post = useSelector((state) => state.post);
-    const check = useRef()
+    const check = useRef();
 
     const handleClick = () => {
-                try{
-                    setShow(!show);
-                    if (show) {
-                        check.current.style.display='block'
-                    }
-                    else{
-                        check.current.style.display='none'
-                    }
-
-                }catch(err) {
-                    console.log(err);
-                }
-        console.log(show)
+        try {
+            setShow(!show);
+            if (show) {
+                check.current.style.display = "block";
+            } else {
+                check.current.style.display = "none";
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    };
+    function handleToProfileOther() {
+        dispatch(addProfileName(username));
+        dispatch(addProfileAvatar(profilePic));
+        dispatch(addProfileUserId(ele.author.id));
+        navigate(`/profile-others/${ele.author.id}`);
     }
 
     return (
-        <div className="post" key={key}>
+        <div className="post" key={keyId}>
             <div className="post-top">
-                <div className="post-top-info">
+                <div className="post-top-info" onClick={handleToProfileOther}>
                     <Avatar src={profilePic} />
                     <p>{username}</p>
                 </div>
 
                 <div className="post-top-dropdownMenu">
-                    <img src={dot3} alt="" onClick={handleClick}/>
+                    <img src={dot3} alt="" onClick={handleClick} />
                     <div className="post-top-dropdownMenu-menu" ref={check}>
                         <div className="post-top-dropdownMenu-menu-item">
-                            <img src={save} alt=""/>
+                            <img src={save} alt="" />
                             <p>Lưu bài viết</p>
                         </div>
                         <div className="post-top-dropdownMenu-menu-item">
-                            <img src={notificationOff} alt=""/>
+                            <img src={notificationOff} alt="" />
                             <p>Tắt thông báo bài viết này</p>
                         </div>
                         <div className="post-top-dropdownMenu-menu-item">
-                            <img src={report} alt=""/>
+                            <img src={report} alt="" />
                             <p>Báo cáo</p>
                         </div>
                     </div>
                 </div>
-
             </div>
             <div className="post-bottom">
                 <p>{message}</p>
