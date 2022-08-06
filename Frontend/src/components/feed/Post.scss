@@ -36,6 +36,36 @@
                 align-self: center;
             }
         }
+        &-dropdownMenu{
+            position: relative;
+            &-menu{
+                position: absolute;
+                margin-top: 16px;
+                margin-left: -999%;
+                z-index: 2;
+                width: 220px;
+                height: 102px;
+                box-shadow:0 4px 8px rgba(0,0,0,0.1);
+                border-radius: 8px;
+                background-color: #fff;
+                display: none;
+                &-item{
+                    display: flex;
+                    margin-left: 16px;
+                    margin-bottom: 12px;
+                    cursor: pointer;
+                    p{
+                        margin-left: 20px;
+                        font-family: 'roboto', sans-serif;
+                        font-style: normal;
+                        font-weight: 500;
+                        font-size: 12px;
+                        line-height: 16px;
+                        color: #000;
+                    }
+                }
+            }
+        }
     }
     &-bottom{
         margin-top: 16px;
@@ -50,6 +80,7 @@
     }
     &-image{
         margin-top: 16px;
+        margin-bottom: 30px;
         img{
             width: 100%;
             border-radius: 10px;
@@ -59,7 +90,7 @@
         display: flex;
         justify-content: space-between;
         margin-top: 16px;
-        margin-bottom: 9px;
+        margin-bottom: 20px;
         &-tym{
             display: flex;
             img{
@@ -74,7 +105,18 @@
                 font-weight: 500;
                 font-size: 16px;
                 line-height: 12px;
-                color: #6d7274;
+                color: #252322;
+                align-self: center;
+            }
+            span{
+                margin-left: 4px;
+                margin-left: 8px;
+                font-family: 'Roboto', sans-serif;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 12px;
+                color: #252322;
                 align-self: center;
             }
         }
@@ -181,6 +223,5 @@
 // }
 
 .isCheckLikeP {
-    border:1px black solid;
-
+    color: red;
 }

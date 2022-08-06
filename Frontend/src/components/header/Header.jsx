@@ -59,7 +59,7 @@ function Header() {
     return (
         <div className="header">
             <div className="header__left">
-                <img src={logo} alt="logo" />
+                <img src={logo} alt="logo" onClick={() => navigate('/')}/>
                 <div className="header__left-input">
                     <img src={search} alt="search" />
                     <input type="text" placeholder="Tìm kiếm" />
@@ -93,6 +93,7 @@ function Header() {
                     src={user.avatar}
                     alt=""
                     sx={{ width: 32, height: 32 }}
+                    onClick={() => navigate('/Profile')}
                 />
                 <img src={notify} alt="" />
                 <div className="header__right_dropdownMenu">

@@ -1,0 +1,43 @@
+.friendsRequestRight::-webkit-scrollbar{
+    width: 10px;
+}
+.friendsRequestRight::-webkit-scrollbar-track{
+    background: rgba(255,255,255,0);
+}
+.friendsRequestRight::-webkit-scrollbar-thumb{
+    background-color: rgba(255,255,255,0);
+    border-radius: 20px;
+}
+
+
+.friendsRequestRight{
+    flex:3;
+    background: #f2f2f2;
+    font-family: 'roboto', sans-serif;
+    font-style: normal;
+    max-height: 660px;
+    overflow:auto;
+    &_header{
+        display: flex;
+        justify-content: space-between;
+        margin-top: 32px;
+        margin-left: 24px;
+        margin-right: 82px;
+        h3{
+            font-weight: 700;
+            font-size: 20px;
+            line-height: 20px;
+            color: #000000;
+        }
+        p{
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 16px;
+            color: #6d7274;
+        }
+    }
+    &_main{
+        display: flex;
+        flex-wrap:wrap;
+    }
+}

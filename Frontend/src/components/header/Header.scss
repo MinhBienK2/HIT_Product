@@ -16,6 +16,7 @@
         height: 64px;
         margin-top: 8px;
         margin-left: 48px;
+        cursor: pointer;
     }
     &-input{
         display: flex;
@@ -74,6 +75,9 @@
     margin-right: 49px;
     margin-top: 24px;
     margin-left: 119px;
+    .MuiAvatar-root{
+        cursor: pointer;
+    }
     img{
         width: 32px;
         height: 32px;
