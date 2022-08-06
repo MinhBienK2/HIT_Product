@@ -7,14 +7,18 @@ const { User, Friendship } = require("../models");
 const getListUserMakeFriend = CatchAsync(async (req, res, next) => {
     let uncludeUserId = [];
     const allListUser = await User.find({});
-    const allListFriendship = await Friendship.find({});
+    const allListFriendship = await Friendship.find({
+        friendId: req.user.id,
+        status: "isFriend",
+    });
     allListFriendship.forEach((ele) => {
         if (!uncludeUserId.includes(ele.userId.id)) {
-            console.log(uncludeUserId.includes(ele.userId.id));
+            // console.log(uncludeUserId.includes(ele.userId.id));
             uncludeUserId.push(ele.userId.id);
         }
     });
-    console.log(allListUser);
+    uncludeUserId.push(req.user.id);
+    console.log(uncludeUserId);
     const userFileter = allListUser.filter((ele) => {
         return !uncludeUserId.includes(ele.id);
     });
