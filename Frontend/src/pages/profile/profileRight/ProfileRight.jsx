@@ -71,7 +71,7 @@ function ProfileRight() {
         }
     }
 
-    console.log(confirmFriend);
+    // console.log(confirmFriend);
     return (
         <div className="profileRight">
             <div className="profileRight_addfr">
