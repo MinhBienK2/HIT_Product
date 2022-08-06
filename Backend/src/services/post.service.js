@@ -11,33 +11,49 @@ const getAllPostRelatedWithUser = CatchAsync(async (req, res, next) => {
     let arrayListUserId = [];
     const friend = await Friendship.find({
         status: "isFriend",
+        userId: req.user.id,
     });
-    if (friend) {
+    console.log(friend);
+    if (friend.length !== 0) {
         const allPost = await Promise.all(
             friend
                 .map(async (ele) => {
-                    if (!arrayListUserId.includes(ele.userId.id)) {
-                        arrayListUserId.push(ele.userId.id);
+                    if (!arrayListUserId.includes(ele.friendId.id)) {
+                        arrayListUserId.push(ele.friendId.id);
                         return await Post.find({
-                            author: ele.userId.id,
+                            author: ele.friendId.id,
                         });
                     }
                 })
                 .map(async (ele2) => {
-                    console.log(ele2);
+                    // console.log(ele2);
                     return await ele2;
                 })
         );
         allPost.forEach((ele) => {
-            console.log(ele);
+            // console.log(ele);
             if (ele) {
                 ele.forEach((ele2) => {
                     allPosts.push(ele2);
                 });
             }
         });
+        const postOfMe = await Post.find({
+            author: req.user.id,
+        });
+        // console.log("hello", postOfMe);
+        postOfMe.forEach((ele) => {
+            allPosts.push(ele);
+        });
+    } else {
+        const postOfMe = await Post.find({
+            author: req.user.id,
+        });
+        // console.log("hello", postOfMe);
+        postOfMe.forEach((ele) => {
+            allPosts.push(ele);
+        });
     }
-
     // if (friend) {
     //     const allPost = await Promise.all(
     //         friend.friends
@@ -92,7 +108,7 @@ const getPostOf = CatchAsync(async (req, res, next) => {
 });
 
 const createPost = CatchAsync(async (req, res, next) => {
-    console.log(req.body.photos);
+    // console.log(req.body.photos);
     let data;
     const files = req.files.photos;
     const filenames = files

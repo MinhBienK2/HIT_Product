@@ -102,9 +102,10 @@ function Feed() {
             <div className="getHeightScroll" ref={tagContainerPost}>
                 {post.listPosts &&
                     post.listPosts.map((ele) => {
+                        console.log(ele);
                         return (
                             <Post
-                                key={ele._id}
+                                keyId={ele._id}
                                 profilePic={ele.author.avatar}
                                 username={ele.author.name}
                                 message={ele.description}

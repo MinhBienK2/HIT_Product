@@ -14,24 +14,26 @@ import friend from "../pages/friend/Friend";
 import FriendsRequest from "../pages/friendsRequest/FriendsRequest";
 import MoreFriends from "../pages/moreFriends/MoreFriends";
 import AllFriends from "../pages/allFriends/AllFriends";
+import ProfileOfUser from "../pages/profileOfUser/ProfileOfUser";
 
 const publicRoutes = [
-  { path: "/", component: Home },
-  // { path: "/NewPass", component: NewPass },
-  // { path: "/CheckEmail", component: CheckEmail },
-  { path: "/messages", component: Chatbox },
-  { path: "/profile", component: Profile },
-  { path: "/friends", component: ListFriend },
-  { path: "/videos", component: Video },
-  { path: "/Messenger", component: Messenger },
-  { path: "/Watch", component: Watch },
-  { path: "/notification-call-video", component: NotificationCallVideo },
-  { path: "/call-video/:room/:friendId", component: CallVideo },
-  { path: "/test", component: test },
-  { path: "/friend", component: friend },
-  { path: "FriendsRequest", component: FriendsRequest },
-  { path: "MoreFriends", component: MoreFriends },
-  { path: "AllFriends", component: AllFriends },
+    { path: "/", component: Home },
+    // { path: "/NewPass", component: NewPass },
+    // { path: "/CheckEmail", component: CheckEmail },
+    { path: "/messages", component: Chatbox },
+    { path: "/profile", component: Profile },
+    { path: "/friends", component: ListFriend },
+    { path: "/videos", component: Video },
+    { path: "/Messenger", component: Messenger },
+    { path: "/Watch", component: Watch },
+    { path: "/notification-call-video", component: NotificationCallVideo },
+    { path: "/call-video/:room/:friendId", component: CallVideo },
+    { path: "/test", component: test },
+    { path: "/friend", component: friend },
+    { path: "FriendsRequest", component: FriendsRequest },
+    { path: "MoreFriends", component: MoreFriends },
+    { path: "AllFriends", component: AllFriends },
+    { path: "/profile-others/:userId", component: ProfileOfUser },
 ];
 
 const privateRoutes = [];

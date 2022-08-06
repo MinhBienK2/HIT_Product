@@ -9,13 +9,12 @@ const friendshipSchema = new mongoose.Schema(
         },
         friendId: {
             type: mongoose.Schema.ObjectId,
-            // unique: [true, "friend does exists !"],
             ref: "Users",
         },
         status: {
             type: String,
             enum: ["confirm", "isFriend"],
-            default: "confirm",
+            // default: "confirm",
         },
         createdAt: {
             type: Date,

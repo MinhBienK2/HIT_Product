@@ -86,10 +86,10 @@ function ProfileRight() {
                                 >
                                     <div className="profileRight_addfr-content-items-top">
                                         <div className="profileRight_addfr-content-items-top-left">
-                                            <Avatar src={ele.friendId.avatar} />
+                                            <Avatar src={ele.userId.avatar} />
                                         </div>
                                         <div className="profileRight_addfr-content-items-top-right">
-                                            <p>{ele.friendId.name}</p>
+                                            <p>{ele.userId.name}</p>
                                             {/* <span>8 bạn chung</span> */}
                                         </div>
                                     </div>
@@ -99,7 +99,7 @@ function ProfileRight() {
                                             onClick={() => {
                                                 handleAccess(
                                                     ele,
-                                                    ele.friendId.id
+                                                    ele.userId.id
                                                 );
                                             }}
                                         >
@@ -108,10 +108,7 @@ function ProfileRight() {
                                         <button
                                             className="profileRight_addfr-content-items-bottom-refuse"
                                             onClick={() => {
-                                                handleAbort(
-                                                    ele,
-                                                    ele.friendId.id
-                                                );
+                                                handleAbort(ele, ele.userId.id);
                                             }}
                                         >
                                             Từ chối

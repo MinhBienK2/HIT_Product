@@ -11,6 +11,7 @@ import {
     addElementToArrayFriendId,
     formatArrayFriendId,
 } from "../../../store/reducers/chat";
+import { addProfileCheckRenderView } from "../../../store/reducers/profileOther";
 import { chatJoin } from "../../../utils/webSocket";
 import { getNameWithClick } from "../../../store/reducers/message.js";
 import { setupCalled } from "../../../store/reducers/callVideo";
@@ -34,6 +35,7 @@ function SidebarMessRow({
 
     const handleClick = (messageId, members) => {
         try {
+            dispatch(addProfileCheckRenderView(false));
             dispatch(setMessageId(messageId));
             dispatch(formatArrayFriendId());
             members.forEach((ele) => {

@@ -41,7 +41,7 @@ function Widgets() {
                                         : ava
                                 }
                                 title={ele.friendId.name}
-                                key={ele.friendId.id}
+                                keyId={ele.friendId.id}
                             />
                         );
                     })}
