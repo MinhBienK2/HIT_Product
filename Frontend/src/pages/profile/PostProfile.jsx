@@ -3,7 +3,7 @@ import { Avatar } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { Player, Hls } from "@vime/react";
 import Photogrid from "react-facebook-photo-grid";
-import "./Post.scss";
+// import "./Post.scss";
 
 import Axios from "../../services/axios.service";
 import dot3 from "../../assets/icons/Group 33.svg";
@@ -18,7 +18,7 @@ import save from '../../assets/icons/heroicons-outline_save.svg'
 import notificationOff from '../../assets/icons/mi_notification-off.svg'
 import report from "../../assets/icons/ri_user-unfollow-line.svg"
 
-function Post({
+function PostProfile({
     profilePic,
     images,
     videos,
@@ -102,6 +102,20 @@ function Post({
         console.log(show)
     }
 
+    const config = {
+        method: 'delete',
+        url: '{{URL}}/api/v1/post/',
+        headers: { }
+      };
+      
+      Axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
     return (
         <div className="post" key={key}>
             <div className="post-top">
@@ -124,6 +138,10 @@ function Post({
                         <div className="post-top-dropdownMenu-menu-item">
                             <img src={report} alt=""/>
                             <p>Báo cáo</p>
+                        </div>
+                        <div className="post-top-dropdownMenu-menu-item">
+                            <img src={report} alt=""/>
+                            <p>Xóa</p>
                         </div>
                     </div>
                 </div>
@@ -213,4 +231,4 @@ function Post({
     );
 }
 
-export default Post;
+export default PostProfile;

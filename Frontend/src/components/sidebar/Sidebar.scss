@@ -20,6 +20,10 @@
             display:flex;
             margin-left: 51px;
             cursor: pointer;
+            .MuiAvatar-root{
+                width: 32px !important;
+                height: 32px !important;
+            }
             p{
                 margin-left: 10px;
                 justify-content:center;

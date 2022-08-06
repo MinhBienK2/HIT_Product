@@ -8,6 +8,7 @@ import Axios from '../../services/axios.service'
 function StoryReel() {
 
   const [stories,setStories] = useState([])
+  const user = JSON.parse(localStorage.getItem("user"));
 
   useEffect(()=> {
     Axios({
@@ -26,7 +27,7 @@ function StoryReel() {
   return (
     <div className="storyReel">
       <div className="storyReel-add">
-        <Avatar className="storyReel-add-avatar"/>
+        <Avatar className="storyReel-add-avatar" src={user.avatar}/>
         <img src={camera} alt="camera" className="storyReel-add-icon"/>
         <p>+Add</p>
       </div>

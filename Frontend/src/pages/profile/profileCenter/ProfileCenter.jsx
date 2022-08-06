@@ -1,6 +1,7 @@
 import './ProfileCenter.scss'
 import MessageSender from '../../../components/feed/MessageSender' 
-import Post from '../../../components/feed/Post'
+// import Post from '../../../components/feed/Post'
+import PostProfile from '../PostProfile'
 import React, { useEffect, useState, useRef } from "react";
 // import img1 from "../../assets/images/ava5.jpg";
 import Axios from "../../../services/axios.service";
@@ -90,7 +91,7 @@ function ProfileCenter() {
                 {post.listPosts &&
                     post.listPosts.filter(item => item.author.id === JSON.parse(localStorage.getItem("user")).id).map((ele) => {
                         return (
-                            <Post
+                            <PostProfile
                                 key={ele._id}
                                 profilePic={ele.author.avatar}
                                 username={ele.author.name}

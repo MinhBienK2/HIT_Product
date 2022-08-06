@@ -24,9 +24,9 @@ function SideBar() {
   return (
     <div className='sidebar'>
       <div className="sidebar__top">
-        <div className="sidebar__top-avatar">
+        <div className="sidebar__top-avatar"  onClick={()=> navigate('/Profile')}>
           <Avatar src={user.avatar} alt=''  x={{ width: 32, height: 32 }}/>
-          <p onClick={()=> navigate('/Profile')}>{user.name}</p>
+          <p>{user.name}</p>
         </div>
 
         <div className='sidebar__top-items'>

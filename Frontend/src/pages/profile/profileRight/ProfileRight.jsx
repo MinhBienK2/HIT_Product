@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import {useNavigate} from 'react-router-dom'
 import "./ProfileRight.scss";
 import Avatar from "@mui/material/Avatar";
 import Widgets from "../../../components/widgets/Widgets";
@@ -49,6 +50,8 @@ function ProfileRight() {
         }
     }
 
+    const navigate = useNavigate()
+
     async function handleAbort(ele, friendId) {
         try {
             const data = await Axios({
@@ -72,7 +75,7 @@ function ProfileRight() {
     return (
         <div className="profileRight">
             <div className="profileRight_addfr">
-                <h3>Lời mời kết bạn</h3>
+                <h3 onClick ={() => navigate('/FriendsRequest')}>Lời mời kết bạn</h3>
                 <div className="profileRight_addfr-content">
                     {confirmFriend &&
                         confirmFriend.map((ele) => {
