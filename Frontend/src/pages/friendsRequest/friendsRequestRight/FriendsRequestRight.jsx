@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import {useNavigate} from 'react-router-dom'
 import './FriendsRequestRight.scss'
 import FriendsRequestItems from './friendRequestItems/FriendRequestItems'
-import Axios from "axios";
+// import Axios from "axios";
+import Axios from "../../../services/axios.service";
 
 function FriendsRequestRight() {
 
@@ -19,8 +20,9 @@ function FriendsRequestRight() {
                     data.status === "success" &&
                     data.lisConfirmFriend.length !== 0
                 ) {
+                  console.log('first')
                     data.lisConfirmFriend.forEach((ele) => {
-                        console.log(ele);
+                        console.log('thuy',ele);
                         setConfirmFriend((current) => [...current, ele]);
                     });
                 }
@@ -30,46 +32,7 @@ function FriendsRequestRight() {
             });
     }, []);
 
-    async function handleAccess(ele, friendId) {
-        try {
-            const data = await Axios({
-                method: "PATCH",
-                url: `http://localhost:3000/api/v1/friends/${friendId}`,
-                withCredentials: true,
-            });
-            if (data.status === "success") {
-                setConfirmFriend((current) => {
-                    return current.filter((ele2) => {
-                        return ele2 !== ele;
-                    });
-                });
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-    const navigate = useNavigate()
-
-    async function handleAbort(ele, friendId) {
-        try {
-            const data = await Axios({
-                method: "DELETE",
-                url: `http://localhost:3000/api/v1/friends/${friendId}`,
-                withCredentials: true,
-            });
-            if (data.status === "success") {
-                setConfirmFriend((current) => {
-                    return current.filter((ele2) => {
-                        return ele2 !== ele;
-                    });
-                });
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
+    
     console.log(confirmFriend);
 
   return (
@@ -92,12 +55,13 @@ function FriendsRequestRight() {
             {confirmFriend && confirmFriend.map((ele) => {
               return (
                 <FriendsRequestItems
-                  key={ele._id}
-                  avatar={ele.friendId.avatar}
-                  name = {ele.friendId.name}
+                  key={ele.id}
+                  avatar={ele.userId.avatar}
+                  name = {ele.userId.name}
                 />
               )
             })}
+            
         </div>
     </div>
   )
