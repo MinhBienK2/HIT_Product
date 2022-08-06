@@ -78,7 +78,7 @@ function App() {
                         }
                     />
                     <Route
-                        path="/NewPass"
+                        path="/NewPass/:tokenId"
                         element={
                             localStorage.getItem("isLogin") ? (
                                 <Navigate to="/" />
