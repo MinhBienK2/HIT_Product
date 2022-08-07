@@ -85,6 +85,12 @@
             width: 100%;
             border-radius: 10px;
         }
+        .grid-container{
+            padding:0;
+        }
+        .container{
+            display: block;
+        }
     }
     &-reaction{
         display: flex;
