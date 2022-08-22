@@ -18,6 +18,7 @@ import save from "../../assets/icons/heroicons-outline_save.svg";
 import notificationOff from "../../assets/icons/mi_notification-off.svg";
 import report from "../../assets/icons/ri_user-unfollow-line.svg";
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
+import commentService from "../../services/comment/comment.service";
 
 import {
     addProfileName,
@@ -40,14 +41,16 @@ function Post({
     const user = JSON.parse(localStorage.getItem("user"));
     const [checklike, setCheckLike] = useState();
     const [effectLike, setEffectLike] = useState();
+    const [listComment, setListComment] = useState([]);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     useEffect(() => {
         setCheckLike(tym);
         setEffectLike(isCheckLike);
+        commentService.getAllCommentOfPost(keyId, setListComment);
     }, []);
-
+    console.log(listComment);
     function handleClickLink(e) {
         e.preventDefault();
         console.log("effecLike: ", effectLike);
@@ -56,7 +59,7 @@ function Post({
             if (effectLike) {
                 Axios({
                     method: "DELETE",
-                    url: `http://localhost:3000/api/v1/reactions/of-post/${ele._id}`,
+                    url: `${process.env.REACT_APP_BACKEND_URL}/api/v1/reactions/of-post/${ele._id}`,
                     withCredentials: true,
                 })
                     .then((data) => {
@@ -71,7 +74,7 @@ function Post({
             } else {
                 Axios({
                     method: "POST",
-                    url: `http://localhost:3000/api/v1/reactions`,
+                    url: `${process.env.REACT_APP_BACKEND_URL}/api/v1/reactions`,
                     withCredentials: true,
                     data: {
                         forPost: ele._id,
@@ -207,7 +210,28 @@ function Post({
                 <input type="text" placeholder="Thêm bình luận..." />
                 <img src={send} alt="" />
             </div>
-            <div className="post-comment">
+            {listComment &&
+                listComment.map((ele) => {
+                    if (!ele.childrenCmt) {
+                        return (
+                            <div className="post-comment" key={ele._id}>
+                                <Avatar src={ele.author.avatar} />
+                                <div className="post-comment-content">
+                                    <div className="post-comment-content_top">
+                                        <p>{ele.content}</p>
+                                    </div>
+                                    <div className="post-comment-content_bottom">
+                                        <p>Thích</p>
+                                        <p>Trả Lời</p>
+                                        <p>Gỡ</p>
+                                    </div>
+                                </div>
+                            </div>
+                        );
+                    }
+                    // console.log(ele);
+                })}
+            {/* <div className="post-comment post-children_comment">
                 <Avatar src="" />
                 <div className="post-comment-content">
                     <div className="post-comment-content_top">
@@ -219,7 +243,7 @@ function Post({
                         <p>Gỡ</p>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 }

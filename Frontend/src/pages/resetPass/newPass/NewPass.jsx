@@ -41,7 +41,7 @@ function NewPass() {
     function handleConfirmPass() {
         axios({
             method: "PATCH",
-            url: `http://localhost:3000/confirm-password/${tokenId}`,
+            url: `${process.env.REACT_APP_BACKEND_URL}/confirm-password/${tokenId}`,
             withCredentials: true,
             data: {
                 password: `${formik.values.password}`,

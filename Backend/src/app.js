@@ -80,7 +80,7 @@ app.use(
 // pass cors
 app.use(
     cors({
-        origin: "http://localhost:3001", // khong duoc de *
+        origin: process.env.APP_NODE_BACKEND_URL, // khong duoc de *
         credentials: true, // phai co de set-cookies
         // allowedHeaders: ["origin", "content-type", "accept"], // phai co
         // methods: ["post"],

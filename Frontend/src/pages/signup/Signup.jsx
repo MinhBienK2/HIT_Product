@@ -55,7 +55,7 @@ function Signup() {
         e.preventDefault();
         axios({
             method: "post",
-            url: "http://localhost:3000/signup",
+            url: `${process.env.REACT_APP_BACKEND_URL}/signup`,
             // headers: {
             //     "Content-Type": "multipart/form-data",
             //     Authorization: `Bearer ${localStorage.getItem("accessToken")}`,

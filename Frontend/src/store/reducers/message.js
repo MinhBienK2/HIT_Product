@@ -40,7 +40,7 @@ export const { addListMessage, getNameWithClick, resetListMessage } =
 export const renderListMessage = () => (dispatch, getState) => {
     Axios({
         method: "GET",
-        url: `http://localhost:3000/api/v1/messages`,
+        url: `${process.env.REACT_APP_BACKEND_URL}/api/v1/messages`,
         withCredentials: true,
     })
         .then((data) => {

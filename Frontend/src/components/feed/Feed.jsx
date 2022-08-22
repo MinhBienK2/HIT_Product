@@ -23,24 +23,23 @@ function Feed() {
     useEffect(() => {
         Axios({
             method: "GET",
-            url: `http://localhost:3000/api/v1/posts`,
+            url: `${process.env.REACT_APP_BACKEND_URL}/api/v1/posts`,
             withCredentials: true,
         })
             .then((data) => {
                 if (data.status === "success") {
                     data.listPosts.forEach((ele) => {
                         if (ele) {
-                            console.log(ele._id);
                             Axios({
                                 method: "GET",
-                                url: `http://localhost:3000/api/v1/reactions/of-post/${ele._id}`,
+                                url: `${process.env.REACT_APP_BACKEND_URL}/api/v1/reactions/of-post/${ele._id}`,
                                 withCredentials: true,
                             })
                                 .then((data) => {
                                     ele.numberReactions = data.reactionLength;
                                     Axios({
                                         method: "GET",
-                                        url: `http://localhost:3000/api/v1/reactions/check/${ele._id}`,
+                                        url: `${process.env.REACT_APP_BACKEND_URL}/api/v1/reactions/check/${ele._id}`,
                                         withCredentials: true,
                                     })
                                         .then((data) => {
@@ -77,13 +76,46 @@ function Feed() {
             let cancel;
             Axios({
                 method: "GET",
-                url: `http://localhost:3000/api/v1/posts?page=${post.pages}`,
+                url: `${process.env.REACT_APP_BACKEND_URL}/api/v1/posts?page=${post.pages}`,
                 withCredentials: true,
                 cancelToken: new axios.CancelToken((c) => (cancel = c)),
             })
                 .then((data) => {
+                    // data.listPosts.forEach((ele) => {
+                    //     dispatch(AddListPosts(ele));
+                    // });
                     data.listPosts.forEach((ele) => {
-                        dispatch(AddListPosts(ele));
+                        if (ele) {
+                            console.log(ele._id);
+                            Axios({
+                                method: "GET",
+                                url: `${process.env.REACT_APP_BACKEND_URL}/api/v1/reactions/of-post/${ele._id}`,
+                                withCredentials: true,
+                            })
+                                .then((data) => {
+                                    ele.numberReactions = data.reactionLength;
+                                    Axios({
+                                        method: "GET",
+                                        url: `${process.env.REACT_APP_BACKEND_URL}/api/v1/reactions/check/${ele._id}`,
+                                        withCredentials: true,
+                                    })
+                                        .then((data) => {
+                                            if (data) {
+                                                ele.isCheckExistLike = true;
+                                                dispatch(AddListPosts(ele));
+                                            }
+                                        })
+                                        .catch((err) => {
+                                            if (err) {
+                                                ele.isCheckExistLike = false;
+                                                dispatch(AddListPosts(ele));
+                                            }
+                                        });
+                                })
+                                .catch((err) => {
+                                    console.log(err);
+                                });
+                        }
                     });
                     dispatch(updateNumberPage());
                 })
@@ -102,7 +134,6 @@ function Feed() {
             <div className="getHeightScroll" ref={tagContainerPost}>
                 {post.listPosts &&
                     post.listPosts.map((ele) => {
-                        console.log(ele);
                         return (
                             <Post
                                 keyId={ele._id}

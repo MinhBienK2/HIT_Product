@@ -14,7 +14,7 @@ function FriendRequestItems({ keyId, avatar, name, ele }) {
         try {
             const data = await Axios({
                 method: "POST",
-                url: `http://localhost:3000/api/v1/friends/${keyId}`,
+                url: `${process.env.REACT_APP_BACKEND_URL}/api/v1/friends/${keyId}`,
                 withCredentials: true,
             });
             if (data.status === "success") {
@@ -29,7 +29,7 @@ function FriendRequestItems({ keyId, avatar, name, ele }) {
         // try {
         //     const data = await Axios({
         //         method: "DELETE",
-        //         url: `http://localhost:3000/api/v1/friends/${friendId}`,
+        //         url: `${process.env.REACT_APP_BACKEND_URL}/api/v1/friends/${friendId}`,
         //         withCredentials: true,
         //     });
         //     if (data.status === "success") {

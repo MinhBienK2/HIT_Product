@@ -24,10 +24,19 @@ const slice = createSlice({
         updateCheckRepeat: (state, action) => {
             state.checkRepeat = action.paylaod;
         },
+        deleteListPost: (state, action) => {
+            state.listPosts = state.listPosts.filter((ele) => {
+                return ele._id !== action.payload;
+            });
+        },
     },
 });
 
-export const { AddListPosts, updateNumberPage, updateCheckRepeat } =
-    slice.actions;
+export const {
+    AddListPosts,
+    updateNumberPage,
+    updateCheckRepeat,
+    deleteListPost,
+} = slice.actions;
 
 export default slice.reducer;

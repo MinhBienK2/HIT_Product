@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 import "./ProfileRight.scss";
 import Avatar from "@mui/material/Avatar";
 import Widgets from "../../../components/widgets/Widgets";
@@ -11,7 +11,7 @@ function ProfileRight() {
     useEffect(() => {
         Axios({
             method: "GET",
-            url: `http://localhost:3000/api/v1/friends/list-friend-confirm`,
+            url: `${process.env.REACT_APP_BACKEND_URL}/api/v1/friends/list-friend-confirm`,
             withCredentials: true,
         })
             .then((data) => {
@@ -35,7 +35,7 @@ function ProfileRight() {
         try {
             const data = await Axios({
                 method: "PATCH",
-                url: `http://localhost:3000/api/v1/friends/${friendId}`,
+                url: `${process.env.REACT_APP_BACKEND_URL}/api/v1/friends/${friendId}`,
                 withCredentials: true,
             });
             if (data.status === "success") {
@@ -50,13 +50,13 @@ function ProfileRight() {
         }
     }
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     async function handleAbort(ele, friendId) {
         try {
             const data = await Axios({
                 method: "DELETE",
-                url: `http://localhost:3000/api/v1/friends/${friendId}`,
+                url: `${process.env.REACT_APP_BACKEND_URL}/api/v1/friends/${friendId}`,
                 withCredentials: true,
             });
             if (data.status === "success") {
@@ -75,7 +75,9 @@ function ProfileRight() {
     return (
         <div className="profileRight">
             <div className="profileRight_addfr">
-                <h3 onClick ={() => navigate('/FriendsRequest')}>Lời mời kết bạn</h3>
+                <h3 onClick={() => navigate("/FriendsRequest")}>
+                    Lời mời kết bạn
+                </h3>
                 <div className="profileRight_addfr-content">
                     {confirmFriend &&
                         confirmFriend.map((ele) => {

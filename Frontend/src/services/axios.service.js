@@ -1,12 +1,12 @@
 import axios from "axios";
 
 const instance = axios.create({
-   //    baseUrl: "http://localhost:3000",
+    //    baseUrl: `${process.env.REACT_APP_BACKEND_URL}`,
 });
 
 instance.interceptors.response.use((response) => {
-   const { data } = response;
-   return response.data;
+    const { data } = response;
+    return response.data;
 });
 
 export default instance;

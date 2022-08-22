@@ -14,9 +14,18 @@ import heartRed from "../../assets/icons/heartRed.svg";
 import commentIcon from "../../assets/icons/ant-design_comment-outlined.svg";
 import share from "../../assets/icons/bx_share.svg";
 import send from "../../assets/icons/fluent_send-28-filled.svg";
-import save from '../../assets/icons/heroicons-outline_save.svg'
-import notificationOff from '../../assets/icons/mi_notification-off.svg'
-import report from "../../assets/icons/ri_user-unfollow-line.svg"
+import save from "../../assets/icons/heroicons-outline_save.svg";
+import notificationOff from "../../assets/icons/mi_notification-off.svg";
+import report from "../../assets/icons/ri_user-unfollow-line.svg";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
+
+import {
+    addProfileName,
+    addProfileAvatar,
+    addProfileUserId,
+} from "../../store/reducers/profileOther";
+
+import {deleteListPost} from "../../store/reducers/post"
 
 function PostProfile({
     profilePic,
@@ -26,13 +35,16 @@ function PostProfile({
     message,
     tym,
     comment,
-    key,
+    keyId,
     isCheckLike,
     ele,
 }) {
     const user = JSON.parse(localStorage.getItem("user"));
     const [checklike, setCheckLike] = useState();
     const [effectLike, setEffectLike] = useState();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    console.log(ele);
     useEffect(() => {
         setCheckLike(tym);
         setEffectLike(isCheckLike);
@@ -40,13 +52,12 @@ function PostProfile({
 
     function handleClickLink(e) {
         e.preventDefault();
-        console.log('effecLike: ',effectLike);
         try {
             setEffectLike(!effectLike);
             if (effectLike) {
                 Axios({
                     method: "DELETE",
-                    url: `http://localhost:3000/api/v1/reactions/of-post/${ele._id}`,
+                    url: `${process.env.REACT_APP_BACKEND_URL}/api/v1/reactions/of-post/${ele._id}`,
                     withCredentials: true,
                 })
                     .then((data) => {
@@ -61,13 +72,14 @@ function PostProfile({
             } else {
                 Axios({
                     method: "POST",
-                    url: `http://localhost:3000/api/v1/reactions`,
+                    url: `${process.env.REACT_APP_BACKEND_URL}/api/v1/reactions`,
                     withCredentials: true,
                     data: {
                         forPost: ele._id,
                     },
                 })
                     .then((data) => {
+                        console.log(data);
                         if (data.status === "success") {
                             setCheckLike((current) => current + 1);
                             setEffectLike(!effectLike);
@@ -84,68 +96,77 @@ function PostProfile({
 
     const [show, setShow] = useState(true);
     const post = useSelector((state) => state.post);
-    const check = useRef()
+    const check = useRef();
 
     const handleClick = () => {
-                try{
-                    setShow(!show);
-                    if (show) {
-                        check.current.style.display='block'
-                    }
-                    else{
-                        check.current.style.display='none'
-                    }
+        try {
+            setShow(!show);
+            if (show) {
+                check.current.style.display = "block";
+            } else {
+                check.current.style.display = "none";
+            }
+        } catch (err) {
+            console.log(err);
+        }
+        console.log(show);
+    };
 
-                }catch(err) {
-                    console.log(err);
-                }
-        console.log(show)
+    function handleToProfileOther() {
+        dispatch(addProfileName(username));
+        dispatch(addProfileAvatar(profilePic));
+        dispatch(addProfileUserId(ele.author.id));
+        navigate(`/profile-others/${ele.author.id}`);
     }
 
-    const handleDelete = () => {
+    const handleDelete = (e) => {
+        e.preventDefault();
         Axios({
-            method: 'delete',
-            url: 'http://localhost:3001/api/v1/post/',
-            headers: { }
+            method: "DELETE",
+            url: `${process.env.REACT_APP_BACKEND_URL}/api/v1/posts/${keyId}`,
+            withCredentials: true,
         })
-        .then(function (response) {
-          console.log(JSON.stringify(response.data));
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-      };
+            .then(function (response) {
+                console.log(JSON.stringify(response.data));
+                dispatch(deleteListPost(keyId))
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
 
     return (
-        <div className="post" key={key}>
+        <div className="post" key={keyId}>
             <div className="post-top">
-                <div className="post-top-info">
+                <div className="post-top-info" onClick={handleToProfileOther}>
                     <Avatar src={profilePic} />
                     <p>{username}</p>
                 </div>
 
                 <div className="post-top-dropdownMenu">
-                    <img src={dot3} alt="" onClick={handleClick}/>
+                    <img src={dot3} alt="" onClick={handleClick} />
                     <div className="post-top-dropdownMenu-menu" ref={check}>
                         <div className="post-top-dropdownMenu-menu-item">
-                            <img src={save} alt=""/>
+                            <img src={save} alt="" />
                             <p>Lưu bài viết</p>
                         </div>
                         <div className="post-top-dropdownMenu-menu-item">
-                            <img src={notificationOff} alt=""/>
+                            <img src={notificationOff} alt="" />
                             <p>Tắt thông báo bài viết này</p>
                         </div>
                         <div className="post-top-dropdownMenu-menu-item">
-                            <img src={report} alt=""/>
+                            <img src={report} alt="" />
                             <p>Báo cáo</p>
                         </div>
-                        <div className="post-top-dropdownMenu-menu-item" onClick={handleDelete}>
-                            <img src={report} alt=""/>
+                        <div
+                            className="post-top-dropdownMenu-menu-item"
+                            onClick={handleDelete}
+                        >
+                            <img src={report} alt="" />
                             <p>Xóa</p>
                         </div>
                     </div>
                 </div>
-
             </div>
             <div className="post-bottom">
                 <p>{message}</p>

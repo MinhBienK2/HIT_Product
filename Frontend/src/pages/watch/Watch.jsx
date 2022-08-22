@@ -23,16 +23,49 @@ function Watch() {
     useEffect(() => {
         Axios({
             method: "GET",
-            url: `http://localhost:3000/api/v1/watch`,
+            url: `${process.env.REACT_APP_BACKEND_URL}/api/v1/watch`,
             withCredentials: true,
         })
             .then((data) => {
                 if (data.status === "success") {
+                    // data.listVideos.forEach((ele) => {
+                    //     dispatch(AddListVideos(ele));
+                    // });
                     data.listVideos.forEach((ele) => {
-                        dispatch(AddListVideos(ele));
+                        if (ele) {
+                            console.log(ele._id);
+                            Axios({
+                                method: "GET",
+                                url: `${process.env.REACT_APP_BACKEND_URL}/api/v1/reactions/of-post/${ele._id}`,
+                                withCredentials: true,
+                            })
+                                .then((data) => {
+                                    ele.numberReactions = data.reactionLength;
+                                    Axios({
+                                        method: "GET",
+                                        url: `${process.env.REACT_APP_BACKEND_URL}/api/v1/reactions/check/${ele._id}`,
+                                        withCredentials: true,
+                                    })
+                                        .then((data) => {
+                                            if (data) {
+                                                ele.isCheckExistLike = true;
+                                                dispatch(AddListVideos(ele));
+                                            }
+                                        })
+                                        .catch((err) => {
+                                            if (err) {
+                                                ele.isCheckExistLike = false;
+                                                dispatch(AddListVideos(ele));
+                                            }
+                                        });
+                                })
+                                .catch((err) => {
+                                    console.log(err);
+                                });
+                        }
                     });
                 }
-                // console.log(data);
+                console.log(data);
             })
             .catch((err) => {
                 console.log(err);
@@ -47,13 +80,46 @@ function Watch() {
             let cancel;
             Axios({
                 method: "GET",
-                url: `http://localhost:3000/api/v1/watch?page=${watch.pages}`,
+                url: `${process.env.REACT_APP_BACKEND_URL}/api/v1/watch?page=${watch.pages}`,
                 withCredentials: true,
                 cancelToken: new axios.CancelToken((c) => (cancel = c)),
             })
                 .then((data) => {
-                    data.listPosts.forEach((ele) => {
-                        dispatch(AddListVideos(ele));
+                    // data.listPosts.forEach((ele) => {
+                    //     dispatch(AddListVideos(ele));
+                    // });
+                    data.listVideos.forEach((ele) => {
+                        if (ele) {
+                            console.log(ele._id);
+                            Axios({
+                                method: "GET",
+                                url: `${process.env.REACT_APP_BACKEND_URL}/api/v1/reactions/of-post/${ele._id}`,
+                                withCredentials: true,
+                            })
+                                .then((data) => {
+                                    ele.numberReactions = data.reactionLength;
+                                    Axios({
+                                        method: "GET",
+                                        url: `${process.env.REACT_APP_BACKEND_URL}/api/v1/reactions/check/${ele._id}`,
+                                        withCredentials: true,
+                                    })
+                                        .then((data) => {
+                                            if (data) {
+                                                ele.isCheckExistLike = true;
+                                                dispatch(AddListVideos(ele));
+                                            }
+                                        })
+                                        .catch((err) => {
+                                            if (err) {
+                                                ele.isCheckExistLike = false;
+                                                dispatch(AddListVideos(ele));
+                                            }
+                                        });
+                                })
+                                .catch((err) => {
+                                    console.log(err);
+                                });
+                        }
                     });
                     dispatch(updateNumberPage());
                 })
@@ -73,6 +139,7 @@ function Watch() {
                 <div className="watch__body-video">
                     {watch.listPosts &&
                         watch.listPosts.map((ele) => {
+                            console.log(ele);
                             return (
                                 <Video
                                     key={ele._id}
@@ -80,8 +147,10 @@ function Watch() {
                                     username={ele.author[0].name}
                                     message={ele.description}
                                     video={ele.videos}
-                                    tym="50"
+                                    tym={ele.numberReactions}
                                     comment="5"
+                                    isCheckLike={ele.isCheckExistLike}
+                                    ele={ele}
                                 />
                             );
                         })}

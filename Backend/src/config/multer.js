@@ -23,12 +23,18 @@ function fileFilterVideo(req, file, cb) {
     }
 }
 
-function fileFilterPost(req,file,cb) {
-    if (file.mimetype.startsWith("video") || file.mimetype.startsWith("image")) {
+function fileFilterPost(req, file, cb) {
+    if (
+        file.mimetype.startsWith("video") ||
+        file.mimetype.startsWith("image")
+    ) {
         cb(null, true);
     } else {
         cb(
-            new ApiError("Not an video or image! Please upload only video or image.", 400),
+            new ApiError(
+                "Not an video or image! Please upload only video or image.",
+                400
+            ),
             false
         );
     }
@@ -75,12 +81,12 @@ const storageImage = multer.diskStorage({
             }-${Date.now()}.jpeg`;
             req.body[
                 file.fieldname
-            ] = `http://localhost:3000/images/${file.fieldname}/${nameImage}`;
+            ] = `process.env.APP_NODE_BACKEND_URL/images/${file.fieldname}/${nameImage}`;
             cb(null, nameImage);
         }
         // req.body.photos = [];
         // if (file.fieldname === "photos") {
-            console.log(req.body.photos)
+        console.log(req.body.photos);
         if (req.files.photos) {
             const nameImage = `${file.fieldname}-${
                 req.user.id
@@ -98,7 +104,7 @@ const storageVideo = multer.diskStorage({
         if (file.fieldname === "videos") {
             const name = `${file.fieldname}-${req.user.id}-${Date.now()}.m3u8`;
             // req.body.videos.push(
-            //     `http://localhost:3000/videos/${file.fieldname}/${name2}/${name}`
+            //     `process.env.APP_NODE_BACKEND_URL/videos/${file.fieldname}/${name2}/${name}`
             // );
             cb(null, name);
         }
@@ -107,13 +113,11 @@ const storageVideo = multer.diskStorage({
 
 const storagePost = multer.diskStorage({
     destination: function (req, file, cb) {
-        if (
-            file.fieldname === "photos"
-        ) {
+        if (file.fieldname === "photos") {
             cb(null, `src/public/images/${file.fieldname}`);
         }
-        if(file.fieldname ==="videos") {
-            cb(null,'src/public/videos');
+        if (file.fieldname === "videos") {
+            cb(null, "src/public/videos");
         }
     },
     filename: function (req, file, cb) {
@@ -128,7 +132,7 @@ const storagePost = multer.diskStorage({
             cb(null, name);
         }
     },
-})
+});
 
 const storageStory = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -146,13 +150,13 @@ const storageStory = multer.diskStorage({
             }-${Date.now()}.jpeg`;
             req.body[
                 file.fieldname
-            ] = `http://localhost:3000/images/${file.fieldname}/${nameImage}`;
+            ] = `process.env.APP_NODE_BACKEND_URL/images/${file.fieldname}/${nameImage}`;
             cb(null, nameImage);
         }
         const nameVideo = `${file.fieldname}-${req.user.id}-${Date.now()}.m3u8`;
         const nameVideo2 = `${file.fieldname}-${req.user.id}-${Date.now()}`;
         if (file.fieldname === "story" && file.mimetype.startsWith("video")) {
-            req.body.story = `http://localhost:3000/videos/${file.fieldname}/${nameVideo2}/${nameVideo}`;
+            req.body.story = `process.env.APP_NODE_BACKEND_URL/videos/${file.fieldname}/${nameVideo2}/${nameVideo}`;
             cb(null, nameVideo);
         }
     },
@@ -209,5 +213,5 @@ module.exports = {
     uploadImage,
     uploadVideo,
     uploadStory,
-    uploadPost
+    uploadPost,
 };

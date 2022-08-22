@@ -12,7 +12,7 @@ function FriendRequestItems({ keyId, avatar, name }) {
     useEffect(() => {
         Axios({
             method: "GET",
-            url: `http://localhost:3000/api/v1/friends/list-friend-confirm`,
+            url: `${process.env.REACT_APP_BACKEND_URL}/api/v1/friends/list-friend-confirm`,
             withCredentials: true,
         })
             .then((data) => {
@@ -36,7 +36,7 @@ function FriendRequestItems({ keyId, avatar, name }) {
         try {
             const data = await Axios({
                 method: "PATCH",
-                url: `http://localhost:3000/api/v1/friends/${friendId}`,
+                url: `${process.env.REACT_APP_BACKEND_URL}/api/v1/friends/${friendId}`,
                 withCredentials: true,
             });
             if (data.status === "success") {
@@ -55,7 +55,7 @@ function FriendRequestItems({ keyId, avatar, name }) {
         try {
             const data = await Axios({
                 method: "DELETE",
-                url: `http://localhost:3000/api/v1/friends/${friendId}`,
+                url: `${process.env.REACT_APP_BACKEND_URL}/api/v1/friends/${friendId}`,
                 withCredentials: true,
             });
             if (data.status === "success") {

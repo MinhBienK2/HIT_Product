@@ -30,7 +30,7 @@ export const fetchListFriend = () => async (dispatch, getState) => {
     Axios({
         method: "GET",
         withCredentials: true,
-        url: "http://localhost:3000/api/v1/friends", // dung localhost
+        url: `${process.env.REACT_APP_BACKEND_URL}/api/v1/friends`, // dung localhost
     })
         .then((data) => {
             console.log(data);

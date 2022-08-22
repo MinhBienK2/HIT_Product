@@ -54,22 +54,6 @@ const getAllPostRelatedWithUser = CatchAsync(async (req, res, next) => {
             allPosts.push(ele);
         });
     }
-    // if (friend) {
-    //     const allPost = await Promise.all(
-    //         friend.friends
-    //             .map(async (ele) => {
-    //                 return await Post.find({ author: ele.friendId });
-    //             })
-    //             .map(async (ele) => {
-    //                 return await ele;
-    //             })
-    //     );
-    //     allPost.forEach((ele) => {
-    //         ele.forEach((eles) => {
-    //             allPosts.push(eles);
-    //         });
-    //     });
-    // }
 
     if (allPosts.length === 0) {
         return res.status(404).json({
@@ -114,14 +98,14 @@ const createPost = CatchAsync(async (req, res, next) => {
     const filenames = files
         ? files.map(
               (file) =>
-                  `http://localhost:3000/images/${file.fieldname}/${file.filename}`
+                  `process.env.APP_NODE_BACKEND_URL/images/${file.fieldname}/${file.filename}`
           )
         : [];
     const fileVideos = req.files.videos;
     const filenameVideos = fileVideos
         ? fileVideos.map(
               (file) =>
-                  `http://localhost:3000/videos/posts/${
+                  `process.env.APP_NODE_BACKEND_URL/videos/posts/${
                       file.filename.split(".")[0]
                   }/${file.filename}`
           )
