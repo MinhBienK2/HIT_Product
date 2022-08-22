@@ -11,18 +11,24 @@ router.use(protect);
 router
     .route("/")
     .get(restrict("admin"), commentController.getAllComments)
-    .post(restrict("user","admin"), commentController.createComment);
+    .post(restrict("user", "admin"), commentController.createComment);
 
 router
     .route("/:id")
-    .get(restrict("user","admin"), commentController.getComment)
-    .patch(restrict("user","admin"), commentController.updateComment)
-    .delete(restrict("user","admin"), commentController.deleteComment);
+    .get(restrict("user", "admin"), commentController.getComment)
+    .patch(restrict("user", "admin"), commentController.updateComment)
+    .delete(restrict("user", "admin"), commentController.deleteComment);
 
-router.route("/child/:id")
-    .get(restrict("user","admin"), commentController.getChildrenComment)
+router
+    .route("/child/:id")
+    .get(restrict("user", "admin"), commentController.getChildrenComment);
 
-router.route("/of-post/:id")
-    .get(restrict("user","admin"), commentController.getCommentOfPost)
+router
+    .route("/of-post/:id")
+    .get(restrict("user", "admin"), commentController.getCommentOfPost);
+
+router
+    .route("/get-Comment/:postID")
+    .get(restrict("user"), commentController.getAllCommentsOfPost);
 
 module.exports = router;

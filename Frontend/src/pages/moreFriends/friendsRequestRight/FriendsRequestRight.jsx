@@ -7,7 +7,7 @@ function FriendsRequestRight() {
     useEffect(() => {
         Axios({
             method: "GET",
-            url: `http://localhost:3000/api/v1/users/list-user-make-friend`,
+            url: `${process.env.REACT_APP_BACKEND_URL}/api/v1/users/list-user-make-friend`,
             withCredentials: true,
         })
             .then((data) => {

@@ -36,7 +36,7 @@ const NotificationCallVideo = () => {
                     <a href="#">
                         <img
                             id="border-image"
-                            src="http://localhost:3000/images/photos/photos-62a0145202bdec9a37419707-1658248491721.jpeg"
+                            src={`${process.env.REACT_APP_BACKEND_URL}/images/photos/photos-62a0145202bdec9a37419707-1658248491721.jpeg`}
                         />
                     </a>
                     {/* <div className="head"><a href="#"><img src="http://localhost:3000/images/photos/photos-62a0145202bdec9a37419707-1658248491721.jpeg" /></a></div> */}

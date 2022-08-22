@@ -32,5 +32,55 @@ const getCommentOfPost = CatchAsync(async (req, res, next) => {
     });
 });
 
-module.exports = { getAllComments, getComment, getChildrenComment, getCommentOfPost,
-                     createComment, updateComment, deleteComment };
+const getAllCommentsOfPost = CatchAsync(async (req, res, next) => {
+    const getParentComment = await Comment.find({
+        postID: req.params.postID,
+        parentCmt: null,
+    });
+    if (!getParentComment) {
+        return next(new ApiError(`Comment not found`, 404));
+    }
+    const getChildrenComment = await Comment.find({
+        postID: req.params.postID,
+        parentCmt: {
+            $ne: null,
+        },
+    });
+    if (!getChildrenComment) {
+        next(new ApiError(`Comment not found`, 404));
+    }
+    const createArr = getParentComment.map((parent) => {
+        return { ...parent._doc, childrenCmt: [] };
+    });
+
+    const allComments = createArr.map((parent) => {
+        for (let i = 0; i < getChildrenComment.length; i++) {
+            if (
+                JSON.stringify(parent._id) ==
+                JSON.stringify(getChildrenComment[i].parentCmt._id)
+            ) {
+                parent.childrenCmt.push(getChildrenComment[i]);
+                getChildrenComment.splice(i, 1);
+                --i;
+            }
+        }
+        return parent;
+    });
+
+    res.status(200).json({
+        status: "success",
+        allComments,
+        lengthComment: allComments.length,
+    });
+});
+
+module.exports = {
+    getAllComments,
+    getComment,
+    getChildrenComment,
+    getCommentOfPost,
+    createComment,
+    updateComment,
+    deleteComment,
+    getAllCommentsOfPost,
+};

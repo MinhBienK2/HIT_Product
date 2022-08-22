@@ -18,6 +18,8 @@ import CheckEmail from "./pages/resetPass/checkEmail/CheckEmail";
 import Axios from "./services/axios.service";
 
 function App() {
+    console.log(process.env.REACT_APP_BACKEND_URL);
+
     const [status, setStatus] = useState("");
     useEffect(() => {
         connectWithWebSocket();

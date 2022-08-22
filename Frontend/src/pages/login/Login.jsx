@@ -22,7 +22,7 @@ function Login() {
         Axios({
             method: "POST",
             withCredentials: true,
-            url: "http://localhost:3000/login",
+            url: `${process.env.REACT_APP_BACKEND_URL}/login`,
             data: {
                 email: email,
                 password: password,

@@ -33,7 +33,7 @@ function HandleShowPost(props) {
     useEffect(() => {
         Axios({
             method: "GET",
-            url: "http://localhost:3000/api/v1/users/reset-user-local",
+            url: `${process.env.REACT_APP_BACKEND_URL}/api/v1/users/reset-user-local`,
             withCredentials: true,
         }).then((data) => {
             if (data.status === "success") {
@@ -54,7 +54,7 @@ function HandleShowPost(props) {
             });
             await axios
                 .patch(
-                    `http://localhost:3000/api/v1/users/${user.id}`,
+                    `${process.env.REACT_APP_BACKEND_URL}/api/v1/users/${user.id}`,
                     formData,
                     {
                         headers: {
@@ -71,7 +71,7 @@ function HandleShowPost(props) {
                     reader.abort();
                     Axios({
                         method: "GET",
-                        url: "http://localhost:3000/api/v1/users/reset-user-local",
+                        url: "${process.env.REACT_APP_BACKEND_URL}/api/v1/users/reset-user-local",
                         withCredentials: true,
                     }).then((data) => {
                         if (data.status === "success") {

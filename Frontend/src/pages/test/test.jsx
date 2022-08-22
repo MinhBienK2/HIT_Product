@@ -10,7 +10,7 @@ function test() {
     return (
         <Photogrid
             images={[
-                "http://localhost:3000/images/photos/photos-62e817c3bdb06bddf5f3bd59-1659461689576.jpeg",
+                `${process.env.REACT_APP_BACKEND_URL}/images/photos/photos-62e817c3bdb06bddf5f3bd59-1659461689576.jpeg`,
             ]} //required
             width={600} //optional according to your need
             // height={600}

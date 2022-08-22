@@ -12,7 +12,7 @@ function ForgetPass() {
         try {
             const data = await axios({
                 method: "post",
-                url: "http://localhost:3000/forgot-password",
+                url: `${process.env.REACT_APP_BACKEND_URL}/forgot-password`,
                 data: {
                     email: `${useremail}`,
                 },

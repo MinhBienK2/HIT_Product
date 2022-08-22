@@ -1,7 +1,7 @@
-import './ProfileCenter.scss'
-import MessageSender from '../../../components/feed/MessageSender' 
+import "./ProfileCenter.scss";
+import MessageSender from "../../../components/feed/MessageSender";
 // import Post from '../../../components/feed/Post'
-import PostProfile from '../PostProfile'
+import PostProfile from "../PostProfile";
 import React, { useEffect, useState, useRef } from "react";
 // import img1 from "../../assets/images/ava5.jpg";
 import Axios from "../../../services/axios.service";
@@ -15,8 +15,7 @@ import {
 import axios from "axios";
 
 function ProfileCenter() {
-
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
     const post = useSelector((state) => state.post);
     const tagFeed = useRef();
     const tagContainerPost = useRef();
@@ -24,17 +23,16 @@ function ProfileCenter() {
     useEffect(() => {
         Axios({
             method: "GET",
-            url: `http://localhost:3000/api/v1/posts`,
+            url: `${process.env.REACT_APP_BACKEND_URL}/api/v1/posts`,
             withCredentials: true,
         })
             .then((data) => {
                 if (data.status === "success") {
                     data.listPosts.forEach((ele) => {
-                        // console.log(ele);
                         if (ele) {
                             Axios({
                                 method: "GET",
-                                url: `http://localhost:3000/api/v1/reactions/of-post/${ele._id}`,
+                                url: `${process.env.REACT_APP_BACKEND_URL}/api/v1/reactions/of-post/${ele._id}`,
                                 withCredentials: true,
                             })
                                 .then((data) => {
@@ -63,13 +61,31 @@ function ProfileCenter() {
             let cancel;
             Axios({
                 method: "GET",
-                url: `http://localhost:3000/api/v1/posts?page=${post.pages}`,
+                url: `${process.env.REACT_APP_BACKEND_URL}/api/v1/posts?page=${post.pages}`,
                 withCredentials: true,
                 cancelToken: new axios.CancelToken((c) => (cancel = c)),
             })
                 .then((data) => {
+                    // data.listPosts.forEach((ele) => {
+                    //     dispatch(AddListPosts(ele));
+                    // });
                     data.listPosts.forEach((ele) => {
-                        dispatch(AddListPosts(ele));
+                        // console.log(ele);
+                        if (ele) {
+                            Axios({
+                                method: "GET",
+                                url: `${process.env.REACT_APP_BACKEND_URL}/api/v1/reactions/of-post/${ele._id}`,
+                                withCredentials: true,
+                            })
+                                .then((data) => {
+                                    ele.numberReactions = data.reactionLength;
+                                    dispatch(AddListPosts(ele));
+                                })
+                                .catch((err) => {
+                                    // alert(err);
+                                    console.log(err);
+                                });
+                        }
                     });
                     dispatch(updateNumberPage());
                 })
@@ -81,31 +97,36 @@ function ProfileCenter() {
         }
     };
 
-
-  return (
-    <div className='profileCenter'>
-        
-        <MessageSender />
-        <div className="getHeightScroll" ref={tagContainerPost}>
-       
+    return (
+        <div className="profileCenter" ref={tagFeed} onScroll={scrollCallApi}>
+            <MessageSender />
+            <div className="getHeightScroll" ref={tagContainerPost}>
                 {post.listPosts &&
-                    post.listPosts.filter(item => item.author.id === JSON.parse(localStorage.getItem("user")).id).map((ele) => {
-                        return (
-                            <PostProfile
-                                key={ele._id}
-                                profilePic={ele.author.avatar}
-                                username={ele.author.name}
-                                message={ele.description}
-                                images={ele.photos}
-                                videos={ele.videos}
-                                tym={ele.numberReactions}
-                                comment="5"
-                            />
-                        );
-                    })}
+                    post.listPosts
+                        .filter(
+                            (item) =>
+                                item.author.id ===
+                                JSON.parse(localStorage.getItem("user")).id
+                        )
+                        .map((ele) => {
+                            return (
+                                <PostProfile
+                                    keyId={ele._id}
+                                    profilePic={ele.author.avatar}
+                                    username={ele.author.name}
+                                    message={ele.description}
+                                    images={ele.photos}
+                                    videos={ele.videos}
+                                    tym={ele.numberReactions}
+                                    isCheckLike={ele.isCheckExistLike}
+                                    comment="5"
+                                    ele={ele}
+                                />
+                            );
+                        })}
             </div>
-    </div>
-  )
+        </div>
+    );
 }
 
-export default ProfileCenter
+export default ProfileCenter;
