@@ -58,6 +58,10 @@ export const connectWithWebSocket = () => {
         console.log("pid ", peerId);
         dispatch(setupFriendPeerId(peerId));
     });
+
+    socket.on("sendComment", (data) => {
+        console.log(data);
+    });
 };
 
 export const chatJoin = (data, userId) => {
@@ -70,3 +74,4 @@ export const notificationView = (data) => socket.emit("notificationView", data);
 export const callVideo = (data) => socket.emit("callVideo", data);
 export const sendPeerIdToFriend = (data) =>
     socket.emit("sendPeerIdToFriend", data);
+export const sendComment = (data) => socket.emit("sendComment", data);

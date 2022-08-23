@@ -39,21 +39,31 @@ function Post({
     ele,
 }) {
     const user = JSON.parse(localStorage.getItem("user"));
+
     const [checklike, setCheckLike] = useState();
     const [effectLike, setEffectLike] = useState();
-    const [listComment, setListComment] = useState([]);
+    const [listComment, setListComment] = useState();
+    const [countComment, setCountComment] = useState();
+    const [parentCmtID, setParentCmtID] = useState();
+    const [textComment, setTextComment] = useState();
+    const [colorAnswer, setColorAnswer] = useState("");
+
+    const focusMouse = useRef();
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     useEffect(() => {
         setCheckLike(tym);
         setEffectLike(isCheckLike);
-        commentService.getAllCommentOfPost(keyId, setListComment);
+        commentService.getAllCommentOfPost(
+            keyId,
+            setListComment,
+            setCountComment
+        );
     }, []);
-    console.log(listComment);
+
     function handleClickLink(e) {
         e.preventDefault();
-        console.log("effecLike: ", effectLike);
         try {
             setEffectLike(!effectLike);
             if (effectLike) {
@@ -115,6 +125,27 @@ function Post({
         dispatch(addProfileAvatar(profilePic));
         dispatch(addProfileUserId(ele.author.id));
         navigate(`/profile-others/${ele.author.id}`);
+    }
+
+    function handleFocusMouse(parentCmt = null, commentID) {
+        if (parentCmt !== null) {
+            setParentCmtID(parentCmt);
+        }
+        setColorAnswer(commentID);
+        focusMouse.current.focus();
+    }
+
+    function handleEmitComment() {
+        commentService.CreateComment(
+            textComment,
+            keyId,
+            parentCmtID,
+            focusMouse
+        );
+    }
+
+    function handleFocusInput() {
+        setColorAnswer(null);
     }
 
     return (
@@ -180,7 +211,7 @@ function Post({
                     <span>lượt yêu thích</span>
                 </div>
                 <div className="post-reaction-comment">
-                    <p>{comment} Bình luận</p>
+                    <p>{countComment} Bình luận</p>
                 </div>
             </div>
             <div className="post-options">
@@ -207,13 +238,21 @@ function Post({
             </div>
             <div className="post-sendComment">
                 <Avatar src={user.avatar} />
-                <input type="text" placeholder="Thêm bình luận..." />
-                <img src={send} alt="" />
+                <input
+                    type="text"
+                    placeholder="Thêm bình luận..."
+                    ref={focusMouse}
+                    onChange={(e) => {
+                        setTextComment(e.target.value);
+                    }}
+                    onClick={handleFocusInput}
+                />
+                <img src={send} alt="" onClick={handleEmitComment} />
             </div>
             {listComment &&
                 listComment.map((ele) => {
-                    if (!ele.childrenCmt) {
-                        return (
+                    return (
+                        <>
                             <div className="post-comment" key={ele._id}>
                                 <Avatar src={ele.author.avatar} />
                                 <div className="post-comment-content">
@@ -222,28 +261,67 @@ function Post({
                                     </div>
                                     <div className="post-comment-content_bottom">
                                         <p>Thích</p>
-                                        <p>Trả Lời</p>
+                                        <p
+                                            onClick={(e) =>
+                                                handleFocusMouse(
+                                                    ele._id,
+                                                    ele._id
+                                                )
+                                            }
+                                            style={{
+                                                color:
+                                                    colorAnswer === ele._id
+                                                        ? "blue"
+                                                        : "",
+                                            }}
+                                        >
+                                            Trả Lời
+                                        </p>
                                         <p>Gỡ</p>
                                     </div>
                                 </div>
                             </div>
-                        );
-                    }
-                    // console.log(ele);
+                            {ele.childrenCmt &&
+                                ele.childrenCmt.length !== 0 &&
+                                ele.childrenCmt.map((ele2) => {
+                                    return (
+                                        <div
+                                            className="post-comment post-children_comment"
+                                            key={ele2._id}
+                                        >
+                                            <Avatar src={ele2.author.avatar} />
+                                            <div className="post-comment-content">
+                                                <div className="post-comment-content_top">
+                                                    <p>{ele2.content}</p>
+                                                </div>
+                                                <div className="post-comment-content_bottom">
+                                                    <p>Thích</p>
+                                                    <p
+                                                        onClick={(e) =>
+                                                            handleFocusMouse(
+                                                                ele._id,
+                                                                ele2._id
+                                                            )
+                                                        }
+                                                        style={{
+                                                            color:
+                                                                colorAnswer ===
+                                                                ele2._id
+                                                                    ? "blue"
+                                                                    : "",
+                                                        }}
+                                                    >
+                                                        Trả Lời
+                                                    </p>
+                                                    <p>Gỡ</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                        </>
+                    );
                 })}
-            {/* <div className="post-comment post-children_comment">
-                <Avatar src="" />
-                <div className="post-comment-content">
-                    <div className="post-comment-content_top">
-                        <p>Nong nha nha nha nha </p>
-                    </div>
-                    <div className="post-comment-content_bottom">
-                        <p>Thích</p>
-                        <p>Trả Lời</p>
-                        <p>Gỡ</p>
-                    </div>
-                </div>
-            </div> */}
         </div>
     );
 }

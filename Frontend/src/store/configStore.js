@@ -10,6 +10,7 @@ import callVideo from "./reducers/callVideo";
 import socket from "./reducers/socket";
 import watch from "./reducers/watch";
 import profileOther from "./reducers/profileOther";
+import comment from "./reducers/comment";
 
 export default configureStore({
     reducer: {
@@ -22,6 +23,7 @@ export default configureStore({
         sockets: socket,
         watch: watch,
         profileOther: profileOther,
+        comment: comment,
     },
     middleware: [...getDefaultMiddleware()],
 });

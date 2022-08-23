@@ -67,10 +67,16 @@ const getAllCommentsOfPost = CatchAsync(async (req, res, next) => {
         return parent;
     });
 
+    // length commnet of post
+    let lengthComment = allComments.length;
+    allComments.forEach((ele) => {
+        lengthComment += ele.childrenCmt.length;
+    });
+
     res.status(200).json({
         status: "success",
         allComments,
-        lengthComment: allComments.length,
+        lengthComment: lengthComment,
     });
 });
 

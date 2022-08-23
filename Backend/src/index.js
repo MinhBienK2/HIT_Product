@@ -5,9 +5,7 @@ const connectDB = require("./config/connectDB");
 const logger = require("./config/logger");
 const autoSendBirthday = require("./helpers/autoSendBirthday.helper");
 const { set } = require("mongoose");
-
-const { notificationService } = require("./services");
-const { Notification } = require("./models");
+const socketServer = require("./utils/socker.io");
 
 // let server;
 const port = process.env.PORT || 3000;
@@ -24,75 +22,7 @@ const io = new Server(server, {
     },
 });
 
-let listUserIdConnect = []
-io.on("connection", (socket) => {
-    socket.emit("connection", null);
-    console.log("new user connected: ", socket.id);
-
-    socket.on("disconnect", () => {
-        console.log("Disconnected - " + socket.id);
-        socket.emit('disjoinRoomMyId','huy')
-    });
-
-    socket.on("joinRoomByMyId",userId => {
-        socket.join(userId)
-    })
-
-    socket.on("chatJoin", async (room, userId) => {
-        try {
-            if (userId) {
-                const notification = await Notification.findOne({
-                    messageId: room,
-                    friendId: userId,
-                });
-                if (!notification) return;
-                notification.statusRead = true;
-                notification.countMessageSended = 0;
-                await notification.save();
-                socket.broadcast.to(room).emit("updateNotificationRead", {
-                    statusRead: true,
-                    countMessageSended: 0,
-                });
-            }
-            socket.join(room);
-        } catch (error) {
-            console.log(error);
-        }
-    });
-
-    socket.on("chatLeave", (room) => {
-        try {
-            socket.leave(room);
-        } catch (e) {
-            console.log("[error]", "leave room :", e);
-        }
-    });
-
-    socket.on("chatView", (data) => { 
-        socket.join(data.room);
-        io.in(data.room).emit("chatViewed", data);
-        // io.to(data.room).emit("chatViewed", data);
-        socket.leave(data.room);
-    });
-
-    socket.on("notificationView", (data) => {
-        socket.join(data.room);
-        socket.broadcast.to(data.room).emit("notificationViewed", data);
-    });
-
-    socket.on('callVideo',(data) => {
-        socket.join(data.friendId)
-        socket.broadcast.to(data.friendId).emit("videoCalled",{
-            ...data,
-            isVideoCall : true
-        })
-    })
-
-    socket.on('sendPeerIdToFriend',data => {
-        socket.broadcast.to(data.room).emit('sendPeerIdToReceiver',data.peerId)
-    })
-
-});
+new socketServer().connectSocket(io);
 
 server.listen(port, () => {
     logger.info("Server is running on port " + port);
