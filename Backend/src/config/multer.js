@@ -63,7 +63,6 @@ function fileFilterStory(req, file, cb) {
 
 const storageImage = multer.diskStorage({
     destination: function (req, file, cb) {
-        //   console.log(file);
         if (
             file.fieldname === "avatar" ||
             file.fieldname === "banner" ||
@@ -73,8 +72,6 @@ const storageImage = multer.diskStorage({
         }
     },
     filename: function (req, file, cb) {
-        // console.log(req.files.avatar)
-        console.log(file);
         if (req.files.avatar || req.files.banner) {
             const nameImage = `${file.fieldname}-${
                 req.user.id
@@ -86,7 +83,6 @@ const storageImage = multer.diskStorage({
         }
         // req.body.photos = [];
         // if (file.fieldname === "photos") {
-        console.log(req.body.photos);
         if (req.files.photos) {
             const nameImage = `${file.fieldname}-${
                 req.user.id
@@ -136,14 +132,12 @@ const storagePost = multer.diskStorage({
 
 const storageStory = multer.diskStorage({
     destination: function (req, file, cb) {
-        //   console.log(file);
         if (file.fieldname === "story" && file.mimetype.startsWith("image"))
             cb(null, `src/public/images/stories`);
         if (file.fieldname === "story" && file.mimetype.startsWith("video"))
             cb(null, `src/public/videos/`);
     },
     filename: function (req, file, cb) {
-        console.log(file);
         if (file.mimetype.startsWith("image") && file.fieldname === "story") {
             const nameImage = `${file.fieldname}-${
                 req.user.id

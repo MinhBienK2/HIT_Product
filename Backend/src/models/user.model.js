@@ -53,6 +53,10 @@ const userSchema = new mongoose.Schema(
             enum: ["user", "admin"],
             default: "user",
         },
+        activeState: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "States",
+        },
         phoneNumber: {
             type: String,
             validate: {
@@ -120,6 +124,13 @@ const userSchema = new mongoose.Schema(
         toObject: { virtuals: true },
     }
 );
+
+userSchema.pre(/^find/, function (next) {
+    this.populate({
+        path: "activeState",
+    });
+    next();
+});
 
 // userSchema.virtual('name').get(function() {
 //         return this.firstName + ' ' + this.lastName;

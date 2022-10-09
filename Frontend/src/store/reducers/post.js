@@ -29,6 +29,9 @@ const slice = createSlice({
                 return ele._id !== action.payload;
             });
         },
+        resetListPost: (state, action) => {
+            state.listPosts = [];
+        },
     },
 });
 
@@ -37,6 +40,7 @@ export const {
     updateNumberPage,
     updateCheckRepeat,
     deleteListPost,
+    resetListPost,
 } = slice.actions;
 
 export default slice.reducer;

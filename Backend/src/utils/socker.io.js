@@ -1,5 +1,6 @@
 const { notificationService } = require("../services");
 const { Notification } = require("../models");
+const { State, User } = require("../models");
 
 class socketServer {
     connectSocket(io) {
@@ -8,9 +9,13 @@ class socketServer {
                 socket.emit("connection", null);
                 console.log("new user connected: ", socket.id);
 
-                socket.on("disconnect", () => {
+                socket.on("disconnect", (userId) => {
+                    // console.log(userId, "helo");
                     console.log("Disconnected - " + socket.id);
                     socket.emit("disjoinRoomMyId", "huy");
+                });
+                socket.on("hello", (data) => {
+                    console.log(data);
                 });
 
                 socket.on("joinRoomByMyId", (userId) => {
@@ -42,6 +47,7 @@ class socketServer {
                 });
 
                 socket.on("chatView", (data) => {
+                    console.log(data)
                     socket.join(data.room);
                     io.in(data.room).emit("chatViewed", data);
                     // io.to(data.room).emit("chatViewed", data);
@@ -68,9 +74,10 @@ class socketServer {
                         .to(data.room)
                         .emit("sendPeerIdToReceiver", data.peerId);
                 });
+
                 socket.on("sendComment", (data) => {
                     // console.log(data);
-                    socket.emit("sendedComment", data.data);
+                    io.emit("sendedComment", data.data);
                 });
             });
         } catch (err) {

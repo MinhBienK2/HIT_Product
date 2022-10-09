@@ -11,6 +11,7 @@ import {
     AddListPosts,
     updateNumberPage,
     updateCheckRepeat,
+    resetListPost,
 } from "../../store/reducers/post";
 import axios from "axios";
 
@@ -28,6 +29,7 @@ function Feed() {
         })
             .then((data) => {
                 if (data.status === "success") {
+                    dispatch(resetListPost());
                     data.listPosts.forEach((ele) => {
                         if (ele) {
                             Axios({

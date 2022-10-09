@@ -28,7 +28,7 @@ const getAllModel = (Model) =>
         // paginate
         datas.search().filter().sort().select().pagination().populate();
         const data = await datas.query;
-        console.log(data[0]);
+        // console.log(data[0]);
         //respone
         if (!data) {
             next(new ApiError(`${Model} not found`, 404));
@@ -55,25 +55,7 @@ const getModel = (Model) =>
 const createModel = (Model) =>
     CatchAsync(async (req, res, next) => {
         let data;
-        if (Model === Comment) {
-            let isCreate = false;
-            if (req.body.parentCmt) {
-                const check = await Comment.findById(req.body.parentCmt);
-                if (!check)
-                    return next(new ApiError(`parentCmt does not exist`, 404));
-                else if (check.postID != req.body.postID)
-                    return next(new ApiError(`parentCmt does not math`, 403));
-                else isCreate = true;
-            } else isCreate = true;
-            if (isCreate) {
-                data = await Comment.create({
-                    content: req.body.content,
-                    postID: req.body.postID,
-                    parentCmt: req.body.parentCmt,
-                    author: req.user._id,
-                });
-            }
-        } else if (Model === Reaction) {
+        if (Model === Reaction) {
             if (!req.body.forPost && !req.body.forCmt)
                 return next(new ApiError(`what reaction for`, 403));
             const check = await Reaction.findOne({

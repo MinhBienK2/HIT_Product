@@ -142,7 +142,7 @@ function Watch() {
                             console.log(ele);
                             return (
                                 <Video
-                                    key={ele._id}
+                                    keyId={ele._id}
                                     profilePic={ele.author[0].avatar}
                                     username={ele.author[0].name}
                                     message={ele.description}

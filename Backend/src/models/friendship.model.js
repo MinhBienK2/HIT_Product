@@ -33,10 +33,10 @@ const friendshipSchema = new mongoose.Schema(
 friendshipSchema.pre(/^find/, async function (next) {
     this.populate({
         path: "userId",
-        select: ["name", "avatar"],
+        select: ["name", "avatar", "activeState"],
     }).populate({
         path: "friendId",
-        select: ["name", "avatar"],
+        select: ["name", "avatar", "activeState"],
     });
 });
 

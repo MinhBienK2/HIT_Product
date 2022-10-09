@@ -3,7 +3,7 @@ const ApiError = require("../utils/ApiError");
 const { User } = require("../models");
 const { authService } = require("../services");
 const { sendMail } = require("../services/sendMail.service");
-const { Friendship, Message } = require("../models");
+const { Friendship, Message, State } = require("../models");
 
 const jwt = require("jsonwebtoken");
 const ejs = require("ejs");
@@ -22,12 +22,18 @@ const checkLogin = CatchAsync(async (req, res, next) => {
 });
 
 const signup = CatchAsync(async (req, res, next) => {
+    const state = await State.create({
+        typeState: "activeState",
+    });
+    req.body.activeState = state.id;
+
     const user = await User.create(req.body);
     if (!user) return next(new ApiError("signup not success", 401));
     //auto create list friend
     await Friendship.create({
         userId: user.id,
     });
+
     // auto create list message
     await Message.create({
         userId: user.id,
@@ -66,7 +72,7 @@ const logout = CatchAsync(async (req, res, next) => {
             console.log(err);
         });
     res.cookie("jwt", "khongco", {
-        expires: new Date(Date.now() + 1 * 1000),
+        expires: new Date(Date.now() + 0 * 1000),
         httpOnly: true,
     });
     res.status(200).json({

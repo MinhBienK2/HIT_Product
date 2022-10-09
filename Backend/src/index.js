@@ -54,15 +54,5 @@ process.on("SIGTERM", () => {
     }
 });
 
-// const { User } = require("./models");
-// User.create({
-//     firstName: "pham",
-//     lastName: "bien",
-//     email: "pham1@gmail.com",
-//     password: "Phambsdd123@",
-//     confirmPassword: "Phambsdd123@",
-//     phoneNumber: "89080340954a",
-// });
-
 // const httpStatus = require("http-status");
-// console.log(httpStatus[httpStatus.INTERNAL_SERVER_ERROR]);
+//console.log(httpStatus[httpStatus.INTERNAL_SERVER_ERROR]);

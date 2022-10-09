@@ -39,7 +39,7 @@ const deleteReactionExists = CatchAsync(async (req, res, next) => {
         forPost: req.params.id,
         author: req.user.id,
     });
-    console.log(reaction);
+    // console.log(reaction);
     if (!reaction) {
         return next(new ApiError("Reation not found ", 404));
     }

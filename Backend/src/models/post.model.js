@@ -30,7 +30,7 @@ postSchema.pre(/^find/, function (next) {
 });
 
 postSchema.pre(/^aggregate/, function (next) {
-    console.log(this);
+    // console.log(this);
     this.populate({
         path: "author",
         select: ["name", "avatar"],

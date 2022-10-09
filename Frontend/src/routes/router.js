@@ -15,6 +15,7 @@ import FriendsRequest from "../pages/friendsRequest/FriendsRequest";
 import MoreFriends from "../pages/moreFriends/MoreFriends";
 import AllFriends from "../pages/allFriends/AllFriends";
 import ProfileOfUser from "../pages/profileOfUser/ProfileOfUser";
+import NotificationBox from "../components/notificationBox/NotificationBox"
 
 const publicRoutes = [
     { path: "/", component: Home },
@@ -34,6 +35,7 @@ const publicRoutes = [
     { path: "MoreFriends", component: MoreFriends },
     { path: "AllFriends", component: AllFriends },
     { path: "/profile-others/:userId", component: ProfileOfUser },
+    {path : "/notification",component: NotificationBox}
 ];
 
 const privateRoutes = [];

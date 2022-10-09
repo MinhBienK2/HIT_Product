@@ -13,7 +13,7 @@ const getAllPostRelatedWithUser = CatchAsync(async (req, res, next) => {
         status: "isFriend",
         userId: req.user.id,
     });
-    console.log(friend);
+    // console.log(friend);
     if (friend.length !== 0) {
         const allPost = await Promise.all(
             friend

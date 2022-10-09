@@ -2,6 +2,7 @@ import React from "react";
 import "./Header.scss";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import Axios from "../../services/axios.service";
 
 import search from "../../assets/icons/akar-icons_search.svg";
 import home from "../../assets/icons/Home (1).svg";
@@ -19,6 +20,8 @@ import mood from "../../assets/icons/eva_moon-fill.svg";
 import option from "../../assets/icons/carbon_crowd-report-filled.svg";
 import logOut from "../../assets/icons/entypo_log-out.svg";
 import arrowRight from "../../assets/icons/Vector 5.svg";
+import NotificationBox from "../notificationBox/NotificationBox";
+
 
 function Header() {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -26,6 +29,7 @@ function Header() {
     const navigate = useNavigate();
 
     const [show, setShow] = useState(true);
+    const [showNotification,setShowNotification] = useState(true)
 
     const handleClick = () => {
         try {
@@ -44,8 +48,30 @@ function Header() {
         }
     };
 
+    const handleClickNotifi = () => {
+        try {
+            setShowNotification(!showNotification);
+            if (showNotification) {
+                document.querySelector(
+                    ".notifi_container"
+                ).style.display = "block";
+            } else {
+                document.querySelector(
+                    ".notifi_container"
+                ).style.display = "none";
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     const handleLogOut = () => {
         try {
+            Axios({
+                method: "GET",
+                url: `${process.env.REACT_APP_BACKEND_URL}/logout`,
+                withCredentials: true,
+            });
             localStorage.removeItem("user");
             localStorage.removeItem("accessToken");
             localStorage.removeItem("isLogin");
@@ -57,9 +83,9 @@ function Header() {
     };
 
     return (
-        <div className="header">
+            <div className="header">
             <div className="header__left">
-                <img src={logo} alt="logo" onClick={() => navigate('/')}/>
+                <img src={logo} alt="logo" onClick={() => navigate("/")} />
                 <div className="header__left-input">
                     <img src={search} alt="search" />
                     <input type="text" placeholder="Tìm kiếm" />
@@ -93,9 +119,10 @@ function Header() {
                     src={user.avatar}
                     alt=""
                     sx={{ width: 32, height: 32 }}
-                    onClick={() => navigate('/Profile')}
+                    onClick={() => navigate("/Profile")}
                 />
-                <img src={notify} alt="" />
+                <img className="relative-notifi" onClick={handleClickNotifi} src={notify} alt="" />
+                {/* <NotificationBox /> */}
                 <div className="header__right_dropdownMenu">
                     <img onClick={handleClick} src={setting} alt="" />
                     <div className="header__right_dropdownMenu-menu">

@@ -18,12 +18,30 @@ import CheckEmail from "./pages/resetPass/checkEmail/CheckEmail";
 import Axios from "./services/axios.service";
 
 function App() {
-    console.log(process.env.REACT_APP_BACKEND_URL);
-
+    const user = JSON.parse(localStorage.getItem("user"));
     const [status, setStatus] = useState("");
     useEffect(() => {
         connectWithWebSocket();
     }, []);
+    window.addEventListener("beforeunload", function (ev) {
+        ev.preventDefault();
+        callActiveState(user.id, "not-active");
+        setTimeout(() => {
+            return
+        },1000)
+        // return (ev.returnValue = "Are you sure you want to close?");
+    });
+
+    function callActiveState(userID, stateName) {
+        Axios({
+            method: "PATCH",
+            url: `${process.env.REACT_APP_BACKEND_URL}/api/v1/state/${stateName}`,
+            withCredentials: true,
+            data: {
+                userID,
+            },
+        });
+    }
 
     return (
         <Router>

@@ -18,7 +18,7 @@ const getListUserMakeFriend = CatchAsync(async (req, res, next) => {
         }
     });
     uncludeUserId.push(req.user.id);
-    console.log(uncludeUserId);
+    // console.log(uncludeUserId);
     const userFileter = allListUser.filter((ele) => {
         return !uncludeUserId.includes(ele.id);
     });

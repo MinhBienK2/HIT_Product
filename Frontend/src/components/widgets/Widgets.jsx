@@ -42,6 +42,10 @@ function Widgets() {
                                 }
                                 title={ele.friendId.name}
                                 keyId={ele.friendId.id}
+                                state={ele.friendId.activeState.state}
+                                TimeUpdatedAt={
+                                    ele.friendId.activeState.updatedAt
+                                }
                             />
                         );
                     })}

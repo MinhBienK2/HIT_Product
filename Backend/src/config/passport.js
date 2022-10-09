@@ -42,10 +42,8 @@ const configFacebookStrategy = (passport) => {
             async function (accessToken, refreshToken, profile, cb) {
                 try {
                     const data = profile._json;
-                    console.log(profile._json);
                     let user = await User.findOne({ facebookId: profile.id });
                     if (user) {
-                        console.log("hello");
                         return cb(null, user);
                     }
                     if (!user) {

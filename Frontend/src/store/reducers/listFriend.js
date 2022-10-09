@@ -33,7 +33,7 @@ export const fetchListFriend = () => async (dispatch, getState) => {
         url: `${process.env.REACT_APP_BACKEND_URL}/api/v1/friends`, // dung localhost
     })
         .then((data) => {
-            console.log(data);
+            // console.log(data);
             const arr = [];
             data.listFriend.forEach((ele) => {
                 arr.push(ele);

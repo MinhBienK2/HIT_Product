@@ -3,8 +3,15 @@ import Axios from "../axios.service";
 import storageService from "../storage.service";
 import { sendComment } from "../../utils/webSocket";
 
+import {
+    initListComment,
+    AddListComment,
+    initCountComment,
+    resetListComment,
+} from "../../store/reducers/comment";
+
 class commentService {
-    async getAllCommentOfPost(postID, setListComment, setCountComment) {
+    async getAllCommentOfPost(postID, dispatch) {
         try {
             const data = await Axios({
                 method: "GET",
@@ -12,14 +19,18 @@ class commentService {
                 withCredentials: true,
             });
             if (data.status === "success") {
-                setListComment(data.allComments);
-                setCountComment(data.lengthComment);
+                dispatch(resetListComment());
+                delete data["status"];
+                dispatch(AddListComment(data));
+                // console.log(data);
+                return data;
             }
         } catch (error) {
             // alert(error)
             console.log(error);
         }
     }
+
     async CreateComment(content, postID, parentCmt, focusMouse) {
         try {
             if (content === "" || content === null) {

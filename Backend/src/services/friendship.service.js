@@ -9,7 +9,7 @@ const getAllFriendshipOfUser = CatchAsync(async (req, res, next) => {
         userId: req.user.id,
         status: "isFriend",
     });
-    console.log(listFriend);
+    // console.log(listFriend);
     res.status(200).json({
         status: "success",
         listFriend: listFriend,

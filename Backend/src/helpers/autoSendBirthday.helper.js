@@ -26,11 +26,10 @@ const auto = () => {
                     },
                 });
 
-                // console.log(users);
                 const allPromises = users.map(async (user) => {
                     console.log(user);
                     await user.autoSendBirthday();
-                    console.log("send success");
+                    // console.log("send success");
                 });
                 await Promise.all(allPromises);
             } catch (err) {

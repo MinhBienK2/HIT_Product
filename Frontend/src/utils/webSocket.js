@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import io from "socket.io-client";
 import store from "../store/configStore";
 import { useSelector } from "react-redux";
+import Axios from "../services/axios.service";
 
 import {
     setFriendId,
@@ -19,12 +20,15 @@ import {
     setupFriendPeerId,
 } from "../store/reducers/callVideo";
 
+import { handleRealtimeComment } from "../store/reducers/comment";
+
 const SERVER = `${process.env.REACT_APP_BACKEND_URL}`;
 
 const { dispatch, getState } = store;
 const callVideo2 = getState();
 
 let socket;
+
 export const connectWithWebSocket = () => {
     const user = JSON.parse(localStorage.getItem("user"));
     socket = io(SERVER);
@@ -33,7 +37,17 @@ export const connectWithWebSocket = () => {
         console.log("socket client id: ", socket.id);
         dispatch(setupSocketId(socket.id));
         socket.emit("joinRoomByMyId", user.id);
+        callActiveState(user.id, "active");
     });
+
+    // socket.on("disconnect", () => {
+    //     window.addEventListener("beforeunload", function () {
+    //         socket.emit("hello", user.id);
+    //         callActiveState(user.id, "not-active");
+    //     });
+    //     return "";
+    // });
+
     socket.on("chatViewed", (data) => dispatch(addChat(data)));
 
     socket.on("notificationViewed", (data) =>
@@ -59,8 +73,9 @@ export const connectWithWebSocket = () => {
         dispatch(setupFriendPeerId(peerId));
     });
 
-    socket.on("sendComment", (data) => {
+    socket.on("sendedComment", (data) => {
         console.log(data);
+        dispatch(handleRealtimeComment(data));
     });
 };
 
@@ -75,3 +90,14 @@ export const callVideo = (data) => socket.emit("callVideo", data);
 export const sendPeerIdToFriend = (data) =>
     socket.emit("sendPeerIdToFriend", data);
 export const sendComment = (data) => socket.emit("sendComment", data);
+
+function callActiveState(userID, stateName) {
+    Axios({
+        method: "PATCH",
+        url: `${process.env.REACT_APP_BACKEND_URL}/api/v1/state/${stateName}`,
+        withCredentials: true,
+        data: {
+            userID,
+        },
+    });
+}

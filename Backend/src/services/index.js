@@ -8,3 +8,4 @@ module.exports.storyViewerService = require("./storyViewer.service");
 module.exports.postService = require("./post.service");
 module.exports.watchService = require("./watch.service");
 module.exports.userService = require("./user.service");
+module.exports.commentService = require("./comment.service");

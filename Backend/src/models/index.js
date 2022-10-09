@@ -7,3 +7,4 @@ module.exports.StoryViewer = require("./storyViewer.model");
 module.exports.Post = require("./post.model");
 module.exports.Comment = require("./comment.model");
 module.exports.Reaction = require("./reaction.model");
+module.exports.State = require("./state.model");
