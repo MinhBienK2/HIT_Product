@@ -100,7 +100,7 @@ configPP.configPassport(app, passport);
 configPP.configFacebookStrategy(passport);
 
 // v1 api routes
-routers(app)
+routers(app);
 
 // handle not foud
 app.all("*", (req, res, next) => {
