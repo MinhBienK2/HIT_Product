@@ -9,6 +9,7 @@ const handleError = (err, req, res, next) => {
     error.statusCode = err.statusCode || 500;
     error.status = err.status || "error";
     res.locals.errorMessage = err.message;
+    
     if (process.env.NODE_ENV === "development")
         errorController.handleErrorDevelopment(error, res);
     else if (process.env.NODE_ENV === "production") {

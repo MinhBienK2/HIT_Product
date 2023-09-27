@@ -4,7 +4,6 @@ const bcrypt = require("bcrypt");
 const ejs = require("ejs");
 const path = require("path");
 const { sendMail } = require("../services/sendMail.service");
-// const dateFormat = require("dateformat");
 
 const userSchema = new mongoose.Schema(
     {

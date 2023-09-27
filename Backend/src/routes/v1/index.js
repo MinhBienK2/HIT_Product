@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const swaggerUI = require("swagger-ui-express");
 
 const userRoute = require("./user.route");
 const postRoute = require("./post.route");
@@ -14,6 +15,7 @@ const storyViewerRoute = require("./storyViewer.route");
 const callVideoRoute = require("./callVideo.route");
 const watchRoute = require("./watch.route");
 const stateRoute = require("./state.route");
+const docs = require("../../docs")
 
 const defaultRoutes = [
     {
@@ -70,8 +72,12 @@ const defaultRoutes = [
     },
 ];
 
-defaultRoutes.forEach((route) => {
-    router.use(route.path, route.route);
-});
+const routers = (app) => {
+    defaultRoutes.forEach((route) => {
+        app.use(route.path, route.route);
+    });
 
-module.exports = router;
+    app.use('/api-docs',swaggerUI.serve,swaggerUI.setup(docs));
+}
+
+module.exports = routers;

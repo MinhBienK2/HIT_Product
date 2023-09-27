@@ -1,29 +1,26 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
-var session = require("express-session");
+const session = require("express-session");
 const passport = require("passport");
 const cors = require("cors");
 const rateLimit = require("express-rate-limit");
 const helmet = require("helmet");
 const mongoSanitize = require("express-mongo-sanitize");
-var xss = require("xss-clean");
-var compression = require("compression");
-var hpp = require("hpp");
+const xss = require("xss-clean");
+const compression = require("compression");
+const hpp = require("hpp");
 const path = require("path");
-const http = require("http");
-const { Server } = require("socket.io");
 
 const dotenv = require("dotenv");
 dotenv.config();
 
+const app = express();
 const ApiError = require("./utils/ApiError");
 const handleError = require("./middlewares/error.middleware");
 const morgan = require("./config/morgan");
-const routes = require("./routes/v1");
 const configPP = require("./config/passport");
-const { User } = require("./models");
-const app = express();
+const routers = require("./routes/v1");
 
 // This disables the `contentSecurityPolicy` middleware but keeps the rest.
 app.use(
@@ -88,12 +85,13 @@ app.use(
         // crossOriginResourcePolicy: 'same-origin'
     })
 );
+
 //setup cookie
 app.use(cookieParser());
 
 //bodyparser
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true })); //false
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, "/public")));
 
@@ -102,13 +100,7 @@ configPP.configPassport(app, passport);
 configPP.configFacebookStrategy(passport);
 
 // v1 api routes
-app.use("/", routes);
-
-app.get("/", (req, res) => {
-    res.json({
-        data: req.user,
-    });
-});
+routers(app)
 
 // handle not foud
 app.all("*", (req, res, next) => {

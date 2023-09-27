@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 
+const { protect, restrict } = require("../../middlewares/auth.middleware");
 const { authController } = require("../../controllers");
 
 router.get('/check-login',authController.checkLogin)
@@ -28,9 +29,10 @@ router.get(
    }
 );
 
-router.get("/logout", authController.logout);
 
 router.post("/forgot-password", authController.forgottenPassword);
 router.patch("/confirm-password/:tokenId", authController.confirmPassword);
+
+router.get("/logout",protect, authController.logout);
 
 module.exports = router;

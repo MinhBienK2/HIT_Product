@@ -58,7 +58,7 @@ const login = CatchAsync(async (req, res, next) => {
         return next(new ApiError("not valid email or password ", 400));
     const user = await User.findOne({ email }).select("+password");
     if (!user) {
-        return next(new ApiError("email or password not exists ", 400));
+        return next(new ApiError("email or password not exists ", 404));
     }
     if (!(await user.correctPassword(password, user.password)))
         return next(new ApiError("email or password not exists ", 400));
